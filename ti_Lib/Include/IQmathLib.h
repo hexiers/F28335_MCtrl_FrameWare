@@ -150,7 +150,7 @@ extern "C" {
 #define   IQ_MATH        0
 
 #ifndef   MATH_TYPE
-#define   MATH_TYPE      FLOAT_MATH
+#define   MATH_TYPE      IQ_MATH
 #endif
 
 //---------------------------------------------------------------------------

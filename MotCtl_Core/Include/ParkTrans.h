@@ -1,8 +1,10 @@
 /*
- * ParkTrans.h
- *
- *  Created on: 2023Äê8ÔÂ1ÈÕ
- *      Author: Hex
+ * @Author: Hex
+ * @Date: 2023-08-01 16:21:02
+ * @LastEditors: Hexer hex@hust.edu.cn
+ * @LastEditTime: 2023-08-20 08:48:08
+ * @FilePath: \DSP28xx_MotCtl_Frameware\MotCtl_Core\Include\ParkTrans.h
+ * @Description: 
  */
 
 #ifndef MOTCTL_CORE_INCLUDE_PARKTRANS_H_

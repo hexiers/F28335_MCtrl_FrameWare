@@ -1,50 +1,55 @@
-/*
- * PI.h
- *
- *  Created on: 2023年8月1日
- *  Author: Hex
- */
+/*****************************************************************************
+ * 文件名: PI.h
+ *   版本:
+ *   作者: Hex
+ *   日期: 2023.08.01
+ *   说明: 
+ *****************************************************************************/
 
 #ifndef MOTCTL_CORE_INCLUDE_PI_H_
 #define MOTCTL_CORE_INCLUDE_PI_H_
 
+// **************************************************************************
+// 	include files
+// **************************************************************************
 #include "IQmathLib.h"
 #include "types.h"
 
+// **************************************************************************
+// 宏定义 defines
+// **************************************************************************
+
+
 
 // **************************************************************************
-// the defines
-
-
-
+// typedef 类定义
 // **************************************************************************
-// the typedefs
 
 //! \brief   定义PI控制器对象
-//!
 typedef struct _PI_Obj_
 {
-  _iq Kp;                     //!<  参数：Kp
-  _iq Ki;                     //!< 	参数：Ki
+  _iq Kp;                     //参数：Kp
+  _iq Ki;                     //参数：Ki
 
-  _iq Ui;                     //!< 积分累计值
+  _iq Ui;                     //积分累计值
 
-  _iq refValue;               //!< 参考输入
-  _iq fbackValue;             //!< 反馈量
+  _iq refValue;               //参考输入
+  _iq fbackValue;             //反馈量
 
-  _iq outMin;                 //!< 限幅最小输出量
-  _iq outMax;                 //!< 限幅最大输出量
+  _iq outMin;                 //限幅最小输出量
+  _iq outMax;                 //限幅最大输出量
 
 } PI_Obj;
 
 
 //! \brief  定义PI句柄
-//!
+
 typedef struct _PI_Obj_ *PI_Handle;
 
 
 // **************************************************************************
-// 函数原型
+// 函数方法
+// **************************************************************************
 
 //! \brief     获取反馈值
 //! \param[in]
@@ -88,7 +93,7 @@ static inline _iq PI_getKp(PI_Handle handle)
   return(obj->Kp);
 } // end of PI_getKp()
 
-//TO DO
+
 //! \brief  获取Pi最大最小输出
 //
 static inline void PI_getMinMax(PI_Handle handle,_iq *pOutMin,_iq *pOutMax)
@@ -200,7 +205,6 @@ static inline void PI_setGains(PI_Handle handle,const _iq Kp,const _iq Ki)
 
 
 //! \brief   设置PI的Ki
-
 static inline void PI_setKi(PI_Handle handle,const _iq Ki)
 {
   PI_Obj *obj = (PI_Obj *)handle;
@@ -212,7 +216,6 @@ static inline void PI_setKi(PI_Handle handle,const _iq Ki)
 
 
 //! \brief  设置PI的Kp
-//!
 static inline void PI_setKp(PI_Handle handle,const _iq Kp)
 {
   PI_Obj *obj = (PI_Obj *)handle;

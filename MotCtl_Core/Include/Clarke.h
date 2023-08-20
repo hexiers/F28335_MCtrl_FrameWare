@@ -5,8 +5,8 @@
  *  Author: Hex
  */
 
-#ifndef MOTCTL_CORE_INCLUDE_CLARKETRANS_H_
-#define MOTCTL_CORE_INCLUDE_CLARKETRANS_H_
+#ifndef MOTCTL_CORE_INCLUDE_CLARKE_H_
+#define MOTCTL_CORE_INCLUDE_CLARKE_H_
 
 
 //! \file   modules/clarke/src/32b/clarke.h   
@@ -127,4 +127,4 @@ static inline void CLARKE_setScaleFactors(CLARKE_Handle handle,const _iq alpha_s
 } //½áÊø CLARKE_setScaleFactors()
 
 
-#endif /* MOTCTL_CORE_INCLUDE_CLARKETRANS_H_ */
+#endif /* MOTCTL_CORE_INCLUDE_CLARKE_H_ */
