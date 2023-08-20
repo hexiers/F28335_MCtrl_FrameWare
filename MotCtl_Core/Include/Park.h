@@ -7,8 +7,8 @@
  * @Description: 
  */
 
-#ifndef MOTCTL_CORE_INCLUDE_PARKTRANS_H_
-#define MOTCTL_CORE_INCLUDE_PARKTRANS_H_
+#ifndef MOTCTL_CORE_INCLUDE_PARK_H_
+#define MOTCTL_CORE_INCLUDE_PARK_H_
 
 
 // **************************************************************************
@@ -177,4 +177,4 @@ static inline void PARK_setup(PARK_Handle handle,const _iq angle_pu)
 } // end of PARK_setup() function
 
 
-#endif /* MOTCTL_CORE_INCLUDE_PARKTRANS_H_ */
+#endif /* MOTCTL_CORE_INCLUDE_PARK_H_ */
