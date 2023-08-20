@@ -12,7 +12,7 @@
 
 // include files*************************************************************
 #include "IQmathLib.h"
-#include "ti_Lib/Include/math.h"
+#include "math.h"
 #include "types.h"
 
 

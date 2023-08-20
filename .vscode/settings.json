@@ -1,0 +1,16 @@
+{
+    "files.associations": {
+        "types.h": "c",
+        "dsp2833x_project.h": "c",
+        "dsp2833x_device.h": "c",
+        "dsp2833x_examples.h": "c",
+        "iqmathlib.h": "c",
+        "iir_filter_fo.h": "c",
+        "hal_obj.h": "c",
+        "wdog.h": "c",
+        "user.h": "c",
+        "offset.h": "c",
+        "math.h": "c",
+        "spi.h": "c"
+    }
+}
