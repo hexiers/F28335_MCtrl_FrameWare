@@ -16,6 +16,7 @@
 // 宏定义 defines ***********************************************************
 
 // **********************  typedef 类定义 ***********************************************************
+
 //! \brief 定义IIR型的一阶滤波器对象（FO,First oder）
 //!
 typedef struct _FILTER_FO_
@@ -35,6 +36,45 @@ typedef struct _FILTER_FO_
 typedef struct _FILTER_FO_Obj_ *FILTER_FO_Handle;
 
 //  **********************************  函数方法 **************************************************
+
+extern FILTER_FO_Handle FILTER_FO_init(void *pMemory,const size_t numBytes);
+
+static inline FILTER_FO_getDenCoeffs(FILTER_FO_Handle handle,_iq *pa1)
+{
+  FILTER_FO_Obj *obj = (FILTER_FO_Obj *)handle;
+
+
+  *pa1 = obj->a1;
+
+  return;
+} // end of FILTER_FO_getDenCoeffs() function
+
+
+static inline FILTER_FO_getInitialConditions(FILTER_FO_Handle handle,_iq *px1,_iq *py1)
+{
+  FILTER_FO_Obj *obj = (FILTER_FO_Obj *)handle;
+
+
+  *px1 = obj->x1;
+
+  *py1 = obj->y1;
+
+  return;
+} // end of FILTER_FO_getInitialConditions() function
+
+
+static inline FILTER_FO_getNumCoeffs(FILTER_FO_Handle handle,_iq *pb0,_iq *pb1)
+{
+  FILTER_FO_Obj *obj = (FILTER_FO_Obj *)handle;
+
+
+  *pb0 = obj->b0;
+  *pb1 = obj->b1;
+
+  return;
+} // end of FILTER_FO_getNumCoeffs() function
+
+
 
 //! \brief     运行IIR一阶滤波器
 //!            y[n] = b0*x[n] + b1*x[n-1] - a1*y[n-1]
@@ -61,17 +101,6 @@ static inline _iq FILTER_FO_run(FILTER_FO_Handle handle, const _iq inputValue)
 
     return (y0);
 } // end of FILTER_FO_run()
-
-static inline void FILTER_FO_getInitialConditions(FILTER_FO_Handle handle, _iq *px1, _iq *py1)
-{
-    FILTER_FO_Obj *obj = (FILTER_FO_Obj *)handle;
-
-    *px1 = obj->x1;
-
-    *py1 = obj->y1;
-
-    return;
-} // end of FILTER_FO_getInitialConditions() function
 
 static inline void FILTER_FO_setDenCoeffs(FILTER_FO_Handle handle, const _iq a1)
 {

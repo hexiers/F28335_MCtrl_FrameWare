@@ -11,6 +11,10 @@
         "user.h": "c",
         "offset.h": "c",
         "math.h": "c",
-        "spi.h": "c"
+        "spi.h": "c",
+        "gpio_int.h": "c",
+        "hal.h": "c",
+        "cpu.h": "c",
+        "pie.h": "c"
     }
 }
