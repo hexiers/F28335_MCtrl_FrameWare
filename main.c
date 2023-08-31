@@ -7,45 +7,66 @@
  * @Description: 
  */
 
-
 #include "DSP2833x_Project.h"
 #include "GPIO_int.h"
 #include "math.h"
 #include "HAL.h" // 硬件抽象层头文件
 
+USER_Params UserParams;
 HAL_Handle halHandle;
+HAL_Obj hal;
+uint16_t result[16]={};
+
 
 void main(void)
 {
 
-	InitSysCtrl();		// 初始化 系统, 锁相环 , 看门狗等
-	InitPieCtrl();		// 中断向量表控制
-	InitPieVectTable(); // 中断向量表
+//	InitSysCtrl();		// 初始化 系统, 锁相环 , 看门狗等
+//	InitPieCtrl();		// 中断向量表控制
+//	InitPieVectTable(); // 中断向量表
 
 	/*  CPU初始化*/
 	MemCopy(&RamfuncsLoadStart, &RamfuncsLoadEnd, &RamfuncsRunStart);
 
-	/*  按照120MHz时钟频率，初始化FLASH访问的等待周期数*/
-	InitFlash();
+	// 初始化HAL层,分配句柄映射
+	halHandle = HAL_init((void *)&hal, sizeof(hal));
 
-	// 初始化HAL层
-	halHandle = HAL_init(&hal, sizeof(hal));
+	// 用户参数检查
+  	USER_checkForErrors(&UserParams);
 
-	Init_Gpio_LED(); // LED灯GPIO初始化
+	// 初始化用户参数
+  	USER_setParams(&UserParams);
+
+	  // 配置底层驱动参数
+  	HAL_setParams(halHandle);
+
+	//Init_Gpio_LED(); // LED灯GPIO初始化
 
 	int i = 0;
+
+
 
 	while (1)
 	{
 		i++;
-		if (i == 1)
-
+		DELAY_US(100);
+		if (i == 10000)
 		{
 			i = 0;
-			DELAY_US(50000);
-			GpioDataRegs.GPASET.bit.GPIO29 = 1;
+			// 呼吸灯闪
+			GPIO_toggle(halHandle->gpioHandle,GPIO_Number_29);
+			// 故障灯无动作
+			GPIO_setHigh(halHandle->gpioHandle,GPIO_Number_30);
+
+			ADC_softRunSoc(halHandle->adcHandle,ADC_SeqNumber_1);
+
+			ADC_softRunSoc(halHandle->adcHandle,ADC_SeqNumber_2);
+
+
+			ADC_Read(halHandle->adcHandle, result);
 		}
-		DELAY_US(50000);
-		GpioDataRegs.GPACLEAR.bit.GPIO29 = 1;
+
+
+
 	}
 }

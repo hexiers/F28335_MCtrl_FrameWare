@@ -663,7 +663,7 @@ extern "C"
         volatile PIE_IntVec_t ECAN0INTA; //!< 28335更改项
         volatile PIE_IntVec_t ECAN1INTA; //!< 28335更改项
         volatile PIE_IntVec_t ECAN0INTB; //!< 28335更改项
-        volatile PIE_IntVec_t ECAN0INTB; //!< 28335更改项
+        volatile PIE_IntVec_t ECAN1INTB; //!< 28335更改项
 
         // Group 10 Interrupts
         volatile PIE_IntVec_t rsvd10_1; //!< 28335 去除

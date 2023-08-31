@@ -2,7 +2,6 @@
 
 F28335_Files/Source/DSP2833x_EPwm.obj: ../F28335_Files/Source/DSP2833x_EPwm.c
 F28335_Files/Source/DSP2833x_EPwm.obj: D:/My_Pjt/F28335_MotCtl/F28335_MotCtl_Frameware/DSP28xx_MotCtl_Frameware/F28335_Files/Include/DSP2833x_Device.h
-F28335_Files/Source/DSP2833x_EPwm.obj: D:/My_Pjt/F28335_MotCtl/F28335_MotCtl_Frameware/DSP28xx_MotCtl_Frameware/F28335_Files/Include/DSP2833x_Adc.h
 F28335_Files/Source/DSP2833x_EPwm.obj: D:/My_Pjt/F28335_MotCtl/F28335_MotCtl_Frameware/DSP28xx_MotCtl_Frameware/F28335_Files/Include/DSP2833x_DevEmu.h
 F28335_Files/Source/DSP2833x_EPwm.obj: D:/My_Pjt/F28335_MotCtl/F28335_MotCtl_Frameware/DSP28xx_MotCtl_Frameware/F28335_Files/Include/DSP2833x_CpuTimers.h
 F28335_Files/Source/DSP2833x_EPwm.obj: D:/My_Pjt/F28335_MotCtl/F28335_MotCtl_Frameware/DSP28xx_MotCtl_Frameware/F28335_Files/Include/DSP2833x_ECan.h
@@ -29,7 +28,6 @@ F28335_Files/Source/DSP2833x_EPwm.obj: D:/My_Pjt/F28335_MotCtl/F28335_MotCtl_Fra
 
 ../F28335_Files/Source/DSP2833x_EPwm.c: 
 D:/My_Pjt/F28335_MotCtl/F28335_MotCtl_Frameware/DSP28xx_MotCtl_Frameware/F28335_Files/Include/DSP2833x_Device.h: 
-D:/My_Pjt/F28335_MotCtl/F28335_MotCtl_Frameware/DSP28xx_MotCtl_Frameware/F28335_Files/Include/DSP2833x_Adc.h: 
 D:/My_Pjt/F28335_MotCtl/F28335_MotCtl_Frameware/DSP28xx_MotCtl_Frameware/F28335_Files/Include/DSP2833x_DevEmu.h: 
 D:/My_Pjt/F28335_MotCtl/F28335_MotCtl_Frameware/DSP28xx_MotCtl_Frameware/F28335_Files/Include/DSP2833x_CpuTimers.h: 
 D:/My_Pjt/F28335_MotCtl/F28335_MotCtl_Frameware/DSP28xx_MotCtl_Frameware/F28335_Files/Include/DSP2833x_ECan.h: 

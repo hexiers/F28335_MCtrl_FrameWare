@@ -11,26 +11,23 @@
 // *************************include files*************************************************************
 // driver层头文件
 #include "../../MotCtl_Driver/Include/adc.h"
-#include "../../MotCtl_Driver/Include/clk.h"
 #include "../../MotCtl_Driver/Include/cpu.h"
 #include "../../MotCtl_Driver/Include/flash.h"
 #include "../../MotCtl_Driver/Include/gpio.h"
-#include "../../MotCtl_Driver/Include/osc.h"
 #include "../../MotCtl_Driver/Include/pie.h"
-#include "../../MotCtl_Driver/Include/pll.h"
+#include "../../MotCtl_Driver/Include/sysctrl.h"
 #include "../../MotCtl_Driver/Include/pwm.h"
 #include "../../MotCtl_Driver/Include/pwr.h"
 #include "../../MotCtl_Driver/Include/qep.h"
 #include "../../MotCtl_Driver/Include/sci.h"
 #include "../../MotCtl_Driver/Include/spi.h"
 #include "../../MotCtl_Driver/Include/timer.h"
-#include "../../MotCtl_Driver/Include/wdog.h"
 #include "../../MotCtl_Driver/Include/offset.h"
 
 
 // 应用层头文件
 #include "../../MotCtl_appSoft/Include/user.h"
-
+#include "../../MotCtl_Core/Include/math.h"
 // ************************* 宏定义 defines ***********************************************************
 
 // ************************* typedef 类定义 ***********************************************************
@@ -84,8 +81,6 @@ typedef struct _HAL_Obj_
 {
     ADC_Handle adcHandle;
 
-    CLK_Handle clkHandle;
-
     CPU_Handle cpuHandle;
 
     FLASH_Handle flashHandle;
@@ -98,11 +93,9 @@ typedef struct _HAL_Obj_
     OFFSET_Handle offsetHandle_V[3]; // 电压偏置估计器句柄
     OFFSET_Obj offset_V[3];
 
-    OSC_Handle oscHandle;
-
     PIE_Handle pieHandle;
 
-    PLL_Handle pllHandle;
+    SYSCTRL_Handle sysctrlHandle;
 
     PWM_Handle pwmHandle[3];
 
@@ -111,8 +104,6 @@ typedef struct _HAL_Obj_
     PWR_Handle pwrHandle;
 
     TIMER_Handle timerHandle[3]; // 3个外设定时器句柄
-
-    WDOG_Handle wdogHandle; // 看门狗句柄
 
     HAL_AdcData_t adcBias; // adc偏置
 
@@ -129,6 +120,11 @@ typedef struct _HAL_Obj_
 
     SCI_Handle sciAHandle; // SCIA操作句柄
     SCI_Obj sciA;          //SCIA对象
+
+    SCI_Handle sciBHandle; // SCIB操作句柄
+    SCI_Obj sciB;          //SCIB对象
+
+    QEP_Handle qepHandle;
 
 } HAL_Obj;
 

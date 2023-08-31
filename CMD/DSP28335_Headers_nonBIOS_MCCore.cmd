@@ -32,7 +32,7 @@ MEMORY
    FLASH_REGS  : origin = 0x000A80, length = 0x000060     /* FLASH registers */
    CSM         : origin = 0x000AE0, length = 0x000010     /* code security module registers */
   
-   ADC_MIRROR  : origin = 0x000B00, length = 0x000010     /* ADC Results register mirror */
+ //  ADC_MIRROR  : origin = 0x000B00, length = 0x000010     /* ADC Results register mirror */
 
    XINTF       : origin = 0x000B20, length = 0x000020     /* external interface registers */
    
@@ -86,7 +86,7 @@ MEMORY
    SCIA        : origin = 0x007050, length = 0x000010     /* SCI-A registers */
    XINTRUPT    : origin = 0x007070, length = 0x000010     /* external interrupt registers */
 
-   ADC         : origin = 0x007100, length = 0x000020     /* ADC registers */
+ //  ADC         : origin = 0x007100, length = 0x000020     /* ADC registers */
 
    SCIB        : origin = 0x007750, length = 0x000010     /* SCI-B registers */
 
@@ -135,7 +135,7 @@ SECTIONS
    DevEmuRegsFile    : > DEV_EMU,     PAGE = 1
    FlashRegsFile     : > FLASH_REGS,  PAGE = 1
    CsmRegsFile       : > CSM,         PAGE = 1
-   AdcMirrorFile     : > ADC_MIRROR,  PAGE = 1 
+ //  AdcMirrorFile     : > ADC_MIRROR,  PAGE = 1
    XintfRegsFile     : > XINTF,       PAGE = 1
    CpuTimer0RegsFile : > CPU_TIMER0,  PAGE = 1
    CpuTimer1RegsFile : > CPU_TIMER1,  PAGE = 1
@@ -186,7 +186,7 @@ SECTIONS
    SpiaRegsFile      : > SPIA,        PAGE = 1
    SciaRegsFile      : > SCIA,        PAGE = 1
    XIntruptRegsFile  : > XINTRUPT,    PAGE = 1
-   AdcRegsFile       : > ADC,         PAGE = 1
+ //  AdcRegsFile       : > ADC,         PAGE = 1
    ScibRegsFile      : > SCIB,        PAGE = 1
    ScicRegsFile      : > SCIC,        PAGE = 1
    I2caRegsFile      : > I2CA,        PAGE = 1

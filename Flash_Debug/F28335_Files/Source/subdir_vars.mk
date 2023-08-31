@@ -9,7 +9,6 @@ ASM_SRCS += \
 ../F28335_Files/Source/DSP2833x_usDelay.asm 
 
 C_SRCS += \
-../F28335_Files/Source/DSP2833x_Adc.c \
 ../F28335_Files/Source/DSP2833x_CpuTimers.c \
 ../F28335_Files/Source/DSP2833x_DefaultIsr.c \
 ../F28335_Files/Source/DSP2833x_ECan.c \
@@ -25,7 +24,6 @@ C_SRCS += \
 
 OBJS += \
 ./F28335_Files/Source/DSP2833x_ADC_cal.obj \
-./F28335_Files/Source/DSP2833x_Adc.obj \
 ./F28335_Files/Source/DSP2833x_CodeStartBranch.obj \
 ./F28335_Files/Source/DSP2833x_CpuTimers.obj \
 ./F28335_Files/Source/DSP2833x_DefaultIsr.obj \
@@ -47,7 +45,6 @@ ASM_DEPS += \
 ./F28335_Files/Source/DSP2833x_usDelay.d 
 
 C_DEPS += \
-./F28335_Files/Source/DSP2833x_Adc.d \
 ./F28335_Files/Source/DSP2833x_CpuTimers.d \
 ./F28335_Files/Source/DSP2833x_DefaultIsr.d \
 ./F28335_Files/Source/DSP2833x_ECan.d \
@@ -62,7 +59,6 @@ C_DEPS += \
 ./F28335_Files/Source/DSP2833x_SysCtrl.d 
 
 C_DEPS__QUOTED += \
-"F28335_Files\Source\DSP2833x_Adc.d" \
 "F28335_Files\Source\DSP2833x_CpuTimers.d" \
 "F28335_Files\Source\DSP2833x_DefaultIsr.d" \
 "F28335_Files\Source\DSP2833x_ECan.d" \
@@ -78,7 +74,6 @@ C_DEPS__QUOTED += \
 
 OBJS__QUOTED += \
 "F28335_Files\Source\DSP2833x_ADC_cal.obj" \
-"F28335_Files\Source\DSP2833x_Adc.obj" \
 "F28335_Files\Source\DSP2833x_CodeStartBranch.obj" \
 "F28335_Files\Source\DSP2833x_CpuTimers.obj" \
 "F28335_Files\Source\DSP2833x_DefaultIsr.obj" \
@@ -105,7 +100,6 @@ ASM_SRCS__QUOTED += \
 "../F28335_Files/Source/DSP2833x_usDelay.asm" 
 
 C_SRCS__QUOTED += \
-"../F28335_Files/Source/DSP2833x_Adc.c" \
 "../F28335_Files/Source/DSP2833x_CpuTimers.c" \
 "../F28335_Files/Source/DSP2833x_DefaultIsr.c" \
 "../F28335_Files/Source/DSP2833x_ECan.c" \

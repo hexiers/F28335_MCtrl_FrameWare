@@ -4,7 +4,6 @@ MotCtl_Users/Source/GPIO_int.obj: ../MotCtl_Users/Source/GPIO_int.c
 MotCtl_Users/Source/GPIO_int.obj: D:/My_Pjt/F28335_MotCtl/F28335_MotCtl_Frameware/DSP28xx_MotCtl_Frameware/MotCtl_Users/Include/GPIO_int.h
 MotCtl_Users/Source/GPIO_int.obj: D:/My_Pjt/F28335_MotCtl/F28335_MotCtl_Frameware/DSP28xx_MotCtl_Frameware/F28335_Files/Include/DSP2833x_Project.h
 MotCtl_Users/Source/GPIO_int.obj: D:/My_Pjt/F28335_MotCtl/F28335_MotCtl_Frameware/DSP28xx_MotCtl_Frameware/F28335_Files/Include/DSP2833x_Device.h
-MotCtl_Users/Source/GPIO_int.obj: D:/My_Pjt/F28335_MotCtl/F28335_MotCtl_Frameware/DSP28xx_MotCtl_Frameware/F28335_Files/Include/DSP2833x_Adc.h
 MotCtl_Users/Source/GPIO_int.obj: D:/My_Pjt/F28335_MotCtl/F28335_MotCtl_Frameware/DSP28xx_MotCtl_Frameware/F28335_Files/Include/DSP2833x_DevEmu.h
 MotCtl_Users/Source/GPIO_int.obj: D:/My_Pjt/F28335_MotCtl/F28335_MotCtl_Frameware/DSP28xx_MotCtl_Frameware/F28335_Files/Include/DSP2833x_CpuTimers.h
 MotCtl_Users/Source/GPIO_int.obj: D:/My_Pjt/F28335_MotCtl/F28335_MotCtl_Frameware/DSP28xx_MotCtl_Frameware/F28335_Files/Include/DSP2833x_ECan.h
@@ -33,7 +32,6 @@ MotCtl_Users/Source/GPIO_int.obj: D:/My_Pjt/F28335_MotCtl/F28335_MotCtl_Framewar
 D:/My_Pjt/F28335_MotCtl/F28335_MotCtl_Frameware/DSP28xx_MotCtl_Frameware/MotCtl_Users/Include/GPIO_int.h: 
 D:/My_Pjt/F28335_MotCtl/F28335_MotCtl_Frameware/DSP28xx_MotCtl_Frameware/F28335_Files/Include/DSP2833x_Project.h: 
 D:/My_Pjt/F28335_MotCtl/F28335_MotCtl_Frameware/DSP28xx_MotCtl_Frameware/F28335_Files/Include/DSP2833x_Device.h: 
-D:/My_Pjt/F28335_MotCtl/F28335_MotCtl_Frameware/DSP28xx_MotCtl_Frameware/F28335_Files/Include/DSP2833x_Adc.h: 
 D:/My_Pjt/F28335_MotCtl/F28335_MotCtl_Frameware/DSP28xx_MotCtl_Frameware/F28335_Files/Include/DSP2833x_DevEmu.h: 
 D:/My_Pjt/F28335_MotCtl/F28335_MotCtl_Frameware/DSP28xx_MotCtl_Frameware/F28335_Files/Include/DSP2833x_CpuTimers.h: 
 D:/My_Pjt/F28335_MotCtl/F28335_MotCtl_Frameware/DSP28xx_MotCtl_Frameware/F28335_Files/Include/DSP2833x_ECan.h: 

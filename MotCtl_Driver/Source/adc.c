@@ -51,123 +51,7 @@ extern void usDelay(uint32_t Count);
 // **************************************************************************
 // the functions
 
-void ADC_disable(ADC_Handle adcHandle)
-{
-  ADC_Obj *adc = (ADC_Obj *)adcHandle;
-
-  ENABLE_PROTECTED_REGISTER_WRITE_MODE;
-
-  adc->ADCCTL1 &= (~ADC_ADCCTL1_ADCENABLE_BITS);
-
-  DISABLE_PROTECTED_REGISTER_WRITE_MODE;
-
-  return;
-} // end of ADC_disable() function
-
-void ADC_disableBandGap(ADC_Handle adcHandle)
-{
-  ADC_Obj *adc = (ADC_Obj *)adcHandle;
-
-  ENABLE_PROTECTED_REGISTER_WRITE_MODE;
-
-  // clear the bits
-  adc->ADCCTL1 &= (~ADC_ADCCTL1_ADCBGPWD_BITS);
-
-  DISABLE_PROTECTED_REGISTER_WRITE_MODE;
-
-  return;
-} // end of ADC_disableBandGap() function
-
-void ADC_disableInt(ADC_Handle adcHandle, const ADC_IntNumber_e intNumber)
-{
-  ADC_Obj *adc = (ADC_Obj *)adcHandle;
-  uint_least8_t regNumber = intNumber >> 1;
-  uint16_t clearValue = ADC_INTSELxNy_INTE_BITS << (ADC_INTSELxNy_NUMBITS_PER_REG - (((intNumber + 1) & 0x1) << ADC_INTSELxNy_LOG2_NUMBITS_PER_REG));
-
-  ENABLE_PROTECTED_REGISTER_WRITE_MODE;
-
-  // clear the bits
-  adc->INTSELxNy[regNumber] &= (~clearValue);
-
-  DISABLE_PROTECTED_REGISTER_WRITE_MODE;
-
-  return;
-} // end of ADC_disableInt() function
-
-void ADC_disableRefBuffers(ADC_Handle adcHandle)
-{
-  ADC_Obj *adc = (ADC_Obj *)adcHandle;
-
-  ENABLE_PROTECTED_REGISTER_WRITE_MODE;
-
-  // clear the bits
-  adc->ADCCTL1 &= (~ADC_ADCCTL1_ADCREFPWD_BITS);
-
-  DISABLE_PROTECTED_REGISTER_WRITE_MODE;
-
-  return;
-} // end of ADC_disableRefBuffers() function
-
-void ADC_enable(ADC_Handle adcHandle)
-{
-  ADC_Obj *adc = (ADC_Obj *)adcHandle;
-
-  ENABLE_PROTECTED_REGISTER_WRITE_MODE;
-
-  // set the bits
-  adc->ADCCTL1 |= ADC_ADCCTL1_ADCENABLE_BITS;
-
-  DISABLE_PROTECTED_REGISTER_WRITE_MODE;
-
-  return;
-} // end of ADC_enable() function
-
-void ADC_enableBandGap(ADC_Handle adcHandle)
-{
-  ADC_Obj *adc = (ADC_Obj *)adcHandle;
-
-  ENABLE_PROTECTED_REGISTER_WRITE_MODE;
-
-  // set the bits
-  adc->ADCCTL1 |= ADC_ADCCTL1_ADCBGPWD_BITS;
-
-  DISABLE_PROTECTED_REGISTER_WRITE_MODE;
-
-  return;
-} // end of ADC_enableBandGap() function
-
-void ADC_enableInt(ADC_Handle adcHandle, const ADC_IntNumber_e intNumber)
-{
-  ADC_Obj *adc = (ADC_Obj *)adcHandle;
-  uint_least8_t regNumber = intNumber >> 1;
-  uint_least8_t lShift = ADC_INTSELxNy_NUMBITS_PER_REG - (((intNumber + 1) & 0x1) << ADC_INTSELxNy_LOG2_NUMBITS_PER_REG);
-  uint16_t setValue = ADC_INTSELxNy_INTE_BITS << lShift;
-
-  ENABLE_PROTECTED_REGISTER_WRITE_MODE;
-
-  // set the value
-  adc->INTSELxNy[regNumber] |= setValue;
-
-  DISABLE_PROTECTED_REGISTER_WRITE_MODE;
-
-  return;
-} // end of ADC_enableInt() function
-
-void ADC_enableRefBuffers(ADC_Handle adcHandle)
-{
-  ADC_Obj *adc = (ADC_Obj *)adcHandle;
-
-  ENABLE_PROTECTED_REGISTER_WRITE_MODE;
-
-  // set the bits
-  adc->ADCCTL1 |= ADC_ADCCTL1_ADCREFPWD_BITS;
-
-  DISABLE_PROTECTED_REGISTER_WRITE_MODE;
-
-  return;
-} // end of ADC_enableRefBuffers() function
-
-// current sampled last
+//! @brief: ADC句柄初始化
 ADC_Handle ADC_init(void *pMemory, const size_t numBytes)
 {
   ADC_Handle adcHandle;
@@ -181,393 +65,190 @@ ADC_Handle ADC_init(void *pMemory, const size_t numBytes)
   return (adcHandle);
 } // end of ADC_init() function
 
-void ADC_powerDown(ADC_Handle adcHandle)
+//! @brief: ADC内核电源上电
+void ADC_setPower(ADC_Handle adcHandle, ADC_PwrMode_e pwrmode)
 {
   ADC_Obj *adc = (ADC_Obj *)adcHandle;
-
-  ENABLE_PROTECTED_REGISTER_WRITE_MODE;
 
   // clear the bits
-  adc->ADCCTL1 &= (~ADC_ADCCTL1_ADCPWDN_BITS);
-
-  DISABLE_PROTECTED_REGISTER_WRITE_MODE;
+  adc->ADCTRL3.bit.ADCPWDN = pwrmode;
 
   return;
-} // end of ADC_powerDown() function
-
-void ADC_powerUp(ADC_Handle adcHandle)
-{
-  ADC_Obj *adc = (ADC_Obj *)adcHandle;
-
-  ENABLE_PROTECTED_REGISTER_WRITE_MODE;
-
-  // set the bits
-  adc->ADCCTL1 |= ADC_ADCCTL1_ADCPWDN_BITS;
-
-  DISABLE_PROTECTED_REGISTER_WRITE_MODE;
-
-  return;
-} // end of ADC_powerUp() function
+} // end of ADC_setPower() function
 
 void ADC_reset(ADC_Handle adcHandle)
 {
   ADC_Obj *adc = (ADC_Obj *)adcHandle;
 
   ENABLE_PROTECTED_REGISTER_WRITE_MODE;
-
   // set the bits
-  adc->ADCCTL1 |= (uint16_t)ADC_ADCCTL1_RESET_BITS;
+  adc->ADCTRL1.bit.RESET = 1;
 
   DISABLE_PROTECTED_REGISTER_WRITE_MODE;
 
   return;
 } // end of ADC_reset() function
 
-void ADC_setSampleOverlapMode(ADC_Handle adcHandle, ADC_ADCCTL2_ADCNONOVERLAP_e OverLap)
+void ADC_setSeqMode(ADC_Handle adcHandle, ADC_SeqMode_e seqmode, ADC_SeqOvrd_e SeqOvrd)
 {
   ADC_Obj *adc = (ADC_Obj *)adcHandle;
 
-  ENABLE_PROTECTED_REGISTER_WRITE_MODE;
+  adc->ADCTRL1.bit.SEQ_CASC = seqmode;
 
-  // set the bits
-  if (OverLap == ADC_ADCCTL2_Overlap)
-    adc->ADCCTL2 &= ~((uint16_t)(ADC_ADCCTL2_ADCNONOVERLAP_BITS));
-  else
-    adc->ADCCTL2 |= (uint16_t)ADC_ADCCTL2_ADCNONOVERLAP_BITS;
-
-  DISABLE_PROTECTED_REGISTER_WRITE_MODE;
+  adc->ADCTRL1.bit.SEQ_OVRD = SeqOvrd;
 
   return;
-} // end of ADC_setSampleOverlapMode() function
+}
 
-void ADC_setIntMode(ADC_Handle adcHandle, const ADC_IntNumber_e intNumber, const ADC_IntMode_e intMode)
+void ADC_setRunMode(ADC_Handle adcHandle, ADC_RunMode_e runmode)
 {
   ADC_Obj *adc = (ADC_Obj *)adcHandle;
-  uint_least8_t regNumber = intNumber >> 1;
-  uint_least8_t lShift = (ADC_INTSELxNy_NUMBITS_PER_REG - (((intNumber + 1) & 0x1) << ADC_INTSELxNy_LOG2_NUMBITS_PER_REG));
-  uint16_t clearValue = ADC_INTSELxNy_INTCONT_BITS << lShift;
-  uint16_t setValue = intMode << lShift;
 
-  ENABLE_PROTECTED_REGISTER_WRITE_MODE;
-
-  // clear the bits
-  adc->INTSELxNy[regNumber] &= ~(clearValue);
-
-  // set the bits
-  adc->INTSELxNy[regNumber] |= setValue;
-
-  DISABLE_PROTECTED_REGISTER_WRITE_MODE;
+  adc->ADCTRL1.bit.CONT_RUN = runmode;
 
   return;
-} // end of ADC_setIntMode() function
+}
 
-void ADC_setIntPulseGenMode(ADC_Handle adcHandle, const ADC_IntPulseGenMode_e pulseMode)
+void ADC_setClockPrescale(ADC_Handle adcHandle, ADC_CpsMode_e CpsMode, ADC_CLKPS_e ClkPS)
 {
   ADC_Obj *adc = (ADC_Obj *)adcHandle;
 
-  ENABLE_PROTECTED_REGISTER_WRITE_MODE;
+  adc->ADCTRL1.bit.CPS = CpsMode;
 
-  // clear the bits
-  adc->ADCCTL1 &= (~ADC_ADCCTL1_INTPULSEPOS_BITS);
-
-  // set the bits
-  adc->ADCCTL1 |= pulseMode;
-
-  DISABLE_PROTECTED_REGISTER_WRITE_MODE;
+  adc->ADCTRL3.bit.ADCCLKPS= ClkPS;
 
   return;
-} // end of ADC_setIntPulseGenMode() function
+}
 
-void ADC_setIntSrc(ADC_Handle adcHandle, const ADC_IntNumber_e intNumber, const ADC_IntSrc_e intSrc)
+void ADC_setAcqWindowSize(ADC_Handle adcHandle, ADC_ACQPS_e ACQPSMode)
 {
   ADC_Obj *adc = (ADC_Obj *)adcHandle;
-  uint_least8_t regNumber = intNumber >> 1;
-  uint_least8_t lShift = (ADC_INTSELxNy_NUMBITS_PER_REG - (((intNumber + 1) & 0x1) << ADC_INTSELxNy_LOG2_NUMBITS_PER_REG));
-  uint16_t clearValue = ADC_INTSELxNy_INTSEL_BITS << lShift;
-  uint16_t setValue = intSrc << lShift;
 
-  ENABLE_PROTECTED_REGISTER_WRITE_MODE;
-
-  // clear the bits
-  adc->INTSELxNy[regNumber] &= ~(clearValue);
-
-  // set the bits
-  adc->INTSELxNy[regNumber] |= setValue;
-
-  DISABLE_PROTECTED_REGISTER_WRITE_MODE;
+  adc->ADCTRL1.bit.ACQ_PS = ACQPSMode;
 
   return;
-} // end of ADC_setIntSrc() function
+}
 
-void ADC_setSampleMode(ADC_Handle adcHandle, const ADC_SampleMode_e sampleMode)
+void ADC_setSuspendMode(ADC_Handle adcHandle, ADC_SusMode_e SusMode)
 {
   ADC_Obj *adc = (ADC_Obj *)adcHandle;
 
-  ENABLE_PROTECTED_REGISTER_WRITE_MODE;
+  adc->ADCTRL1.bit.SUSMOD = SusMode;
 
-  if (sampleMode & ADC_ADCSAMPLEMODE_SEPARATE_FLAG) // separate
+  return;
+}
+
+void ADC_resetSeq(ADC_Handle adcHandle, ADC_SeqNumber_e SeqNum)
+{
+  ADC_Obj *adc = (ADC_Obj *)adcHandle;
+
+  if (SeqNum == ADC_SeqNumber_1)
   {
-    adc->ADCSAMPLEMODE &= (~(sampleMode - ADC_ADCSAMPLEMODE_SEPARATE_FLAG));
+    adc->ADCTRL2.bit.RST_SEQ1 = 1;
   }
-  else
+  else if (SeqNum == ADC_SeqNumber_2)
   {
-    adc->ADCSAMPLEMODE |= sampleMode;
+    adc->ADCTRL2.bit.RST_SEQ2 = 1;
   }
 
-  DISABLE_PROTECTED_REGISTER_WRITE_MODE;
+  return;
+}
+
+void ADC_setRefSource(ADC_Handle adcHandle, ADC_RefSel_e RefSel)
+{
+  ADC_Obj *adc = (ADC_Obj *)adcHandle;
+
+  adc->ADCREFSEL.bit.REF_SEL = RefSel;
 
   return;
-} // end of ADC_setSampleMode() function
+}
 
-void ADC_setSocChanNumber(ADC_Handle adcHandle, const ADC_SocNumber_e socNumber, const ADC_SocChanNumber_e chanNumber)
+void ADC_setIntMode(ADC_Handle adcHandle, ADC_SeqNumber_e seqmode, ADC_EN_e EnableSeq, ADC_IntModSeq_e IntModSeq)
 {
   ADC_Obj *adc = (ADC_Obj *)adcHandle;
 
-  ENABLE_PROTECTED_REGISTER_WRITE_MODE;
-
-  // clear the bits
-  adc->ADCSOCxCTL[socNumber] &= (~ADC_ADCSOCxCTL_CHSEL_BITS);
-
-  // set the bits
-  adc->ADCSOCxCTL[socNumber] |= chanNumber;
-
-  DISABLE_PROTECTED_REGISTER_WRITE_MODE;
-
-  return;
-} // end of ADC_setSocChanNumber() function
-
-void ADC_setSocSampleDelay(ADC_Handle adcHandle, const ADC_SocNumber_e socNumber, const ADC_SocSampleDelay_e sampleDelay)
-{
-  ADC_Obj *adc = (ADC_Obj *)adcHandle;
-
-  ENABLE_PROTECTED_REGISTER_WRITE_MODE;
-
-  // clear the bits
-  adc->ADCSOCxCTL[socNumber] &= (~ADC_ADCSOCxCTL_ACQPS_BITS);
-
-  // set the bits
-  adc->ADCSOCxCTL[socNumber] |= sampleDelay;
-
-  DISABLE_PROTECTED_REGISTER_WRITE_MODE;
-
-  return;
-} // end of ADC_setSocSampleDelay() function
-
-void ADC_setSocTrigSrc(ADC_Handle adcHandle, const ADC_SocNumber_e socNumber, const ADC_SocTrigSrc_e trigSrc)
-{
-  ADC_Obj *adc = (ADC_Obj *)adcHandle;
-
-  ENABLE_PROTECTED_REGISTER_WRITE_MODE;
-
-  // clear the bits
-  adc->ADCSOCxCTL[socNumber] &= (~ADC_ADCSOCxCTL_TRIGSEL_BITS);
-
-  // set the bits
-  adc->ADCSOCxCTL[socNumber] |= trigSrc;
-
-  DISABLE_PROTECTED_REGISTER_WRITE_MODE;
-
-  return;
-} // end of ADC_setSocTrigSrc() function
-
-void ADC_setSocFrc(ADC_Handle adcHandle, const ADC_SocFrc_e socFrc)
-{
-  ADC_Obj *adc = (ADC_Obj *)adcHandle;
-
-  ENABLE_PROTECTED_REGISTER_WRITE_MODE;
-
-  // set the bits
-  adc->ADCSOCFRC1 = 1 << socFrc;
-
-  DISABLE_PROTECTED_REGISTER_WRITE_MODE;
-
-  return;
-} // end of ADC_setSocFrc() function
-
-void ADC_setSocFrcWord(ADC_Handle adcHandle, const uint16_t socFrc)
-{
-  ADC_Obj *adc = (ADC_Obj *)adcHandle;
-
-  ENABLE_PROTECTED_REGISTER_WRITE_MODE;
-
-  // write the entire word
-  adc->ADCSOCFRC1 = socFrc;
-
-  DISABLE_PROTECTED_REGISTER_WRITE_MODE;
-
-  return;
-} // end of ADC_setSocFrcWord() function
-
-void ADC_setTempSensorSrc(ADC_Handle adcHandle, const ADC_TempSensorSrc_e sensorSrc)
-{
-  ADC_Obj *adc = (ADC_Obj *)adcHandle;
-
-  ENABLE_PROTECTED_REGISTER_WRITE_MODE;
-
-  // clear the bits
-  adc->ADCCTL1 &= (~ADC_ADCCTL1_TEMPCONV_BITS);
-
-  // set the bits
-  adc->ADCCTL1 |= sensorSrc;
-
-  DISABLE_PROTECTED_REGISTER_WRITE_MODE;
-
-  return;
-} // end of ADC_setTempSensorSrc() function
-
-void ADC_setVoltRefSrc(ADC_Handle adcHandle, const ADC_VoltageRefSrc_e voltSrc)
-{
-  ADC_Obj *adc = (ADC_Obj *)adcHandle;
-
-  ENABLE_PROTECTED_REGISTER_WRITE_MODE;
-
-  // clear the bits
-  adc->ADCCTL1 &= (~ADC_ADCCTL1_ADCREFSEL_BITS);
-
-  // set the bits
-  adc->ADCCTL1 |= voltSrc;
-
-  DISABLE_PROTECTED_REGISTER_WRITE_MODE;
-
-  return;
-} // end of ADC_setVoltRefSrc() function
-
-extern ADC_DivideSelect_e ADC_getDivideSelect(ADC_Handle adcHandle)
-{
-  ADC_Obj *adc = (ADC_Obj *)adcHandle;
-
-  // get the bits
-  ADC_DivideSelect_e divSelect = (ADC_DivideSelect_e)((adc->ADCCTL2) & (ADC_ADCCTL2_CLKDIV2EN_BITS | ADC_ADCCTL2_CLKDIV4EN_BITS));
-
-  if (divSelect == 4)
-    divSelect = ADC_DivideSelect_ClkIn_by_1;
-
-  return (divSelect);
-} // end of ADC_getDivideSelect() function
-
-void ADC_setDivideSelect(ADC_Handle adcHandle, const ADC_DivideSelect_e divSelect)
-{
-  ADC_Obj *adc = (ADC_Obj *)adcHandle;
-
-  ENABLE_PROTECTED_REGISTER_WRITE_MODE;
-
-  // clear the bits
-  adc->ADCCTL2 &= (~(ADC_ADCCTL2_CLKDIV2EN_BITS | ADC_ADCCTL2_CLKDIV4EN_BITS));
-
-  // set the bits
-  adc->ADCCTL2 |= divSelect;
-
-  DISABLE_PROTECTED_REGISTER_WRITE_MODE;
-
-  return;
-} // end of ADC_setDivideSelect() function
-
-void ADC_enableNoOverlapMode(ADC_Handle adcHandle)
-{
-  ADC_Obj *adc = (ADC_Obj *)adcHandle;
-
-  ENABLE_PROTECTED_REGISTER_WRITE_MODE;
-
-  // set the bits
-  adc->ADCCTL2 |= ADC_ADCCTL2_ADCNONOVERLAP_BITS;
-
-  DISABLE_PROTECTED_REGISTER_WRITE_MODE;
-
-  return;
-} // end of ADC_enableNoOverlapMode() function
-
-void ADC_disableNoOverlapMode(ADC_Handle adcHandle)
-{
-  ADC_Obj *adc = (ADC_Obj *)adcHandle;
-
-  ENABLE_PROTECTED_REGISTER_WRITE_MODE;
-
-  // clear the bits
-  adc->ADCCTL2 &= (~(ADC_ADCCTL2_ADCNONOVERLAP_BITS));
-
-  DISABLE_PROTECTED_REGISTER_WRITE_MODE;
-
-  return;
-} // end of ADC_enableNoOverlapMode() function
-
-void ADC_setupSocTrigSrc(ADC_Handle adcHandle, const ADC_SocNumber_e socNumber, const ADC_IntTriggerSOC_e intTrigSrc)
-{
-  ADC_Obj *adc = (ADC_Obj *)adcHandle;
-  uint16_t clearValue;
-  uint16_t setValue;
-  uint16_t lShift_socsel1 = socNumber << 1;
-  uint16_t lShift_socsel2 = (socNumber - ADC_SocNumber_8) << 1;
-
-  ENABLE_PROTECTED_REGISTER_WRITE_MODE;
-
-  if (socNumber < ADC_SocNumber_8)
+  if (seqmode == ADC_SeqNumber_1)
   {
-    clearValue = ADC_ADCINTSOCSELx_SOCx_BITS << lShift_socsel1;
-    setValue = intTrigSrc << lShift_socsel1;
+    adc->ADCTRL2.bit.INT_ENA_SEQ1 = EnableSeq;
 
-    // clear the bits
-    adc->ADCINTSOCSEL1 &= (~(clearValue));
-
-    // set the bits
-    adc->ADCINTSOCSEL1 |= setValue;
+    adc->ADCTRL2.bit.INT_MOD_SEQ1 = IntModSeq;
   }
-  else
+  else if (seqmode == ADC_SeqNumber_2)
   {
-    clearValue = ADC_ADCINTSOCSELx_SOCx_BITS << lShift_socsel2;
-    setValue = intTrigSrc << lShift_socsel2;
+    adc->ADCTRL2.bit.INT_ENA_SEQ2 = EnableSeq;
 
-    // clear the bits
-    adc->ADCINTSOCSEL2 &= (~(clearValue));
-
-    // set the bits
-    adc->ADCINTSOCSEL2 |= setValue;
+    adc->ADCTRL2.bit.INT_MOD_SEQ2 = IntModSeq;
   }
 
-  DISABLE_PROTECTED_REGISTER_WRITE_MODE;
-
   return;
-} // end of ADC_setupSocTrigSrc() function
+}
 
-void ADC_setOffTrim(ADC_Handle adcHandle, const uint16_t offtrim)
+void ADC_setSocMode(ADC_Handle adcHandle, ADC_SocMode_e SOCMode, ADC_EN_e EnableSOCMode)
 {
   ADC_Obj *adc = (ADC_Obj *)adcHandle;
 
-  ENABLE_PROTECTED_REGISTER_WRITE_MODE;
+  if (SOCMode == ADC_SOCA_SEQ1_EN)
+  {
+    adc->ADCTRL2.bit.EPWM_SOCA_SEQ1 = 1;
 
-  // set the offtrim bits
-  adc->ADCOFFTRIM = offtrim;
+    adc->ADCTRL2.bit.EPWM_SOCB_SEQ2 = 0;
 
-  DISABLE_PROTECTED_REGISTER_WRITE_MODE;
+    adc->ADCTRL2.bit.EPWM_SOCB_SEQ = 0;
+
+    adc->ADCTRL2.bit.EXT_SOC_SEQ1 = 0;
+  }
 
   return;
-} // end of ADC_setOffTrim() function
+}
 
-void ADC_enableVoltRefLoConv(ADC_Handle adcHandle)
+void ADC_softRunSoc(ADC_Handle adcHandle, ADC_SeqNumber_e seqmode)
 {
   ADC_Obj *adc = (ADC_Obj *)adcHandle;
 
-  ENABLE_PROTECTED_REGISTER_WRITE_MODE;
+  if (seqmode == ADC_SeqNumber_1)
 
-  // set the bits
-  adc->ADCCTL1 |= ADC_ADCCTL1_VREFLOCONV_BITS;
+    adc->ADCTRL2.bit.SOC_SEQ1 = 1;
 
-  DISABLE_PROTECTED_REGISTER_WRITE_MODE;
+  else if (seqmode == ADC_SeqNumber_2)
+
+    adc->ADCTRL2.bit.SOC_SEQ2 = 1;
 
   return;
-} // end of ADC_enableVoltRefLoConv() function
+}
 
-void ADC_disableVoltRefLoConv(ADC_Handle adcHandle)
+void ADC_setSMODSel(ADC_Handle adcHandle, ADC_sMod_e smode)
 {
   ADC_Obj *adc = (ADC_Obj *)adcHandle;
 
-  ENABLE_PROTECTED_REGISTER_WRITE_MODE;
-
-  // set the bits
-  adc->ADCCTL1 &= (~ADC_ADCCTL1_VREFLOCONV_BITS);
-
-  DISABLE_PROTECTED_REGISTER_WRITE_MODE;
+  adc->ADCTRL3.bit.SMODE_SEL = smode;
 
   return;
-} // end of ADC_disableVoltRefLoConv() function
+
+}
+
+void ADC_setADCBGRFDN(ADC_Handle adcHandle, ADC_BGRF_e BGRF)
+{
+  ADC_Obj *adc = (ADC_Obj *)adcHandle;
+
+  adc->ADCTRL3.bit.ADCBGRFDN = BGRF;
+
+  return;
+}
+
+
+void ADC_Read(ADC_Handle adcHandle, uint16_t *result)
+{
+  ADC_Obj *adc = (ADC_Obj *)adcHandle;
+
+  uint16_t i = 0;
+  for( i = 0;i<16; i++)
+  {
+	  *result = (adcHandle->ADCRESULT[i] >> 4);
+  	   result++;
+  }
+
+
+  return;
+}
 
 // end of file

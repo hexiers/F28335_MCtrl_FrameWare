@@ -30,3 +30,5 @@ encoding//Flash_Debug/ti_Lib/math/src/float/subdir_rules.mk=UTF-8
 encoding//Flash_Debug/ti_Lib/math/src/float/subdir_vars.mk=UTF-8
 encoding//Flash_Debug/ti_Lib/subdir_rules.mk=UTF-8
 encoding//Flash_Debug/ti_Lib/subdir_vars.mk=UTF-8
+encoding//MotCtl_Driver/Include/pie.h=UTF-8
+encoding//MotCtl_HAL/Include/HAL.h=UTF-8

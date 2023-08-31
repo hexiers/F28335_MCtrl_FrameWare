@@ -102,7 +102,7 @@ typedef long double        float64;
 // Include All Peripheral Header Files:
 //
 
-#include "DSP2833x_Adc.h"                // ADC Registers
+//#include "DSP2833x_Adc.h"                // ADC Registers
 #include "DSP2833x_DevEmu.h"             // Device Emulation Registers
 #include "DSP2833x_CpuTimers.h"          // 32-bit CPU Timers
 #include "DSP2833x_ECan.h"               // Enhanced eCAN Registers

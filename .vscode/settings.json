@@ -15,6 +15,9 @@
         "gpio_int.h": "c",
         "hal.h": "c",
         "cpu.h": "c",
-        "pie.h": "c"
+        "pie.h": "c",
+        "qep.h": "c",
+        "sysctrl.h": "c",
+        "adc.h": "c"
     }
 }
