@@ -1,44 +1,12 @@
-/* --COPYRIGHT--,BSD
- * Copyright (c) 2015, Texas Instruments Incorporated
- * All rights reserved.
- *
- * Redistribution and use in source and binary forms, with or without
- * modification, are permitted provided that the following conditions
- * are met:
- *
- * *  Redistributions of source code must retain the above copyright
- *    notice, this list of conditions and the following disclaimer.
- *
- * *  Redistributions in binary form must reproduce the above copyright
- *    notice, this list of conditions and the following disclaimer in the
- *    documentation and/or other materials provided with the distribution.
- *
- * *  Neither the name of Texas Instruments Incorporated nor the names of
- *    its contributors may be used to endorse or promote products derived
- *    from this software without specific prior written permission.
- *
- * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
- * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO,
- * THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR
- * PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR
- * CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL,
- * EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
- * PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS;
- * OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY,
- * WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR
- * OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE,
- * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
- * --/COPYRIGHT--*/
+
+//! @FilePath: \F28335_MotCtl_Frameware\DSP28xx_MotCtl_Frameware\MotCtl_Driver\Include\pwm.h
+//! @Author: Hex
+//! @Date: 2023-08-20 21:25:26
+//! @LastEditTime: 2024-06-03 22:32:04
+//! @Description:
+
 #ifndef _PWM_H_
 #define _PWM_H_
-
-//! \file   drivers/pwm/src/32b/f28x/f2806x/pwm.h
-//!
-//! \brief  Contains public interface to various functions related
-//!         to the pulse width modulation (PWM) object
-//!
-//! (C) Copyright 2015, Texas Instruments, Inc.
-
 
 // **************************************************************************
 // the includes
@@ -46,672 +14,27 @@
 #include "../../MotCtl_Driver/Include/cpu.h"
 #include "types.h"
 
-
-
-//!
-//!
-//! \defgroup PWM PWM
-//!
-//@{
-
-
-#ifdef __cplusplus
-extern "C" {
-#endif
-
-
 // **************************************************************************
 // the defines
+// **************************************************************************
 
-
-//! \brief Defines the base address of the pulse width modulation (PWM) 1 registers
+//! \brief 6个ePWM的基地址
 //!
 #define PWM_ePWM1_BASE_ADDR          (0x00006800)
 
-//! \brief Defines the base address of the pulse width modulation (PWM) 2 registers
-//!
 #define PWM_ePWM2_BASE_ADDR          (0x00006840)
 
-//! \brief Defines the base address of the pulse width modulation (PWM) 3 registers
-//!
 #define PWM_ePWM3_BASE_ADDR          (0x00006880)
 
-//! \brief Defines the base address of the pulse width modulation (PWM) 4 registers
-//!
 #define PWM_ePWM4_BASE_ADDR          (0x000068C0)
 
-//! \brief Defines the base address of the pulse width modulation (PWM) 5 registers
-//!
 #define PWM_ePWM5_BASE_ADDR          (0x00006900)
 
-//! \brief Defines the base address of the pulse width modulation (PWM) 6 registers
-//!
 #define PWM_ePWM6_BASE_ADDR          (0x00006940)
 
-//! \brief Defines the base address of the pulse width modulation (PWM) 7 registers
-//!
-#define PWM_ePWM7_BASE_ADDR          (0x00006980)
 
-//! \brief Defines the base address of the pulse width modulation (PWM) 8 registers
-//!
-#define PWM_ePWM8_BASE_ADDR          (0x000069C0)
 
-//! \brief Defines the location of the ZRO bits in the AQCTL register
-//!
-#define PWM_AQCTL_ZRO_BITS              (3 << 0)
-
-//! \brief Defines the location of the PRD bits in the AQCTL register
-//!
-#define PWM_AQCTL_PRD_BITS              (3 << 2)
-
-//! \brief Defines the location of the CAU bits in the AQCTL register
-//!
-#define PWM_AQCTL_CAU_BITS              (3 << 4)
-
-//! \brief Defines the location of the CAD bits in the AQCTL register
-//!
-#define PWM_AQCTL_CAD_BITS              (3 << 6)
-
-//! \brief Defines the location of the CBU bits in the AQCTL register
-//!
-#define PWM_AQCTL_CBU_BITS              (3 << 8)
-
-//! \brief Defines the location of the CBD bits in the AQCTL register
-//!
-#define PWM_AQCTL_CBD_BITS              (3 << 10)
-
-//! \brief Defines the location of the CSFA bits in the AQCSFRC register
-//!
-#define PWM_AQCSFRC_CSFA_BITS           (3 << 0)
-
-//! \brief Defines the location of the CSFB bits in the AQCSFRC register
-//!
-#define PWM_AQCSFRC_CSFB_BITS           (3 << 2)
-
-//! \brief Defines the location of the LOADAMODE bits in the CMPCTL register
-//!
-#define PWM_CMPCTL_LOADAMODE_BITS       (3 << 0)
-
-//! \brief Defines the location of the LOADBMODE bits in the CMPCTL register
-//!
-#define PWM_CMPCTL_LOADBMODE_BITS       (3 << 2)
-
-//! \brief Defines the location of the SHDWAMODE bits in the CMPCTL register
-//!
-#define PWM_CMPCTL_SHDWAMODE_BITS       (1 << 4)
-
-//! \brief Defines the location of the SHDWBMODE bits in the CMPCTL register
-//!
-#define PWM_CMPCTL_SHDWBMODE_BITS       (1 << 6)
-
-//! \brief Defines the location of the SHDWAFULL bits in the CMPCTL register
-//!
-#define PWM_CMPCTL_SHDWAFULL_BITS       (1 << 8)
-
-//! \brief Defines the location of the SHDWBFULL bits in the CMPCTL register
-//!
-#define PWM_CMPCTL_SHDWBFULL_BITS       (1 << 9)
-
-
-//! \brief Defines the location of the OUTMODE bits in the DBCTL register
-//!
-#define PWM_DBCTL_OUTMODE_BITS          (3 << 0)
-
-//! \brief Defines the location of the POLSEL bits in the DBCTL register
-//!
-#define PWM_DBCTL_POLSEL_BITS           (3 << 2)
-
-//! \brief Defines the location of the INMODE bits in the DBCTL register
-//!
-#define PWM_DBCTL_INMODE_BITS           (3 << 4)
-
-//! \brief Defines the location of the HALFCYCLE bits in the DBCTL register
-//!
-#define PWM_DBCTL_HALFCYCLE_BITS        (1 << 15)
-
-
-//! \brief Defines the location of the ETCR bits in the ETCLR register
-//!
-#define PWM_ETCLR_INT_BITS              (1 << 0)
-
-//! \brief Defines the location of the SOCA bits in the ETCLR register
-//!
-#define PWM_ETCLR_SOCA_BITS             (1 << 2)
-
-//! \brief Defines the location of the SOCB bits in the ETCLR register
-//!
-#define PWM_ETCLR_SOCB_BITS             (1 << 3)
-
-
-//! \brief Defines the location of the INTPRD bits in the ETPS register
-//!
-#define PWM_ETPS_INTPRD_BITS            (3 << 0)
-
-//! \brief Defines the location of the INTCNT bits in the ETPS register
-//!
-#define PWM_ETPS_INTCNT_BITS            (3 << 2)
-
-//! \brief Defines the location of the SOCAPRD bits in the ETPS register
-//!
-#define PWM_ETPS_SOCAPRD_BITS           (3 << 8)
-
-//! \brief Defines the location of the SOCACNT bits in the ETPS register
-//!
-#define PWM_ETPS_SOCACNT_BITS           (3 << 10)
-
-//! \brief Defines the location of the SOCBPRD bits in the ETPS register
-//!
-#define PWM_ETPS_SOCBPRD_BITS           (3 << 12)
-
-//! \brief Defines the location of the SOCBCNT bits in the ETPS register
-//!
-#define PWM_ETPS_SOCBCNT_BITS           (3 << 14)
-
-
-//! \brief Defines the location of the INTSEL bits in the ETSEL register
-//!
-#define PWM_ETSEL_INTSEL_BITS           (7 << 0)
-
-//! \brief Defines the location of the INTEN bits in the ETSEL register
-//!
-#define PWM_ETSEL_INTEN_BITS            (1 << 3)
-
-//! \brief Defines the location of the SOCASEL bits in the ETSEL register
-//!
-#define PWM_ETSEL_SOCASEL_BITS          (7 << 8)
-
-//! \brief Defines the location of the SOCAEN bits in the ETSEL register
-//!
-#define PWM_ETSEL_SOCAEN_BITS           (1 << 11)
-
-//! \brief Defines the location of the SOCBSEL bits in the ETSEL register
-//!
-#define PWM_ETSEL_SOCBSEL_BITS          (7 << 12)
-
-//! \brief Defines the location of the SOCBEN bits in the ETSEL register
-//!
-#define PWM_ETSEL_SOCBEN_BITS           (1 << 15)
-
-
-//! \brief Defines the location of the CHPEN bits in the PCCTL register
-//!
-#define PWM_PCCTL_CHPEN_BITS            (1 << 0)
-
-//! \brief Defines the location of the OSHTWTH bits in the PCCTL register
-//!
-#define PWM_PCCTL_OSHTWTH_BITS          (15 << 1)
-
-//! \brief Defines the location of the CHPFREQ bits in the PCCTL register
-//!
-#define PWM_PCCTL_CHPFREQ_BITS          (7 << 5)
-
-//! \brief Defines the location of the CHPDUTY bits in the PCCTL register
-//!
-#define PWM_PCCTL_CHPDUTY_BITS          (7 << 8)
-
-//! \brief Defines the location of the EDGMODE bits in the HRCNFG register
-//!
-#define PWM_HRCNFG_EDGMODE_BITS         (3 << 0)
-
-//! \brief Defines the location of the CTLMODE bits in the HRCNFG register
-//!
-#define PWM_HRCNFG_CTLMODE_BITS         (1 << 2)
-
-//! \brief Defines the location of the HRLOAD bits in the HRCNFG register
-//!
-#define PWM_HRCNFG_HRLOAD_BITS          (3 << 3)
-
-//! \brief Defines the location of the SELOUTB bits in the HRCNFG register
-//!
-#define PWM_HRCNFG_SELOUTB_BITS         (1 << 5)
-
-//! \brief Defines the location of the AUTOCONV bits in the HRCNFG register
-//!
-#define PWM_HRCNFG_AUTOCONV_BITS        (1 << 6)
-
-//! \brief Defines the location of the SWAPAB bits in the HRCNFG register
-//!
-#define PWM_HRCNFG_SWAPAB_BITS          (1 << 7)
-
-//! \brief Defines the location of the HRPE bits in the HRPCTL register
-//!
-#define PWM_HRPCTL_HRPE_BITS            (1 << 0)
-
-//! \brief Defines the location of the PWMSYNCSEL bits in the HRPCTL register
-//!
-#define PWM_HRPCTL_PWMSYNCSEL_BITS      (1 << 1)
-
-//! \brief Defines the location of the TBPHSHRLOADE bits in the HRPCTL register
-//!
-#define PWM_HRPCTL_TBPHSHRLOADE_BITS    (1 << 2)
-
-//! \brief Defines the location of the CTRMODE bits in the TBCTL register
-//!
-#define PWM_TBCTL_CTRMODE_BITS          (3 << 0)
-
-//! \brief Defines the location of the PHSEN bits in the TBCTL register
-//!
-#define PWM_TBCTL_PHSEN_BITS            (1 << 2)
-
-//! \brief Defines the location of the PRDLD bits in the TBCTL register
-//!
-#define PWM_TBCTL_PRDLD_BITS            (1 << 3)
-
-//! \brief Defines the location of the SYNCOSEL bits in the TBCTL register
-//!
-#define PWM_TBCTL_SYNCOSEL_BITS         (3 << 4)
-
-//! \brief Defines the location of the SWFSYNC bits in the TBCTL register
-//!
-#define PWM_TBCTL_SWFSYNC_BITS          (1 << 6)
-
-//! \brief Defines the location of the HSPCLKDIV bits in the TBCTL register
-//!
-#define PWM_TBCTL_HSPCLKDIV_BITS        (7 << 7)
-
-//! \brief Defines the location of the CLKDIV bits in the TBCTL register
-//!
-#define PWM_TBCTL_CLKDIV_BITS           (7 << 10)
-
-//! \brief Defines the location of the PHSDIR bits in the TBCTL register
-//!
-#define PWM_TBCTL_PHSDIR_BITS           (1 << 13)
-
-//! \brief Defines the location of the FREESOFT bits in the TBCTL register
-//!
-#define PWM_TBCTL_FREESOFT_BITS         (3 << 14)
-
-
-//! \brief Defines the location of the INT bits in the TXCLR register
-//!
-#define PWM_TZCLR_INT_BITS              (1 << 0)
-
-//! \brief Defines the location of the CBC bits in the TXCLR register
-//!
-#define PWM_TZCLR_CBC_BITS              (1 << 1)
-
-//! \brief Defines the location of the OST bits in the TXCLR register
-//!
-#define PWM_TZCLR_OST_BITS              (1 << 2)
-
-//! \brief Defines the location of the DCAEVT1 bits in the TXCLR register
-//!
-#define PWM_TZCLR_DCAEVT1_BITS          (1 << 3)
-
-//! \brief Defines the location of the DCAEVT2 bits in the TXCLR register
-//!
-#define PWM_TZCLR_DCAEVT2_BITS          (1 << 4)
-
-//! \brief Defines the location of the DCBEVT1 bits in the TXCLR register
-//!
-#define PWM_TZCLR_DCBEVT1_BITS          (1 << 5)
-
-//! \brief Defines the location of the DCBEVT2 bits in the TXCLR register
-//!
-#define PWM_TZCLR_DCBEVT2_BITS          (1 << 6)
-
-
-//! \brief Defines the location of the TZA bits in the TZCTL register
-//!
-#define PWM_TZCTL_TZA_BITS              (3 << 0)
-
-//! \brief Defines the location of the  TZB bits in the TZCTL register
-//!
-#define PWM_TZCTL_TZB_BITS              (3 << 2)
-
-//! \brief Defines the location of the DCAEVT1 bits in the TZCTL register
-//!
-#define PWM_TZCTL_DCAEVT1_BITS          (3 << 4)
-
-//! \brief Defines the location of the DCAEVT2 bits in the TZCTL register
-//!
-#define PWM_TZCTL_DCAEVT2_BITS          (3 << 6)
-
-//! \brief Defines the location of the DCBEVT1 bits in the TZCTL register
-//!
-#define PWM_TZCTL_DCBEVT1_BITS          (3 << 8)
-
-//! \brief Defines the location of the DCBEVT2 bits in the TZCTL register
-//!
-#define PWM_TZCTL_DCBEVT2_BITS          (3 << 10)
-
-
-//! \brief Defines the location of the CBC bits in the TZFRC register
-//!
-#define PWM_TZFRC_CBC_BITS              (1 << 1)
-
-//! \brief Defines the location of the OST bits in the TZFRC register
-//!
-#define PWM_TZFRC_OST_BITS              (1 << 2)
-
-//! \brief Defines the location of the DCAEVT1 bits in the TZFRC register
-//!
-#define PWM_TZFRC_DCAEVT1_BITS          (1 << 3)
-
-//! \brief Defines the location of the DCAEVT2 bits in the TZFRC register
-//!
-#define PWM_TZFRC_DCAEVT2_BITS          (1 << 4)
-
-//! \brief Defines the location of the DCBEVT1 bits in the TZFRC register
-//!
-#define PWM_TZFRC_DCBEVT1_BITS          (1 << 5)
-
-//! \brief Defines the location of the DCBEVT2 bits in the TZFRC register
-//!
-#define PWM_TZFRC_DCBEVT2_BITS          (1 << 6)
-
-
-//! \brief Defines the location of the DCAEVT1 bits in the TZDCSEL register
-//!
-#define PWM_TZDCSEL_DCAEVT1_BITS          (7 << 0)
-
-//! \brief Defines the location of the DCAEVT2 bits in the TZDCSEL register
-//!
-#define PWM_TZDCSEL_DCAEVT2_BITS          (7 << 3)
-
-//! \brief Defines the location of the DCBEVT1 bits in the TZDCSEL register
-//!
-#define PWM_TZDCSEL_DCBEVT1_BITS          (7 << 6)
-
-//! \brief Defines the location of the DCBEVT2 bits in the TZDCSEL register
-//!
-#define PWM_TZDCSEL_DCBEVT2_BITS          (7 << 9)
-
-
-//! \brief Defines the location of the DCAHCOMPSEL bits in the DCTRIPSEL register
-//!
-#define PWM_DCTRIPSEL_DCAHCOMPSEL_BITS          (15 << 0)
-
-//! \brief Defines the location of the DCALCOMPSEL bits in the DCTRIPSEL register
-//!
-#define PWM_DCTRIPSEL_DCALCOMPSEL_BITS          (15 << 4)
-
-//! \brief Defines the location of the DCBHCOMPSEL bits in the DCTRIPSEL register
-//!
-#define PWM_DCTRIPSEL_DCBHCOMPSEL_BITS          (15 << 8)
-
-//! \brief Defines the location of the DCBLCOMPSEL bits in the DCTRIPSEL register
-//!
-#define PWM_DCTRIPSEL_DCBLCOMPSEL_BITS          (15 << 12)
-
-
-//! \brief Defines the location of the SRCSEL bits in the DCFCTL register
-//!
-#define PWM_DCFCTL_SRCSEL_BITS          (3 << 0)
-
-//! \brief Defines the location of the BLANKE bits in the DCFCTL register
-//!
-#define PWM_DCFCTL_BLANKE_BITS          (1 << 2)
-
-//! \brief Defines the location of the BLANKINV bits in the DCFCTL register
-//!
-#define PWM_DCFCTL_BLANKINV_BITS          (1 << 3)
-
-//! \brief Defines the location of the PULSESEL bits in the DCFCTL register
-//!
-#define PWM_DCFCTL_PULSESEL_BITS          (3 << 4)
-
-
-// **************************************************************************
-// the typedefs
-
-//! \brief Enumeration to define the pulse width modulation (PWM) action qualifiers
-//!
-typedef enum
-{
-    PWM_ActionQual_Disabled=0,
-    PWM_ActionQual_Clear,
-    PWM_ActionQual_Set,
-    PWM_ActionQual_Toggle
-} PWM_ActionQual_e;
-
-
-//! \brief Enumeration to define the pulse width modulation (PWM) Action-qualifier Continuous Software Force
-//!
-typedef enum
-{
-  PWM_ActionQualContSWForce_Disabled=0,
-  PWM_ActionQualContSWForce_Clear,
-  PWM_ActionQualContSWForce_Set
-} PWM_ActionQualContSWForce_e;
-
-
-//! \brief Enumeration to define the pulse width modulation (PWM) clock dividers
-//!
-typedef enum
-{
-    PWM_ClkDiv_by_1=(0 << 10),
-    PWM_ClkDiv_by_2=(1 << 10),
-    PWM_ClkDiv_by_4=(2 << 10),
-    PWM_ClkDiv_by_8=(3 << 10),
-    PWM_ClkDiv_by_16=(4 << 10),
-    PWM_ClkDiv_by_32=(5 << 10),
-    PWM_ClkDiv_by_64=(6 << 10),
-    PWM_ClkDiv_by_128=(7 << 10)
-} PWM_ClkDiv_e;
-
-
-//! \brief Enumeration to define the pulse width modulation (PWM) chopping clock frequencies
-//!
-typedef enum
-{
-    PWM_ChoppingClkFreq_SysClkOut_by_1=(0 << 5),
-    PWM_ChoppingClkFreq_SysClkOut_by_2=(1 << 5),
-    PWM_ChoppingClkFreq_SysClkOut_by_3=(2 << 5),
-    PWM_ChoppingClkFreq_SysClkOut_by_4=(3 << 5),
-    PWM_ChoppingClkFreq_SysClkOut_by_5=(4 << 5),
-    PWM_ChoppingClkFreq_SysClkOut_by_6=(5 << 5),
-    PWM_ChoppingClkFreq_SysClkOut_by_7=(6 << 5),
-    PWM_ChoppingClkFreq_SysClkOut_by_8=(7 << 5)
-} PWM_ChoppingClkFreq_e;
-
-
-//! \brief Enumeration to define the pulse width modulation (PWM) chopping clock duty cycles
-//!
-typedef enum
-{
-    PWM_ChoppingDutyCycle_One_Eighth=(0 << 8),
-    PWM_ChoppingDutyCycle_Two_Eighths=(1 << 8),
-    PWM_ChoppingDutyCycle_Three_Eighths=(2 << 8),
-    PWM_ChoppingDutyCycle_Four_Eighths=(3 << 8),
-    PWM_ChoppingDutyCycle_Five_Eighths=(4 << 8),
-    PWM_ChoppingDutyCycle_Six_Eighths=(5 << 8),
-    PWM_ChoppingDutyCycle_Seven_Eighths=(6 << 8)
-} PWM_ChoppingDutyCycle_e;
-
-
-//! \brief Enumeration to define the pulse width modulation (PWM) chopping clock pulse widths
-//!
-typedef enum
-{
-    PWM_ChoppingPulseWidth_One_Eighth_SysClkOut=(0 << 1),
-    PWM_ChoppingPulseWidth_Two_Eighths_SysClkOut=(1 << 1),
-    PWM_ChoppingPulseWidth_Three_Eighths_SysClkOut=(2 << 1),
-    PWM_ChoppingPulseWidth_Four_Eighths_SysClkOut=(3 << 1),
-    PWM_ChoppingPulseWidth_Five_Eighths_SysClkOut=(4 << 1),
-    PWM_ChoppingPulseWidth_Six_Eighths_SysClkOut=(5 << 1),
-    PWM_ChoppingPulseWidth_Seven_Eighths_SysClkOut=(6 << 1),
-    PWM_ChoppingPulseWidth_Eight_Eighths_SysClkOut=(7 << 1),
-    PWM_ChoppingPulseWidth_Nine_Eighths_SysClkOut=(8 << 1),
-    PWM_ChoppingPulseWidth_Ten_Eighths_SysClkOut=(9 << 1),
-    PWM_ChoppingPulseWidth_Eleven_Eighths_SysClkOut=(10 << 1),
-    PWM_ChoppingPulseWidth_Twelve_Eighths_SysClkOut=(11 << 1),
-    PWM_ChoppingPulseWidth_Thirteen_Eighths_SysClkOut=(12 << 1),
-    PWM_ChoppingPulseWidth_Fourteen_Eighths_SysClkOut=(13 << 1),
-    PWM_ChoppingPulseWidth_Fifteen_Eighths_SysClkOut=(14 << 1),
-    PWM_ChoppingPulseWidth_Sixteen_Eighths_SysClkOut=(15 << 1)
-} PWM_ChoppingPulseWidth_e;
-
-
-//! \brief Enumeration to define the pulse width modulation (PWM) counter modes
-//!
-typedef enum
-{
-    PWM_CounterMode_Up=(0 << 0),
-    PWM_Countermode_Down=(1 << 0),
-    PWM_CounterMode_UpDown=(2 << 0),
-    PWM_CounterMode_Stop=(3 << 0)
-} PWM_CounterMode_e;
-
-
-//! \brief Enumeration to define the pulse width modulation (PWM) deadband options
-//!
-typedef enum
-{
-    PWM_DeadBandInputMode_EPWMxA_Rising_and_Falling=(0 << 4),
-    PWM_DeadBandInputMode_EPWMxA_Falling_EPWMxB_Rising=(1 << 4),
-    PWM_DeadBandInputMode_EPWMxA_Rising_EPWMxB_Falling=(2 << 4),
-    PWM_DeadBandInputMode_EPWMxB_Rising_and_Falling=(3 << 4)
-} PWM_DeadBandInputMode_e;
-
-
-//! \brief Enumeration to define the pulse width modulation (PWM) deadband output modes
-//!
-typedef enum
-{
-    PWM_DeadBandOutputMode_Bypass=(0 << 0),
-    PWM_DeadBandOutputMode_EPWMxA_Disable_EPWMxB_Falling=(1 << 0),
-    PWM_DeadBandOutputMode_EPWMxA_Rising_EPWMxB_Disable=(2 << 0),
-    PWM_DeadBandOutputMode_EPWMxA_Rising_EPWMxB_Falling=(3 << 0)
-} PWM_DeadBandOutputMode_e;
-
-
-//! \brief Enumeration to define the pulse width modulation (PWM) deadband polarity
-//!
-typedef enum
-{
-    PWM_DeadBandPolarity_EPWMxA_EPWMxB=(0 << 2),
-    PWM_DeadBandPolarity_EPWMxA_Inverted=(1 << 2),
-    PWM_DeadBandPolarity_EPWMxB_Inverted=(2 << 2),
-    PWM_DeadBandPolarity_EPWMxA_Inverted_EPWMxB_Inverted=(3 << 2)
-} PWM_DeadBandPolarity_e;
-
-
-//! \brief Enumeration to define the pulse width modulation (PWM) digital compare inputs
-//!
-typedef enum
-{
-    PWM_DigitalCompare_A_High = 0,
-    PWM_DigitalCompare_A_Low = 4,
-    PWM_DigitalCompare_B_High = 8,
-    PWM_DigitalCompare_B_Low = 12
-} PWM_DigitalCompare_Input_e;
-
-
-//! \brief Enumeration to define the pulse width modulation (PWM) digital compare input choices
-//!
-typedef enum
-{
-    PWM_DigitalCompare_InputSel_TZ1=(0 << 0),
-    PWM_DigitalCompare_InputSel_TZ2=(1 << 0),
-    PWM_DigitalCompare_InputSel_TZ3=(2 << 0),
-    PWM_DigitalCompare_InputSel_COMP1OUT=(8 << 0),
-    PWM_DigitalCompare_InputSel_COMP2OUT=(9 << 0),
-    PWM_DigitalCompare_InputSel_COMP3OUT=(10 << 0)
-} PWM_DigitalCompare_InputSel_e;
-
-
-//! \brief Enumeration to define the pulse width modulation (PWM) digital compare filter sources
-//!
-typedef enum
-{
-    PWM_DigitalCompare_FilterSrc_DCAEVT1=0,
-    PWM_DigitalCompare_FilterSrc_DCAEVT2,
-    PWM_DigitalCompare_FilterSrc_DCBEVT1,
-    PWM_DigitalCompare_FilterSrc_DCBEVT2
-} PWM_DigitalCompare_FilterSrc_e;
-
-
-//! \brief Enumeration to define the pulse width modulation (PWM) digital compare blanking pulse select
-//!
-typedef enum
-{
-    PWM_DigitalCompare_PulseSel_CTRPRD=0,
-    PWM_DigitalCompare_PulseSel_CTR0
-} PWM_DigitalCompare_PulseSel_e;
-
-
-//! \brief Enumeration to define the pulse width modulation (PWM) high speed clock divide options
-//!
-typedef enum
-{
-    PWM_HspClkDiv_by_1=(0 << 7),
-    PWM_HspClkDiv_by_2=(1 << 7),
-    PWM_HspClkDiv_by_4=(2 << 7),
-    PWM_HspClkDiv_by_6=(3 << 7),
-    PWM_HspClkDiv_by_8=(4 << 7),
-    PWM_HspClkDiv_by_10=(5 << 7),
-    PWM_HspClkDiv_by_12=(6 << 7),
-    PWM_HspClkDiv_by_14=(7 << 7)
-} PWM_HspClkDiv_e;
-
-//! \brief Enumeration to define the pulse width modulation (PWM) high resolution control mode options
-//!
-typedef enum
-{
-    PWM_HrControlMode_Duty = (0 << 2),
-    PWM_HrControlMode_Phase = (1 << 2)
-} PWM_HrControlMode_e;
-
-
-//! \brief Enumeration to define the pulse width modulation (PWM) high resolution edge mode options
-//!
-typedef enum
-{
-    PWM_HrEdgeMode_Disabled = (0 << 0),
-    PWM_HrEdgeMode_Rising = (1 << 0),
-    PWM_HrEdgeMode_Falling = (2 << 0),
-    PWM_HrEdgeMode_Both = (3 << 0)
-} PWM_HrEdgeMode_e;
-
-
-//! \brief Enumeration to define the pulse width modulation (PWM) high resolution shadow load mode options
-//!
-typedef enum
-{
-    PWM_HrShadowMode_CTR_EQ_0 = (0 << 3),
-    PWM_HrShadowMode_CTR_EQ_PRD = (1 << 3),
-    PWM_HrShadowMode_CTR_EQ_0_OR_PRD = (2 << 3)
-} PWM_HrShadowMode_e;
-
-//! \brief Enumeration to define the pulse width modulation (PWM) interrupt generation modes
-//!
-typedef enum
-{
-    PWM_IntMode_CounterEqualZero=(1 << 0),
-    PWM_IntMode_CounterEqualPeriod=(2 << 0),
-    PWM_IntMode_CounterEqualZeroOrPeriod=(3 << 0),
-    PWM_IntMode_CounterEqualCmpAIncr=(4 << 0),
-    PWM_IntMode_CounterEqualCmpADecr=(5 << 0),
-    PWM_IntMode_CounterEqualCmpBIncr=(6 << 0),
-    PWM_IntMode_CounterEqualCmpBDecr=(7 << 0)
-} PWM_IntMode_e;
-
-
-//! \brief Enumeration to define the pulse width modulation (PWM) interrupt period options
-//!
-typedef enum
-{
-    PWM_IntPeriod_Disable=(0 << 0),
-    PWM_IntPeriod_FirstEvent=(1 << 0),
-    PWM_IntPeriod_SecondEvent=(2 << 0),
-    PWM_IntPeriod_ThirdEvent=(3 << 0)
-} PWM_IntPeriod_e;
-
-
-//! \brief Enumeration to define the pulse width modulation (PWM) load modes
-//!
-typedef enum
-{
-    PWM_LoadMode_Zero=0,
-    PWM_LoadMode_Period,
-    PWM_LoadMode_Either,
-    PWM_LoadMode_Freeze
-} PWM_LoadMode_e;
-
-
-//! \brief Enumeration to define the pulse width modulation (PWM) numbers
-//!
+//! \brief PWM序号
 typedef enum
 {
     PWM_Number_1=0,
@@ -720,42 +43,613 @@ typedef enum
     PWM_Number_4,
     PWM_Number_5,
     PWM_Number_6,
-    PWM_Number_7,
-    PWM_Number_8
 } PWM_Number_e;
 
+// TBCTL (Time-Base Control)
+//==========================
+// CTRMODE bits
+#define	TB_COUNT_UP		0x0
+#define	TB_COUNT_DOWN	0x1
+#define	TB_COUNT_UPDOWN	0x2
+#define	TB_FREEZE		0x3
+// PHSEN bit
+#define	TB_DISABLE		0x0
+#define	TB_ENABLE		0x1
+// PRDLD bit
+#define	TB_SHADOW		0x0
+#define	TB_IMMEDIATE	0x1
+// SYNCOSEL bits
+#define	TB_SYNC_IN		0x0
+#define	TB_CTR_ZERO		0x1
+#define	TB_CTR_CMPB		0x2
+#define	TB_SYNC_DISABLE	0x3
+// HSPCLKDIV and CLKDIV bits
+#define	TB_DIV1			0x0
+#define	TB_DIV2			0x1
+#define	TB_DIV4			0x2
+// PHSDIR bit
+#define	TB_DOWN			0x0
+#define	TB_UP			0x1
 
-//! \brief Enumeration to define the pulse width modulation (PWM) period load options
-//!
+// CMPCTL (Compare Control)
+//==========================
+// LOADAMODE and LOADBMODE bits
+#define	CC_CTR_ZERO		0x0
+#define	CC_CTR_PRD		0x1
+#define	CC_CTR_ZERO_PRD	0x2
+#define	CC_LD_DISABLE	0x3
+// SHDWAMODE and SHDWBMODE bits
+#define	CC_SHADOW		0x0
+#define	CC_IMMEDIATE	0x1
+
+// AQCTLA and AQCTLB (Action Qualifier Control)
+//=============================================
+// ZRO, PRD, CAU, CAD, CBU, CBD bits
+#define	AQ_NO_ACTION	0x0
+#define	AQ_CLEAR		0x1
+#define	AQ_SET			0x2
+#define	AQ_TOGGLE		0x3
+
+// DBCTL (Dead-Band Control)
+//==========================
+// OUT MODE bits
+#define	DB_DISABLE		0x0
+#define	DBA_ENABLE		0x1
+#define	DBB_ENABLE		0x2
+#define	DB_FULL_ENABLE	0x3
+// POLSEL bits
+#define	DB_ACTV_HI		0x0
+#define	DB_ACTV_LOC		0x1
+#define	DB_ACTV_HIC		0x2
+#define	DB_ACTV_LO		0x3
+// IN MODE
+#define DBA_ALL         0x0
+#define DBB_RED_DBA_FED 0x1
+#define DBA_RED_DBB_FED 0x2
+#define DBB_ALL         0x3
+
+// CHPCTL (chopper control)
+//==========================
+// CHPEN bit
+#define	CHP_DISABLE		0x0
+#define	CHP_ENABLE		0x1
+// CHPFREQ bits
+#define	CHP_DIV1		0x0
+#define	CHP_DIV2		0x1
+#define	CHP_DIV3		0x2
+#define	CHP_DIV4		0x3
+#define	CHP_DIV5		0x4
+#define	CHP_DIV6		0x5
+#define	CHP_DIV7		0x6
+#define	CHP_DIV8		0x7
+// CHPDUTY bits
+#define	CHP1_8TH		0x0
+#define	CHP2_8TH		0x1
+#define	CHP3_8TH		0x2
+#define	CHP4_8TH		0x3
+#define	CHP5_8TH		0x4
+#define	CHP6_8TH		0x5
+#define	CHP7_8TH		0x6
+
+// TZSEL (Trip Zone Select)
+//==========================
+// CBCn and OSHTn bits
+#define	TZ_DISABLE		0x0
+#define	TZ_ENABLE		0x1
+
+// TZCTL (Trip Zone Control)
+//==========================
+// TZA and TZB bits
+#define	TZ_HIZ			0x0
+#define	TZ_FORCE_HI		0x1
+#define	TZ_FORCE_LO		0x2
+#define	TZ_NO_CHANGE	0x3
+
+// ETSEL (Event Trigger Select)
+//=============================
+#define	ET_CTR_ZERO		0x1
+#define	ET_CTR_PRD		0x2
+#define	ET_CTRU_CMPA	0x4
+#define	ET_CTRD_CMPA	0x5
+#define	ET_CTRU_CMPB	0x6
+#define	ET_CTRD_CMPB	0x7
+
+// ETPS (Event Trigger Pre-scale)
+//===============================
+// INTPRD, SOCAPRD, SOCBPRD bits
+#define	ET_DISABLE		0x0
+#define	ET_1ST			0x1
+#define	ET_2ND			0x2
+#define	ET_3RD			0x3
+
+
+//--------------------------------
+// HRPWM (High Resolution PWM)
+//================================
+// HRCNFG
+#define	HR_Disable		0x0
+#define	HR_REP			0x1
+#define	HR_FEP			0x2
+#define	HR_BEP			0x3
+
+#define	HR_CMP			0x0
+#define	HR_PHS			0x1
+
+#define	HR_CTR_ZERO		0x0
+#define	HR_CTR_PRD		0x1
+
+
 typedef enum
 {
-    PWM_PeriodLoad_Shadow=(0 << 3),
-    PWM_PeriodLoad_Immediate=(1 << 3)
-} PWM_PeriodLoad_e;
+    PWM_CounterMode_Up=0,
+    PWM_Countermode_Down,
+    PWM_CounterMode_UpDown,
+    PWM_CounterMode_Stop
+} PWM_CounterMode_e;
 
 
-//! \brief Enumeration to define the pulse width modulation (PWM) phase direction modes
+
+
+// **************************************************************************
+// the typdefines
+// **************************************************************************
+//----------------------------------------------------
+// Time base control register bit definitions */                                 
+struct TBCTL_BITS {          // bits   description
+   uint16_t CTRMODE:2;         // 1:0    Counter Mode
+   uint16_t PHSEN:1;           // 2      Phase load enable
+   uint16_t PRDLD:1;           // 3      Active period load
+   uint16_t SYNCOSEL:2;        // 5:4    Sync output select
+   uint16_t SWFSYNC:1;         // 6      Software force sync pulse
+   uint16_t HSPCLKDIV:3;       // 9:7    High speed time pre-scale
+   uint16_t CLKDIV:3;          // 12:10  Timebase clock pre-scale
+   uint16_t PHSDIR:1;          // 13     Phase Direction
+   uint16_t FREE_SOFT:2;       // 15:14  Emulation mode 
+};
+
+union TBCTL_REG {
+   uint16_t              all;
+   struct TBCTL_BITS   bit;
+};
+
+//----------------------------------------------------
+// Time base status register bit definitions */                                    
+struct TBSTS_BITS {          // bits   description
+   uint16_t CTRDIR:1;          // 0      Counter direction status
+   uint16_t SYNCI:1;           // 1      External input sync status
+   uint16_t CTRMAX:1;          // 2      Counter max latched status
+   uint16_t rsvd1:13;          // 15:3   reserved
+};
+
+union TBSTS_REG {
+   uint16_t              all;
+   struct TBSTS_BITS   bit;
+};
+
+//----------------------------------------------------
+// Compare control register bit definitions */                                    
+struct CMPCTL_BITS {          // bits   description
+   uint16_t LOADAMODE:2;        // 0:1    Active compare A
+   uint16_t LOADBMODE:2;        // 3:2    Active compare B
+   uint16_t SHDWAMODE:1;        // 4      Compare A block operating mode
+   uint16_t rsvd1:1;            // 5      reserved
+   uint16_t SHDWBMODE:1;        // 6      Compare B block operating mode
+   uint16_t rsvd2:1;            // 7      reserved
+   uint16_t SHDWAFULL:1;        // 8      Compare A Shadow registers full Status
+   uint16_t SHDWBFULL:1;        // 9      Compare B Shadow registers full Status
+   uint16_t rsvd3:6;            // 15:10  reserved
+};
+
+union CMPCTL_REG {
+   uint16_t                all;
+   struct CMPCTL_BITS    bit;
+};
+
+//----------------------------------------------------
+// Action qualifier register bit definitions */                                    
+struct AQCTL_BITS {           // bits   description
+   uint16_t ZRO:2;              // 1:0    Action Counter = Zero
+   uint16_t PRD:2;              // 3:2    Action Counter = Period
+   uint16_t CAU:2;              // 5:4    Action Counter = Compare A up
+   uint16_t CAD:2;              // 7:6    Action Counter = Compare A down
+   uint16_t CBU:2;              // 9:8    Action Counter = Compare B up
+   uint16_t CBD:2;              // 11:10  Action Counter = Compare B down
+   uint16_t rsvd:4;             // 15:12  reserved
+};
+union AQCTL_REG {
+   uint16_t                all;
+   struct AQCTL_BITS     bit;
+};
+
+//----------------------------------------------------
+// Action qualifier SW force register bit definitions */                                    
+struct AQSFRC_BITS {           // bits   description
+   uint16_t ACTSFA:2;            // 1:0    Action when One-time SW Force A invoked
+   uint16_t OTSFA:1;             // 2      One-time SW Force A output
+   uint16_t ACTSFB:2;            // 4:3    Action when One-time SW Force B invoked
+   uint16_t OTSFB:1;             // 5      One-time SW Force A output
+   uint16_t RLDCSF:2;            // 7:6    Reload from Shadow options
+   uint16_t rsvd1:8;             // 15:8   reserved
+};
+union AQSFRC_REG {
+   uint16_t                 all;
+   struct AQSFRC_BITS     bit;
+};
+
+//----------------------------------------------------
+// Action qualifier continuous SW force register bit definitions */                                    
+struct AQCSFRC_BITS {          // bits   description
+   uint16_t CSFA:2;              // 1:0    Continuous Software Force on output A
+   uint16_t CSFB:2;              // 3:2    Continuous Software Force on output B
+   uint16_t rsvd1:12;            // 15:4   reserved
+};
+union AQCSFRC_REG {
+   uint16_t                  all;
+   struct AQCSFRC_BITS     bit;
+};
+
+
+// As of version 1.1
+// Changed the MODE bit-field to OUT_MODE
+// Added the bit-field IN_MODE
+// This corresponds to changes in silicon as of F2833x devices
+// Rev A silicon.
+//----------------------------------------------------
+// Dead-band generator control register bit definitions                                    
+struct DBCTL_BITS {          // bits   description
+   uint16_t OUT_MODE:2;      	 // 1:0    Dead Band Output Mode Control 
+   uint16_t POLSEL:2;          // 3:2    Polarity Select Control 
+   uint16_t IN_MODE:2;         // 5:4    Dead Band Input Select Mode Control
+   uint16_t rsvd1:10;          // 15:4   reserved
+};
+
+union DBCTL_REG {
+   uint16_t                  all;
+   struct DBCTL_BITS       bit;
+};
+
+
+//----------------------------------------------------
+// Trip zone select register bit definitions                                   
+struct TZSEL_BITS {           // bits   description
+   uint16_t  CBC1:1;            // 0      TZ1 CBC select
+   uint16_t  CBC2:1;            // 1      TZ2 CBC select
+   uint16_t  CBC3:1;            // 2      TZ3 CBC select
+   uint16_t  CBC4:1;            // 3      TZ4 CBC select
+   uint16_t  CBC5:1;            // 4      TZ5 CBC select
+   uint16_t  CBC6:1;            // 5      TZ6 CBC select
+   uint16_t  rsvd1:2;           // 7:6    reserved
+   uint16_t  OSHT1:1;           // 8      One-shot TZ1 select             
+   uint16_t  OSHT2:1;           // 9      One-shot TZ2 select             
+   uint16_t  OSHT3:1;           // 10     One-shot TZ3 select             
+   uint16_t  OSHT4:1;           // 11     One-shot TZ4 select             
+   uint16_t  OSHT5:1;           // 12     One-shot TZ5 select             
+   uint16_t  OSHT6:1;           // 13     One-shot TZ6 select             
+   uint16_t  rsvd2:2;           // 15:14  reserved
+};
+
+union TZSEL_REG {
+   uint16_t                  all;
+   struct TZSEL_BITS       bit;
+};
+
+
+//----------------------------------------------------
+// Trip zone control register bit definitions */                                    
+struct TZCTL_BITS {         // bits   description
+   uint16_t TZA:2;            // 1:0    TZ1 to TZ6 Trip Action On EPWMxA
+   uint16_t TZB:2;            // 3:2    TZ1 to TZ6 Trip Action On EPWMxB
+   uint16_t rsvd:12;          // 15:4   reserved
+};
+
+union TZCTL_REG {
+   uint16_t                  all;
+   struct TZCTL_BITS       bit;
+};
+
+
+//----------------------------------------------------
+// Trip zone control register bit definitions */                                    
+struct TZEINT_BITS {         // bits   description
+   uint16_t  rsvd1:1;          // 0      reserved
+   uint16_t  CBC:1;            // 1      Trip Zones Cycle By Cycle Int Enable
+   uint16_t  OST:1;            // 2      Trip Zones One Shot Int Enable
+   uint16_t  rsvd2:13;         // 15:3   reserved
+};   
+
+
+union TZEINT_REG {
+   uint16_t                  all;
+   struct TZEINT_BITS      bit;
+};
+
+
+//----------------------------------------------------
+// Trip zone flag register bit definitions */                                    
+struct TZFLG_BITS {         // bits   description
+   uint16_t  INT:1;           // 0      Global status
+   uint16_t  CBC:1;           // 1      Trip Zones Cycle By Cycle Int
+   uint16_t  OST:1;           // 2      Trip Zones One Shot Int
+   uint16_t  rsvd2:13;        // 15:3   reserved
+};
+
+union TZFLG_REG {
+   uint16_t                  all;
+   struct TZFLG_BITS       bit;
+};
+
+//----------------------------------------------------
+// Trip zone flag clear register bit definitions */                                    
+struct TZCLR_BITS {         // bits   description
+   uint16_t  INT:1;           // 0      Global status
+   uint16_t  CBC:1;           // 1      Trip Zones Cycle By Cycle Int
+   uint16_t  OST:1;           // 2      Trip Zones One Shot Int
+   uint16_t  rsvd2:13;        // 15:3   reserved
+};
+
+union TZCLR_REG {
+   struct TZCLR_BITS       bit;
+   uint16_t                  all;
+};
+
+//----------------------------------------------------
+// Trip zone flag force register bit definitions */                                    
+struct TZFRC_BITS {         // bits   description
+   uint16_t  rsvd1:1;         // 0      reserved
+   uint16_t  CBC:1;           // 1      Trip Zones Cycle By Cycle Int
+   uint16_t  OST:1;           // 2      Trip Zones One Shot Int
+   uint16_t  rsvd2:13;        // 15:3   reserved
+};
+
+union TZFRC_REG {
+   uint16_t                  all;
+   struct TZFRC_BITS       bit;
+};
+
+//----------------------------------------------------
+// Event trigger select register bit definitions */                                    
+struct ETSEL_BITS {         // bits   description
+   uint16_t  INTSEL:3;        // 2:0    EPWMxINTn Select
+   uint16_t  INTEN:1;         // 3      EPWMxINTn Enable
+   uint16_t  rsvd1:4;         // 7:4    reserved
+   uint16_t  SOCASEL:3;       // 10:8   Start of conversion A Select
+   uint16_t  SOCAEN:1;        // 11     Start of conversion A Enable
+   uint16_t  SOCBSEL:3;       // 14:12  Start of conversion B Select
+   uint16_t  SOCBEN:1;        // 15     Start of conversion B Enable
+};
+
+union ETSEL_REG {
+   uint16_t                  all;
+   struct ETSEL_BITS       bit;
+};
+
+
+//----------------------------------------------------
+// Event trigger pre-scale register bit definitions */                                    
+struct ETPS_BITS {         // bits   description
+   uint16_t  INTPRD:2;       // 1:0    EPWMxINTn Period Select
+   uint16_t  INTCNT:2;       // 3:2    EPWMxINTn Counter Register
+   uint16_t  rsvd1:4;        // 7:4    reserved
+   uint16_t  SOCAPRD:2;      // 9:8    EPWMxSOCA Period Select
+   uint16_t  SOCACNT:2;      // 11:10  EPWMxSOCA Counter Register
+   uint16_t  SOCBPRD:2;      // 13:12  EPWMxSOCB Period Select
+   uint16_t  SOCBCNT:2;      // 15:14  EPWMxSOCB Counter Register
+};
+
+union ETPS_REG {
+   uint16_t                  all;
+   struct ETPS_BITS        bit;
+};
+
+//----------------------------------------------------
+// Event trigger Flag register bit definitions */                                    
+struct ETFLG_BITS {         // bits   description
+   uint16_t  INT:1;           // 0	EPWMxINTn Flag
+   uint16_t  rsvd1:1;         // 1	reserved
+   uint16_t  SOCA:1;          // 2	EPWMxSOCA Flag
+   uint16_t  SOCB:1;          // 3	EPWMxSOCB Flag
+   uint16_t  rsvd2:12;        // 15:4	reserved
+};
+
+union ETFLG_REG {
+   uint16_t                   all;
+   struct ETFLG_BITS        bit;
+};
+
+
+//----------------------------------------------------
+// Event trigger Clear register bit definitions */                                    
+struct ETCLR_BITS {         // bits   description
+   uint16_t  INT:1;           // 0	EPWMxINTn Clear
+   uint16_t  rsvd1:1;         // 1	reserved
+   uint16_t  SOCA:1;          // 2	EPWMxSOCA Clear
+   uint16_t  SOCB:1;          // 3	EPWMxSOCB Clear
+   uint16_t  rsvd2:12;        // 15:4	reserved
+};
+
+union ETCLR_REG {
+   uint16_t                   all;
+   struct ETCLR_BITS        bit;
+};
+
+//----------------------------------------------------
+// Event trigger Force register bit definitions */                                    
+struct ETFRC_BITS {         // bits   description
+   uint16_t  INT:1;           // 0	EPWMxINTn Force
+   uint16_t  rsvd1:1;         // 1	reserved
+   uint16_t  SOCA:1;          // 2	EPWMxSOCA Force
+   uint16_t  SOCB:1;          // 3	EPWMxSOCB Force
+   uint16_t  rsvd2:12;        // 15:4	reserved
+};
+
+union ETFRC_REG {
+   uint16_t                  all;
+   struct ETFRC_BITS        bit;
+};
+//----------------------------------------------------
+// PWM chopper control register bit definitions */                                    
+struct PCCTL_BITS {         // bits   description
+   uint16_t  CHPEN:1;         // 0      PWM chopping enable
+   uint16_t  OSHTWTH:4;       // 4:1    One-shot pulse width
+   uint16_t  CHPFREQ:3;       // 7:5    Chopping clock frequency
+   uint16_t  CHPDUTY:3;       // 10:8   Chopping clock Duty cycle
+   uint16_t  rsvd1:5;         // 15:11  reserved
+};
+
+
+union PCCTL_REG {
+   uint16_t                  all;
+   struct PCCTL_BITS       bit;
+};
+
+struct HRCNFG_BITS {       	// bits   description
+   uint16_t  EDGMODE:2;     	// 1:0    Edge Mode select Bits
+   uint16_t  CTLMODE:1;     	// 2      Control mode Select Bit
+   uint16_t  HRLOAD:1;      	// 3      Shadow mode Select Bit
+   uint16_t  rsvd1:12;      	// 15:4   reserved
+};
+
+union HRCNFG_REG {
+   uint16_t                  	all;
+   struct HRCNFG_BITS       bit;
+};
+
+
+struct TBPHS_HRPWM_REG {   	// bits   description
+   uint16_t  TBPHSHR;     	// 15:0   Extension register for HRPWM Phase (8 bits)
+   uint16_t  TBPHS;           // 31:16  Phase offset register
+};
+
+union TBPHS_HRPWM_GROUP {
+   uint32_t  all;
+   struct TBPHS_HRPWM_REG  half;
+};
+
+struct CMPA_HRPWM_REG {   	// bits   description
+   uint16_t  CMPAHR;     	    // 15:0   Extension register for HRPWM compare (8 bits)
+   uint16_t  CMPA;            // 31:16  Compare A reg
+};
+
+union CMPA_HRPWM_GROUP {
+   uint32_t  all;
+   struct CMPA_HRPWM_REG  half;
+};
+
+
+
+
+
+typedef struct _PWM_Obj_
+{
+   union  TBCTL_REG           TBCTL;   // 
+   union  TBSTS_REG           TBSTS;   // 
+   union  TBPHS_HRPWM_GROUP   TBPHS;   // Union of TBPHS:TBPHSHR
+   uint16_t                     TBCTR;   // Counter
+   uint16_t                     TBPRD;   // Period register set 
+   uint16_t                     rsvd1;   // 
+   union  CMPCTL_REG          CMPCTL;  // Compare control
+   union  CMPA_HRPWM_GROUP    CMPA;    // Union of CMPA:CMPAHR
+   uint16_t                     CMPB;    // Compare B reg
+   union  AQCTL_REG           AQCTLA;  // Action qual output A
+   union  AQCTL_REG           AQCTLB;  // Action qual output B
+   union  AQSFRC_REG          AQSFRC;  // Action qual SW force
+   union  AQCSFRC_REG         AQCSFRC; // Action qualifier continuous SW force 
+   union  DBCTL_REG           DBCTL;   // Dead-band control
+   uint16_t                     DBRED;   // Dead-band rising edge delay
+   uint16_t                     DBFED;   // Dead-band falling edge delay
+   union  TZSEL_REG           TZSEL;   // Trip zone select
+   uint16_t                     rsvd2;   
+   union  TZCTL_REG           TZCTL;   // Trip zone control
+   union  TZEINT_REG          TZEINT;  // Trip zone interrupt enable
+   union  TZFLG_REG           TZFLG;   // Trip zone interrupt flags
+   union  TZCLR_REG           TZCLR;   // Trip zone clear   
+   union  TZFRC_REG    	      TZFRC;   // Trip zone force interrupt
+   union  ETSEL_REG           ETSEL;   // Event trigger selection
+   union  ETPS_REG            ETPS;    // Event trigger pre-scaler
+   union  ETFLG_REG           ETFLG;   // Event trigger flags
+   union  ETCLR_REG           ETCLR;   // Event trigger clear   
+   union  ETFRC_REG           ETFRC;   // Event trigger force
+   union  PCCTL_REG           PCCTL;   // PWM chopper control
+   uint16_t                     rsvd3;   // 
+   union  HRCNFG_REG          HRCNFG;  // HRPWM Config Reg
+} PWM_Obj;
+
+//! \brief pwm操作句柄
 //!
+typedef struct _PWM_Obj_ *PWM_Handle;
+
+
+// **************************************************************************
+// the globals
+
 typedef enum
 {
-    PWM_PhaseDir_CountDown=(0 << 13),
-    PWM_PhaseDir_CountUp=(1 << 13)
+   PWM_ClkDiv_by_1 =0,
+   PWM_ClkDiv_by_2  ,
+   PWM_ClkDiv_by_4  ,
+   PWM_ClkDiv_by_6  ,
+   PWM_ClkDiv_by_8 ,
+   PWM_ClkDiv_by_10 ,
+   PWM_ClkDiv_by_12 ,
+   PWM_ClkDiv_by_14
+} PWM_ClkDiv_e;
+
+typedef enum
+{
+   PWM_HspClkDiv_by_1= 0 ,
+   PWM_HspClkDiv_by_2= 1 ,
+   PWM_HspClkDiv_by_4= 2 ,
+   PWM_HspClkDiv_by_8= 3 ,
+   PWM_HspClkDiv_by_16= 4 ,
+   PWM_HspClkDiv_by_32=5,
+   PWM_HspClkDiv_by_64=6,
+   PWM_HspClkDiv_by_128=7
+} PWM_HspClkDiv_e;
+
+typedef enum
+{
+   Disabled = 0,
+   Enabled
+} PWM_Enable_e;
+
+typedef enum
+{
+   PWM_Count_down = 0,
+   PWM_Count_up
 } PWM_PhaseDir_e;
 
-
-//! \brief Enumeration to define the pulse width modulation (PWM) run modes
-//!
 typedef enum
 {
-    PWM_RunMode_SoftStopAfterIncr=(0 << 14),
-    PWM_RunMode_SoftStopAfterDecr=(0 << 14),
-    PWM_RunMode_SoftStopAfterCycle=(1 << 14),
-    PWM_RunMode_FreeRun=(2 << 14)
+   PWM_RunMode_SoftStopAfterNextCount = 0x00,
+   PWM_RunMode_SoftStopAfterCycle = 0x01,
+   PWM_RunMode_FreeRun =  0x03
 } PWM_RunMode_e;
 
 
-//! \brief Enumeration to define the pulse width modulation (PWM) shadow modes
-//!
+
+typedef enum
+{
+   PWM_PRDLD_ShadowMode = 0,
+   PWM_PRLDD_Immediately
+} PWM_PeriodLoad_e;
+
+
+typedef enum
+{
+   PWM_SyncMode_EPWMxSYNC = 0,
+   PWM_CTR_ZERO,
+   PWM_CTR_CMPB,
+   PWM_DISABLED
+} PWM_SyncMode_e;
+
+typedef enum
+{
+    PWM_LoadMode_Zero=0,
+    PWM_LoadMode_Period,
+    PWM_LoadMode_Either,
+    PWM_LoadMode_Freeze
+} PWM_LoadMode_e;
+
 typedef enum
 {
     PWM_ShadowMode_Shadow=0,
@@ -763,28 +657,30 @@ typedef enum
 } PWM_ShadowMode_e;
 
 
-//! \brief Enumeration to define the pulse width modulation (PWM) shadow status options
-//!
 typedef enum
 {
-    PWM_ShadowStatus_NotFull=0,
-    PWM_ShadowStatus_Full
-} PWM_ShadowStatus_e;
+    PWM_ActionQual_Disabled=0,
+    PWM_ActionQual_Clear,
+    PWM_ActionQual_Set,
+    PWM_ActionQual_Toggle
+}PWM_ActionQual_e;
 
-
-//! \brief Enumeration to define the pulse width modulation (PWM) start of conversion (SOC) period options
-//!
 typedef enum
 {
-    PWM_SocPeriod_Disable=0,
-    PWM_SocPeriod_FirstEvent,
-    PWM_SocPeriod_SecondEvent,
-    PWM_SocPeriod_ThirdEvent
-} PWM_SocPeriod_e;
+    PWM_DeadBandOutputMode_Bypass=0,
+    PWM_DeadBandOutputMode_EPWMxA_Disable_EPWMxB_Falling,
+    PWM_DeadBandOutputMode_EPWMxA_Rising_EPWMxB_Disable,
+    PWM_DeadBandOutputMode_EPWMxA_Rising_EPWMxB_Falling
+}PWM_DeadBandOutputMode_e;
 
+typedef enum
+{
+    PWM_DeadBandPolarity_EPWMxA_EPWMxB=0,
+    PWM_DeadBandPolarity_EPWMxA_Inverted,
+    PWM_DeadBandPolarity_EPWMxB_Inverted,
+    PWM_DeadBandPolarity_EPWMxA_Inverted_EPWMxB_Inverted
+} PWM_DeadBandPolarity_e;
 
-//! \brief Enumeration to define the pulse width modulation (PWM) start of conversion (SOC) sources
-//!
 typedef enum
 {
     PWM_SocPulseSrc_DcEvt=0,
@@ -797,1001 +693,531 @@ typedef enum
     PWM_SocPulseSrc_CounterEqualCmpBDecr
 } PWM_SocPulseSrc_e;
 
-
-//! \brief Enumeration to define the pulse width modulation (PWM) sync modes
-//!
 typedef enum
 {
-    PWM_SyncMode_EPWMxSYNC=(0 << 4),
-    PWM_SyncMode_CounterEqualZero=(1 << 4),
-    PWM_SyncMode_CounterEqualCounterCompareZero=(2 << 4),
-    PWM_SyncMode_Disable=(3 << 4)
-} PWM_SyncMode_e;
+    PWM_IntPeriod_Disable=0,
+    PWM_IntPeriod_FirstEvent,
+    PWM_IntPeriod_SecondEvent,
+    PWM_IntPeriod_ThirdEvent
+} PWM_IntPeriod_e;
 
-
-//! \brief Enumeration to define the pulse width modulation (PWM) trip zone sources
-//!
 typedef enum
 {
-    PWM_TripZoneSrc_CycleByCycle_TZ1_NOT=(1 << 0),
-    PWM_TripZoneSrc_CycleByCycle_TZ2_NOT=(1 << 1),
-    PWM_TripZoneSrc_CycleByCycle_TZ3_NOT=(1 << 2),
-    PWM_TripZoneSrc_CycleByCycle_TZ4_NOT=(1 << 3),
-    PWM_TripZoneSrc_CycleByCycle_TZ5_NOT=(1 << 4),
-    PWM_TripZoneSrc_CycleByCycle_TZ6_NOT=(1 << 5),
-    PWM_TripZoneSrc_CycleByCycle_CmpA=(1 << 6),
-    PWM_TripZoneSrc_CycleByCycle_CmpB=(1 << 7),
-    PWM_TripZoneSrc_OneShot_TZ1_NOT=(1 << 8),
-    PWM_TripZoneSrc_OneShot_TZ2_NOT=(1 << 9),
-    PWM_TripZoneSrc_OneShot_TZ3_NOT=(1 << 10),
-    PWM_TripZoneSrc_OneShot_TZ4_NOT=(1 << 11),
-    PWM_TripZoneSrc_OneShot_TZ5_NOT=(1 << 12),
-    PWM_TripZoneSrc_OneShot_TZ6_NOT=(1 << 13),
-    PWM_TripZoneSrc_OneShot_CmpA=(1 << 14),
-    PWM_TripZoneSrc_OneShot_CmpB=(1 << 15)
-} PWM_TripZoneSrc_e;
-
-
-//! \brief Enumeration to define the pulse width modulation (PWM) trip zone states
-//!
-typedef enum
-{
-    PWM_TripZoneState_HighImp=0,
-    PWM_TripZoneState_EPWM_High,
-    PWM_TripZoneState_EPWM_Low,
-    PWM_TripZoneState_DoNothing
-} PWM_TripZoneState_e;
-
-//! \brief Enumeration to define the pulse width modulation (PWM) trip zone states
-//!
-typedef enum
-{
-    PWM_TripZoneFlag_Global = (1 << 0),    //!< Global Trip Zone flag
-    PWM_TripZoneFlag_CBC = (1 << 1),       //!< Cycle by cycle Trip Zone flag
-    PWM_TripZoneFlag_OST = (1 << 2),       //!< One Shot Trip Zone flag
-    PWM_TripZoneFlag_DCAEVT1 = (1 << 3),   //!< Digital Compare A Event 1 Trip Zone flag
-    PWM_TripZoneFlag_DCAEVT2 = (1 << 4),   //!< Digital Compare A Event 2 Trip Zone flag
-    PWM_TripZoneFlag_DCBEVT1 = (1 << 5),   //!< Digital Compare B Event 1 Trip Zone flag
-    PWM_TripZoneFlag_DCBEVT2 = (1 << 6)    //!< Digital Compare B Event 2 Trip Zone flag
-} PWM_TripZoneFlag_e;
-
-//! \brief Enumeration to define the pulse width modulation (PWM) trip zone event selections
-//!
-typedef enum
-{
-    PWM_TripZoneDCEventSel_Disabled = (0 << 0),       //!< Event Disabled
-    PWM_TripZoneDCEventSel_DCxHL_DCxLX = (1 << 0),    //!< Compare H = Low, Compare L = Don't Care
-    PWM_TripZoneDCEventSel_DCxHH_DCxLX = (2 << 0),    //!< Compare H = High, Compare L = Don't Care
-    PWM_TripZoneDCEventSel_DCxHx_DCxLL = (3 << 0),    //!< Compare H = Don't Care, Compare L = Low
-    PWM_TripZoneDCEventSel_DCxHx_DCxLH = (4 << 0),    //!< Compare H = Don't Care, Compare L = High
-    PWM_TripZoneDCEventSel_DCxHL_DCxLH = (5 << 0)     //!< Compare H = Low, Compare L = High
-} PWM_TripZoneDCEventSel_e;
-
-
-//! \brief Defines the pulse width modulation (PWM) object
-//!
-typedef struct _PWM_Obj_
-{
-  volatile uint16_t   TBCTL;       //!< Time-Base Control Register
-  volatile uint16_t   TBSTS;       //!< Time-Base Status Register
-  volatile uint16_t   TBPHSHR;     //!< Extension for the HRPWM Phase Register
-  volatile uint16_t   TBPHS;       //!< Time-Base Phase Register
-  volatile uint16_t   TBCTR;       //!< Time-Base Counter
-  volatile uint16_t   TBPRD;       //!< Time-Base Period register set
-  volatile uint16_t   TBPRDHR;     //!< Time-Base Period High Resolution Register
-  volatile uint16_t   CMPCTL;      //!< Counter-Compare Control Register
-  volatile uint16_t   CMPAHR;      //!< Extension of HRPWM Counter-Compare A Register
-  volatile uint16_t   CMPA;        //!< Counter-Compare A Register
-  volatile uint16_t   CMPB;        //!< Counter-Compare B Register
-  volatile uint16_t   AQCTLA;      //!< Action-Qualifier Control Register for Output A (EPWMxA)
-  volatile uint16_t   AQCTLB;      //!< Action-Qualifier Control Register for Output B (EPWMxB)
-  volatile uint16_t   AQSFRC;      //!< Action qual SW force
-  volatile uint16_t   AQCSFRC;     //!< Action qualifier continuous SW force
-  volatile uint16_t   DBCTL;       //!< Dead-band control
-  volatile uint16_t   DBRED;       //!< Dead-band rising edge delay
-  volatile uint16_t   DBFED;       //!< Dead-band falling edge delay
-  volatile uint16_t   TZSEL;       //!< Trip zone select
-  volatile uint16_t   TZDCSEL;     //!< Trip zone digital comparator select
-  volatile uint16_t   TZCTL;       //!< Trip zone control
-  volatile uint16_t   TZEINT;      //!< Trip zone interrupt enable
-  volatile uint16_t   TZFLG;       //!< Trip zone interrupt flags
-  volatile uint16_t   TZCLR;       //!< Trip zone clear
-  volatile uint16_t   TZFRC;       //!< Trip zone force interrupt
-  volatile uint16_t   ETSEL;       //!< Event trigger selection
-  volatile uint16_t   ETPS;        //!< Event trigger pre-scaler
-  volatile uint16_t   ETFLG;       //!< Event trigger flags
-  volatile uint16_t   ETCLR;       //!< Event trigger clear
-  volatile uint16_t   ETFRC;       //!< Event trigger force
-  volatile uint16_t   PCCTL;       //!< PWM chopper control
-  volatile uint16_t   rsvd_1;      //!< Reserved
-  volatile uint16_t   HRCNFG;      //!< HRPWM Config Reg
-  volatile uint16_t   HRPWR;       //!< HRPWM Power Register
-  volatile uint16_t   rsvd_2[4];   //!< Reserved
-  volatile uint16_t   HRMSTEP;     //!< HRPWM MEP Step Register
-  volatile uint16_t   rsvd_3;      //!< Reserved
-  volatile uint16_t   HRPCTL;      //!< High Resolution Period Control
-  volatile uint16_t   rsvd_4;      //!< Reserved
-  volatile uint16_t   TBPRDHRM;    //!< Time-Base Period High Resolution mirror Register
-  volatile uint16_t   TBPRDM;      //!< Time-Base Period mirror register
-  volatile uint16_t   CMPAHRM;     //!< Extension of HRPWM Counter-Compare A mirror Register
-  volatile uint16_t   CMPAM;       //!< Counter-Compare A mirror Register
-  volatile uint16_t   rsvd_5[2];   //!< Reserved
-  volatile uint16_t   DCTRIPSEL;   //!< Digital Compare Trip Select
-  volatile uint16_t   DCACTL;      //!< Digital Compare A Control
-  volatile uint16_t   DCBCTL;      //!< Digital Compare B Control
-  volatile uint16_t   DCFCTL;      //!< Digital Compare Filter Control
-  volatile uint16_t   DCCAPCTL;    //!< Digital Compare Capture Control
-  volatile uint16_t   DCFOFFSET;   //!< Digital Compare Filter Offset
-  volatile uint16_t   DCFOFFSETCNT;//!< Digital Compare Filter Offset Counter
-  volatile uint16_t   DCFWINDOW;   //!< Digital Compare Filter Window
-  volatile uint16_t   DCFWINDOWCNT;//!< Digital Compare Filter Window Counter
-  volatile uint16_t   DCCAP;       //!< Digital Compare Filter Counter Capture
-  
-} PWM_Obj;
-
-
-//! \brief Defines the pulse width modulation (PWM) handle
-//!
-typedef struct _PWM_Obj_ *PWM_Handle;
-
-
-// **************************************************************************
-// the globals
+    PWM_SocPeriod_Disable=0,
+    PWM_SocPeriod_FirstEvent,
+    PWM_SocPeriod_SecondEvent,
+    PWM_SocPeriod_ThirdEvent
+} PWM_SocPeriod_e;
 
 
 // **************************************************************************
 // the function prototypes
 
-//! \brief     Clears the pulse width modulation (PWM) interrupt flag
-//! \param[in] pwmHandle  The pulse width modulation (PWM) object handle
+//! @brief: PWM初始化
+//! @param void *pMemory
+//! @param size_t numBytes
+//! @return *
+extern PWM_Handle PWM_init(void *pMemory, const size_t numBytes);
+
+//! \brief  设置周期计数器最大值
+extern void PWM_set_TB_Period(PWM_Handle pwmHandle, const uint16_t period);
+
+//! \brief  设置计数器相位值
+extern void PWM_set_TB_Phase(PWM_Handle pwmHandle, const uint16_t phase);
+
+//! \brief  设置PWM时钟 TBCLK = SYSCLKOUT / (HSPCLKDIV × CLKDIV)
+extern void PWM_set_TB_ClkDiv(PWM_Handle pwmHandle, const PWM_ClkDiv_e clkDiv);
+
+//! \brief  设置PWM时钟 TBCLK = SYSCLKOUT / (HSPCLKDIV × CLKDIV)
+extern void PWM_set_TB_HighSpeedClkDiv(PWM_Handle pwmHandle, const PWM_HspClkDiv_e clkDiv);
+
+//! \brief  是否使能PWM相位寄存器
+extern void PWM_set_TB_PHSEN(PWM_Handle pwmHandle, const PWM_Enable_e Val);
+
+//! \brief  设置PWM相位寄存器方向：载入相位后计数方向
+extern void PWM_set_TB_PhaseDir(PWM_Handle pwmHandle, const PWM_PhaseDir_e phaseDir);
+
+//! \brief  设置PWM仿真模式:选择仿真事件期间ePWM时基计数器的行为。
+extern void PWM_set_TB_RunMode(PWM_Handle pwmHandle, const PWM_RunMode_e runMode);
+
+//! \brief  设置PWM计数器模式
+extern void PWM_set_TB_CounterMode(PWM_Handle pwmHandle, const PWM_CounterMode_e counterMode);
+
+//! \brief  设置PWM影子寄存器
+extern void PWM_set_TB_PeriodLoad(PWM_Handle pwmHandle, const PWM_PeriodLoad_e periodLoad);
+
+//! \brief  计数器是否最大值
+extern bool PWM_isCTR_reachMax(PWM_Handle pwmHandle);
+
+//! \brief  同步信号是否到来
+extern bool PWM_isSYN_occured(PWM_Handle pwmHandle);
+
+//! \brief  当前计数器是否向上计数
+extern bool PWM_isCount_UP (PWM_Handle pwmHandle);
+
+//! \brief  设置PWM当前计数值
+static inline  void PWM_set_TB_Count(PWM_Handle pwmHandle, const uint16_t count)
+{
+    PWM_Obj *pwm = (PWM_Obj *)pwmHandle;
+    // set the bits
+    pwm->TBCTR = count;
+
+    return;
+} // end of PWM_setCount() function
+
+//! \brief  设置同步模式
+extern void PWM_set_TB_SyncMode(PWM_Handle pwmHandle, const PWM_SyncMode_e syncMode);
+
+//! \brief  设置同步模式
+extern void PWM_set_TB_CounterMode(PWM_Handle pwmHandle, const PWM_CounterMode_e counterMode);
+
+//! \brief  清除PWM中断标志位
 static inline void PWM_clearIntFlag(PWM_Handle pwmHandle)
 {
-    PWM_Obj *pwm = (PWM_Obj *)pwmHandle;
+   PWM_Obj *pwm = (PWM_Obj *)pwmHandle;
+   // set the bits
+   pwm->ETCLR.bit.INT = 1;
 
-
-    // set the bits
-    pwm->ETCLR = PWM_ETCLR_INT_BITS;
-
-    return;
+   return;
 } // end of PWM_clearIntFlag() function
 
-
-//! \brief     Clears the pulse width modulation (PWM) one shot trip
-//! \param[in] pwmHandle  The pulse width modulation (PWM) object handle
+//! \brief  清除OST标志位
 static inline void PWM_clearOneShotTrip(PWM_Handle pwmHandle)
 {
-    PWM_Obj *pwm = (PWM_Obj *)pwmHandle;
+   PWM_Obj *pwm = (PWM_Obj *)pwmHandle;
 
+   ENABLE_PROTECTED_REGISTER_WRITE_MODE;
+   // set the bits
+   pwm->TZCLR.bit.OST = 1;
 
-    ENABLE_PROTECTED_REGISTER_WRITE_MODE;
+   DISABLE_PROTECTED_REGISTER_WRITE_MODE;
 
-    // set the bits
-    pwm->TZCLR = PWM_TZCLR_OST_BITS;
-
-    DISABLE_PROTECTED_REGISTER_WRITE_MODE;
-
-    return;
+   return;
 } // end of PWM_clearOneShotTrip() function
 
-
-//! \brief     Clears the pulse width modulation (PWM) start of conversion (SOC) A flag
-//! \param[in] pwmHandle  The pulse width modulation (PWM) object handle
+//! \brief  清除脉宽调制 (PWM) 转换开始SOCA 标志
 static inline void PWM_clearSocAFlag(PWM_Handle pwmHandle)
 {
-    PWM_Obj *pwm = (PWM_Obj *)pwmHandle;
+   PWM_Obj *pwm = (PWM_Obj *)pwmHandle;
 
+   // set the bits
+   pwm->ETCLR.bit.SOCA = 1;
 
-    // set the bits
-    pwm->ETCLR = PWM_ETCLR_SOCA_BITS;
-
-    return;
+   return;
 } // end of PWM_clearSocAFlag() function
 
-
-//! \brief     Clears the pulse width modulation (PWM) start of conversion (SOC) B flag
-//! \param[in] pwmHandle  The pulse width modulation (PWM) object handle
+//! \brief  清除脉宽调制 (PWM) 转换开始 SOCB标志
 static inline void PWM_clearSocBFlag(PWM_Handle pwmHandle)
 {
-    PWM_Obj *pwm = (PWM_Obj *)pwmHandle;
+   PWM_Obj *pwm = (PWM_Obj *)pwmHandle;
 
+   // set the bits
+   pwm->ETCLR.bit.SOCB = 1;
 
-    // set the bits
-    pwm->ETCLR = PWM_ETCLR_SOCB_BITS;
-
-    return;
+   return;
 } // end of PWM_clearSocBFlag() function
 
-//! \brief     Clears the trip zone (TZ) flag specified
-//! \param[in] pwmHandle  The pulse width modulation (PWM) object handle
-//! \param[in] tripZoneFlag  The trip zone flag to clear
-extern void PWM_clearTripZone(PWM_Handle pwmHandle, const PWM_TripZoneFlag_e tripZoneFlag);
+////TODO ! \brief     清除指定的故障保护区 (TZ) 标志
+////! \param[in] pwmHandle  The pulse width modulation (PWM) object handle
+////! \param[in] tripZoneFlag  The trip zone flag to clear
+//extern void PWM_clearTripZone(PWM_Handle pwmHandle, const PWM_TripZoneFlag_e tripZoneFlag);
 
+//! \brief  将脉宽调制 (PWM) 数据值写入计数器比较器A硬件
+static inline void PWM_setCmpA(PWM_Handle pwmHandle, const uint16_t pwmData)
+{
+   PWM_Obj *pwm = (PWM_Obj *)pwmHandle;
 
-//! \brief     Decrement the dead band falling edge delay
-//! \param[in] pwmHandle  The pulse width modulation (PWM) object handle
-extern void PWM_decrementDeadBandFallingEdgeDelay(PWM_Handle pwmHandle);
+   pwm->CMPA.half.CMPA = pwmData;
 
+   return;
+} // end of PWM_setCmpA() function
 
-//! \brief     Decrement the dead band rising edge delay
-//! \param[in] pwmHandle  The pulse width modulation (PWM) object handle
-extern void PWM_decrementDeadBandRisingEdgeDelay(PWM_Handle pwmHandle);
+//! \brief  将脉宽调制 (PWM) 数据值写入计数器比较器A硬件
+static inline void PWM_setCmpAHr(PWM_Handle pwmHandle, const uint16_t pwmData)
+{
+   PWM_Obj *pwm = (PWM_Obj *)pwmHandle;
 
-//! \brief     Disables auto conversion of delay line value
-//! \param[in] pwmHandle  The pulse width modulation (PWM) object handle
-extern void PWM_disableAutoConvert(PWM_Handle pwmHandle);
+   pwm->CMPA.half.CMPAHR = pwmData;
 
-//! \brief     Disables the pulse width modulation (PWM) chopping
-//! \param[in] pwmHandle  The pulse width modulation (PWM) object handle
-extern void PWM_disableChopping(PWM_Handle pwmHandle);
+   return;
+} // end of PWM_setCmpAHr() function
 
+//! \brief  将脉宽调制 (PWM) 数据值写入计数器比较器B
+static inline void PWM_setCmpB(PWM_Handle pwmHandle, const uint16_t pwmData)
+{
+   PWM_Obj *pwm = (PWM_Obj *)pwmHandle;
 
-//! \brief     Disables the pulse width modulation (PWM) counter loading from the phase register
-//! \param[in] pwmHandle  The pulse width modulation (PWM) object handle
-extern void PWM_disableCounterLoad(PWM_Handle pwmHandle);
+   pwm->CMPB = pwmData;
 
+   return;
+} // end of PWM_setCmpB() function
 
-//! \brief     Disables the pulse width modulation (PWM) deadband
-//! \param[in] pwmHandle  The pulse width modulation (PWM) object handle
-extern void PWM_disableDeadBand(PWM_Handle pwmHandle);
-
-
-//! \brief     Disables the pulse width modulation (PWM) deadband half cycle clocking
-//! \param[in] pwmHandle  The pulse width modulation (PWM) object handle
-extern void PWM_disableDeadBandHalfCycle(PWM_Handle pwmHandle);
-
-
-//! \brief     Disables the pulse width modulation (PWM) digital compare blanking window
-//! \param[in] pwmHandle  The pulse width modulation (PWM) object handle
-extern void PWM_disableDigitalCompareBlankingWindow(PWM_Handle pwmHandle);
-
-
-//! \brief     Disables the pulse width modulation (PWM) digital compare blanking window inversion
-//! \param[in] pwmHandle  The pulse width modulation (PWM) object handle
-extern void PWM_disableDigitalCompareBlankingWindowInversion(PWM_Handle pwmHandle);
-
-//! \brief     Disables high resolution period control
-//! \param[in] pwmHandle  The pulse width modulation (PWM) object handle
-extern void PWM_disableHrPeriod(PWM_Handle pwmHandle);
-
-
-//! \brief     Disables high resolution phase synchronization
-//! \param[in] pwmHandle  The pulse width modulation (PWM) object handle
-extern void PWM_disableHrPhaseSync(PWM_Handle pwmHandle);
-
-//! \brief     Disables the pulse width modulation (PWM) interrupt
-//! \param[in] pwmHandle  The pulse width modulation (PWM) object handle
-extern void PWM_disableInt(PWM_Handle pwmHandle);
-
-
-//! \brief     Disables the pulse width modulation (PWM) start of conversion (SOC) B pulse generation
-//! \param[in] pwmHandle  The pulse width modulation (PWM) object handle
-extern void PWM_disableSocAPulse(PWM_Handle pwmHandle);
-
-
-//! \brief     Disables the pulse width modulation (PWM) start of conversion (SOC) B pulse generation
-//! \param[in] pwmHandle  The pulse width modulation (PWM) object handle
-extern void PWM_disableSocBPulse(PWM_Handle pwmHandle);
-
-
-//! \brief     Disables the pulse width modulation (PWM) trip zones
-//! \param[in] pwmHandle  The pulse width modulation (PWM) object handle
-extern void PWM_disableTripZones(PWM_Handle pwmHandle);
-
-
-//! \brief     Disables the pulse width modulation (PWM) trip zones interrupts
-//! \param[in] pwmHandle  The pulse width modulation (PWM) object handle
-//! \param[in] interrupt  The interrupt source to disable
-extern void PWM_disableTripZoneInt(PWM_Handle pwmHandle, const PWM_TripZoneFlag_e interruptSource);
-
-
-//! \brief     Disable the pulse width modulation (PWM) trip zone source
-//! \param[in] pwmHandle  The pulse width modulation (PWM) object handle
-//! \param[in] src        The pulse width modulation (PWM) trip zone source
-extern void PWM_disableTripZoneSrc(PWM_Handle pwmHandle,const PWM_TripZoneSrc_e src);
-
-//! \brief     Enables auto conversion of delay line value
-//! \param[in] pwmHandle  The pulse width modulation (PWM) object handle
-extern void PWM_enableAutoConvert(PWM_Handle pwmHandle);
-
-//! \brief     Enables the pulse width modulation (PWM) chopping
-//! \param[in] pwmHandle  The pulse width modulation (PWM) object handle
-extern void PWM_enableChopping(PWM_Handle pwmHandle);
-
-
-//! \brief     Enables the pulse width modulation (PWM) counter loading from the phase register
-//! \param[in] pwmHandle  The pulse width modulation (PWM) object handle
-extern void PWM_enableCounterLoad(PWM_Handle pwmHandle);
-
-
-//! \brief     Enables the pulse width modulation (PWM) deadband half cycle clocking
-//! \param[in] pwmHandle  The pulse width modulation (PWM) object handle
-extern void PWM_enableDeadBandHalfCycle(PWM_Handle pwmHandle);
-
-
-//! \brief     Enables the pulse width modulation (PWM) digital compare blanking window
-//! \param[in] pwmHandle  The pulse width modulation (PWM) object handle
-extern void PWM_enableDigitalCompareBlankingWindow(PWM_Handle pwmHandle);
-
-
-//! \brief     Enables the pulse width modulation (PWM) digital compare blanking window inversion
-//! \param[in] pwmHandle  The pulse width modulation (PWM) object handle
-extern void PWM_enableDigitalCompareBlankingWindowInversion(PWM_Handle pwmHandle);
-
-//! \brief     Enables high resolution period control
-//! \param[in] pwmHandle  The pulse width modulation (PWM) object handle
-extern void PWM_enableHrPeriod(PWM_Handle pwmHandle);
-
-
-//! \brief     Enables high resolution phase synchronization
-//! \param[in] pwmHandle  The pulse width modulation (PWM) object handle
-extern void PWM_enableHrPhaseSync(PWM_Handle pwmHandle);
-
-//! \brief     Enables the pulse width modulation (PWM) interrupt
-//! \param[in] pwmHandle  The pulse width modulation (PWM) object handle
-extern void PWM_enableInt(PWM_Handle pwmHandle);
-
-
-//! \brief     Enables the pulse width modulation (PWM) start of conversion (SOC) A pulse generation
-//! \param[in] pwmHandle  The pulse width modulation (PWM) object handle
-extern void PWM_enableSocAPulse(PWM_Handle pwmHandle);
-
-
-//! \brief     Enables the pulse width modulation (PWM) start of conversion (SOC) B pulse generation
-//! \param[in] pwmHandle  The pulse width modulation (PWM) object handle
-extern void PWM_enableSocBPulse(PWM_Handle pwmHandle);
-
-
-//! \brief     Enables the pulse width modulation (PWM) trip zones interrupts
-//! \param[in] pwmHandle  The pulse width modulation (PWM) object handle
-//! \param[in] interrupt  The interrupt source to enable
-extern void PWM_enableTripZoneInt(PWM_Handle pwmHandle, const PWM_TripZoneFlag_e interruptSource);
-
-
-//! \brief     Enable the pulse width modulation (PWM) trip zone source
-//! \param[in] pwmHandle  The pulse width modulation (PWM) object handle
-//! \param[in] src        The pulse width modulation (PWM) trip zone source
-extern void PWM_enableTripZoneSrc(PWM_Handle pwmHandle,const PWM_TripZoneSrc_e src);
-
-
-//! \brief     Gets the value of the Counter Compare A hardware
-//! \param[in] pwmHandle  The pulse width modulation (PWM) object handle
-//! \return    The CMPA value
+//! \brief  获取A比较器的值
 static inline uint16_t PWM_get_CmpA(PWM_Handle pwmHandle)
 {
-  PWM_Obj *pwm = (PWM_Obj *)pwmHandle;
+   PWM_Obj *pwm = (PWM_Obj *)pwmHandle;
 
-  return pwm->CMPA;
+   return pwm->CMPA.half.CMPA;
 } // end of PWM_get_CmpA() function
 
-
-//! \brief     Gets the value of the Counter Compare A Mirror Register
-//! \param[in] pwmHandle  The pulse width modulation (PWM) object handle
-//! \return    The CMPAM value
-static inline uint16_t PWM_get_CmpAM(PWM_Handle pwmHandle)
-{
-  PWM_Obj *pwm = (PWM_Obj *)pwmHandle;
-
-  return pwm->CMPAM;
-} // end of PWM_get_CmpAM() function
-
-
-//! \brief     Gets the value of the Counter Compare B hardware
-//! \param[in] pwmHandle  The pulse width modulation (PWM) object handle
-//! \return    The CMPB value
+//! \brief  获取B比较器的值
 static inline uint16_t PWM_get_CmpB(PWM_Handle pwmHandle)
 {
-  PWM_Obj *pwm = (PWM_Obj *)pwmHandle;
+   PWM_Obj *pwm = (PWM_Obj *)pwmHandle;
 
-  return pwm->CMPB;
+   return pwm->CMPB;
 } // end of PWM_get_CmpB() function
 
 
-//! \brief     Force Synchronization
-//! \param[in] pwmHandle  The pulse width modulation (PWM) object handle
-static inline void PWM_forceSync(PWM_Handle pwmHandle)
-{
-    PWM_Obj *pwm = (PWM_Obj *)pwmHandle;
-
-    pwm->TBCTL |= PWM_TBCTL_SWFSYNC_BITS;
-
-    return;
-} // end of PWM_forceSync() function
-
-
-//! \brief     Gets the pulse width modulation (PWM) deadband falling edge delay
-//! \param[in] pwmHandle  The pulse width modulation (PWM) object handle
-//! \return    The delay
-extern uint16_t PWM_getDeadBandFallingEdgeDelay(PWM_Handle pwmHandle);
-
-
-//! \brief     Gets the pulse width modulation (PWM) deadband rising edge delay
-//! \param[in] pwmHandle  The pulse width modulation (PWM) object handle
-//! \return    The delay
-extern uint16_t PWM_getDeadBandRisingEdgeDelay(PWM_Handle pwmHandle);
-
-
-//! \brief     Gets the pulse width modulation (PWM) interrupt event count
-//! \param[in] pwmHandle  The pulse width modulation (PWM) object handle
-//! \return    The interrupt event count
-extern uint16_t PWM_getIntCount(PWM_Handle pwmHandle);
-
-
-//! \brief     Gets the pulse width modulation (PWM) period value
-//! \param[in] pwmHandle  The pulse width modulation (PWM) object handle
-//! \return    The pwm period value
+//! \brief  获取PWM周期值
 static inline uint16_t PWM_getPeriod(PWM_Handle pwmHandle)
 {
-    PWM_Obj *pwm = (PWM_Obj *)pwmHandle;
+   PWM_Obj *pwm = (PWM_Obj *)pwmHandle;
 
-    return (pwm->TBPRD);
+   return (pwm->TBPRD);
 } // end of PWM_getPeriod() function
 
-
-//! \brief     Gets the pulse width modulation (PWM) data value from the Counter Compare A hardware
-//! \param[in] pwmHandle  The pulse width modulation (PWM) object handle
-//! \return    The PWM compare data value
-static inline uint16_t PWM_getCmpA(PWM_Handle pwmHandle)
-{
-    PWM_Obj *pwm = (PWM_Obj *)pwmHandle;
-
-    return (pwm->CMPA);
-} // end of PWM_getCmpA() function
-
-//! \brief     Gets the pulse width modulation (PWM) data value from the Counter Compare A  Hr hardware
-//! \param[in] pwmHandle  The pulse width modulation (PWM) object handle
-//! \return    The PWM compare high resolution data value
-static inline uint16_t PWM_getCmpAHr(PWM_Handle pwmHandle)
-{
-    PWM_Obj *pwm = (PWM_Obj *)pwmHandle;
-
-    return (pwm->CMPAHR);
-} // end of PWM_getCmpAHr() function
-
-//! \brief     Gets the pulse width modulation (PWM) data value from the Counter Compare B hardware
-//! \param[in] pwmHandle  The pulse width modulation (PWM) object handle
-//! \return    The PWM compare data value
-static inline uint16_t PWM_getCmpB(PWM_Handle pwmHandle)
-{
-    PWM_Obj *pwm = (PWM_Obj *)pwmHandle;
-
-    return (pwm->CMPB);
-} // end of PWM_getCmpB() function
-
-
-//! \brief     Gets the pulse width modulation (PWM) start of conversion (SOC) A count
-//! \param[in] pwmHandle  The pulse width modulation (PWM) object handle
-//! \return    The SOC A count
-extern uint16_t PWM_getSocACount(PWM_Handle pwmHandle);
-
-
-//! \brief     Gets the pulse width modulation (PWM) start of conversion (SOC) B count
-//! \param[in] pwmHandle  The pulse width modulation (PWM) object handle
-//! \return    The SOC B count
-extern uint16_t PWM_getSocBCount(PWM_Handle pwmHandle);
-
-//! \brief     Set the High Resolution Control Mode
-//! \param[in] pwmHandle  The pulse width modulation (PWM) object handle
-//! \param[in] edgeMode   The control mode HRPWM should use
-extern void PWM_setHrControlMode(PWM_Handle pwmHandle, const PWM_HrControlMode_e controlMode);
-
-
-//! \brief     Set the High Resolution Edge Mode
-//! \param[in] pwmHandle  The pulse width modulation (PWM) object handle
-//! \param[in] edgeMode   The edge mode HRPWM should use
-extern void PWM_setHrEdgeMode(PWM_Handle pwmHandle, const PWM_HrEdgeMode_e edgeMode);
-
-
-//! \brief     Set the High Resolution Shadow Load Mode
-//! \param[in] pwmHandle  The pulse width modulation (PWM) object handle
-//! \param[in] edgeMode   The shadow load mode HRPWM should use
-extern void PWM_setHrShadowMode(PWM_Handle pwmHandle, const PWM_HrShadowMode_e shadowMode);
-
-//! \brief     Increment the dead band falling edge delay
-//! \param[in] pwmHandle  The pulse width modulation (PWM) object handle
-extern void PWM_incrementDeadBandFallingEdgeDelay(PWM_Handle pwmHandle);
-
-
-//! \brief     Increment the dead band rising edge delay
-//! \param[in] pwmHandle  The pulse width modulation (PWM) object handle
-extern void PWM_incrementDeadBandRisingEdgeDelay(PWM_Handle pwmHandle);
-
-
-//! \brief     Initializes the pulse width modulation (PWM) object handle
-//! \param[in] pMemory   A pointer to the base address of the PWM registers
-//! \param[in] numBytes  The number of bytes allocated for the PWM object, bytes
-//! \return    The pulse width modulation (PWM) object handle
-extern PWM_Handle PWM_init(void *pMemory,const size_t numBytes);
-
-
-//! \brief     Sets the pulse width modulation (PWM) object action for PWM A when the counter equals CMPA and the counter is decrementing
-//! \param[in] pwmHandle   The pulse width modulation (PWM) object handle
-//! \param[in] actionQual  The action qualifier
-extern void PWM_setActionQual_CntDown_CmpA_PwmA(PWM_Handle pwmHandle,const PWM_ActionQual_e actionQual);
-
-
-//! \brief     Sets the pulse width modulation (PWM) object action for PWM B when the counter equals CMPA and the counter is decrementing
-//! \param[in] pwmHandle   The pulse width modulation (PWM) object handle
-//! \param[in] actionQual  The action qualifier
-extern void PWM_setActionQual_CntDown_CmpA_PwmB(PWM_Handle pwmHandle,const PWM_ActionQual_e actionQual);
-
-
-//! \brief     Sets the pulse width modulation (PWM) object action for PWM A when the counter equals CMPB and the counter is decrementing
-//! \param[in] pwmHandle   The pulse width modulation (PWM) object handle
-//! \param[in] actionQual  The action qualifier
-extern void PWM_setActionQual_CntDown_CmpB_PwmA(PWM_Handle pwmHandle,const PWM_ActionQual_e actionQual);
-
-
-//! \brief     Sets the pulse width modulation (PWM) object action for PWM B when the counter equals CMPB and the counter is decrementing
-//! \param[in] pwmHandle   The pulse width modulation (PWM) object handle
-//! \param[in] actionQual  The action qualifier
-extern void PWM_setActionQual_CntDown_CmpB_PwmB(PWM_Handle pwmHandle,const PWM_ActionQual_e actionQual);
-
-
-//! \brief     Sets the pulse width modulation (PWM) object action for PWM A when the counter equals CMPA and the counter is incrementing
-//! \param[in] pwmHandle   The pulse width modulation (PWM) object handle
-//! \param[in] actionQual  The action qualifier
-extern void PWM_setActionQual_CntUp_CmpA_PwmA(PWM_Handle pwmHandle,const PWM_ActionQual_e actionQual);
-
-
-//! \brief     Sets the pulse width modulation (PWM) object action for PWM B when the counter equals CMPA and the counter is incrementing
-//! \param[in] pwmHandle   The pulse width modulation (PWM) object handle
-//! \param[in] actionQual  The action qualifier
-extern void PWM_setActionQual_CntUp_CmpA_PwmB(PWM_Handle pwmHandle,const PWM_ActionQual_e actionQual);
-
-
-//! \brief     Sets the pulse width modulation (PWM) object action for PWM A when the counter equals CMPB and the counter is incrementing
-//! \param[in] pwmHandle   The pulse width modulation (PWM) object handle
-//! \param[in] actionQual  The action qualifier
-extern void PWM_setActionQual_CntUp_CmpB_PwmA(PWM_Handle pwmHandle,const PWM_ActionQual_e actionQual);
-
-
-//! \brief     Sets the pulse width modulation (PWM) object action for PWM B when the counter equals CMPB and the counter is incrementing
-//! \param[in] pwmHandle   The pulse width modulation (PWM) object handle
-//! \param[in] actionQual  The action qualifier
-extern void PWM_setActionQual_CntUp_CmpB_PwmB(PWM_Handle pwmHandle,const PWM_ActionQual_e actionQual);
-
-
-//! \brief     Sets the pulse width modulation (PWM) object Continuous Software Force action for PWM A
-//! \param[in] pwmHandle              The pulse width modulation (PWM) object handle
-//! \param[in] actionQualContSWForce  The action qualifier continuous software force
-extern void PWM_setActionQualContSWForce_PwmA(PWM_Handle pwmHandle,
-                                              const PWM_ActionQualContSWForce_e actionQualContSWForce);
-
-
-//! \brief     Sets the pulse width modulation (PWM) object Continuous Software Force action for PWM B
-//! \param[in] pwmHandle              The pulse width modulation (PWM) object handle
-//! \param[in] actionQualContSWForce  The action qualifier continuous software force
-extern void PWM_setActionQualContSWForce_PwmB(PWM_Handle pwmHandle,
-                                              const PWM_ActionQualContSWForce_e actionQualContSWForce);
-
-
-//! \brief     Sets the pulse width modulation (PWM) object action for PWM A when the counter equals the period
-//! \param[in] pwmHandle   The pulse width modulation (PWM) object handle
-//! \param[in] actionQual  The action qualifier
-extern void PWM_setActionQual_Period_PwmA(PWM_Handle pwmHandle,const PWM_ActionQual_e actionQual);
-
-
-//! \brief     Sets the pulse width modulation (PWM) object action for PWM B when the counter equals the period
-//! \param[in] pwmHandle   The pulse width modulation (PWM) object handle
-//! \param[in] actionQual  The action qualifier
-extern void PWM_setActionQual_Period_PwmB(PWM_Handle pwmHandle,const PWM_ActionQual_e actionQual);
-
-
-//! \brief     Sets the pulse width modulation (PWM) object action for PWM A when the counter equals the zero
-//! \param[in] pwmHandle   The pulse width modulation (PWM) object handle
-//! \param[in] actionQual  The action qualifier
-extern void PWM_setActionQual_Zero_PwmA(PWM_Handle pwmHandle,const PWM_ActionQual_e actionQual);
-
-
-//! \brief     Sets the pulse width modulation (PWM) object action for PWM B when the counter equals the zero
-//! \param[in] pwmHandle   The pulse width modulation (PWM) object handle
-//! \param[in] actionQual  The action qualifier
-extern void PWM_setActionQual_Zero_PwmB(PWM_Handle pwmHandle,const PWM_ActionQual_e actionQual);
-
-
-//! \brief     Sets the pulse width modulation (PWM) chopping clock frequency
-//! \param[in] pwmHandle  The pulse width modulation (PWM) object handle
-//! \param[in] clkFreq    The clock frequency
-extern void PWM_setChoppingClkFreq(PWM_Handle pwmHandle,const PWM_ChoppingClkFreq_e clkFreq);
-
-
-//! \brief     Sets the pulse width modulation (PWM) chopping clock duty cycle
-//! \param[in] pwmHandle  The pulse width modulation (PWM) object handle
-//! \param[in] dutyCycle  The duty cycle
-extern void PWM_setChoppingDutyCycle(PWM_Handle pwmHandle,const PWM_ChoppingDutyCycle_e dutyCycle);
-
-
-//! \brief     Sets the pulse width modulation (PWM) chopping clock pulse width
-//! \param[in] pwmHandle   The pulse width modulation (PWM) object handle
-//! \param[in] pulseWidth  The pulse width
-extern void PWM_setChoppingPulseWidth(PWM_Handle pwmHandle,const PWM_ChoppingPulseWidth_e pulseWidth);
-
-
-//! \brief     Sets the pulse width modulation (PWM) clock divisor
-//! \param[in] pwmHandle  The pulse width modulation (PWM) object handle
-//! \param[in] clkDiv     The clock divisor
-extern void PWM_setClkDiv(PWM_Handle pwmHandle,const PWM_ClkDiv_e clkDiv);
-
-
-//! \brief     Sets the pulse width modulation (PWM) count
-//! \param[in] pwmHandle  The pulse width modulation (PWM) object handle
-//! \param[in] count      The count
-extern void PWM_setCount(PWM_Handle pwmHandle,const uint16_t count);
-
-
-//! \brief     Sets the pulse width modulation (PWM) counter mode
-//! \param[in] pwmHandle    The pulse width modulation (PWM) object handle
-//! \param[in] counterMode  The count mode
-extern void PWM_setCounterMode(PWM_Handle pwmHandle,const PWM_CounterMode_e counterMode);
-
-
-//! \brief     Sets the pulse width modulation (PWM) deadband falling edge delay
-//! \param[in] pwmHandle  The pulse width modulation (PWM) object handle
-//! \param[in] delay      The delay
-extern void PWM_setDeadBandFallingEdgeDelay(PWM_Handle pwmHandle,const uint16_t delay);
-
-
-//! \brief     Sets the pulse width modulation (PWM) deadband input mode
-//! \param[in] pwmHandle  The pulse width modulation (PWM) object handle
-//! \param[in] inputMode  The input mode
-extern void PWM_setDeadBandInputMode(PWM_Handle pwmHandle,const PWM_DeadBandInputMode_e inputMode);
-
-
-//! \brief     Sets the pulse width modulation (PWM) deadband output mode
-//! \param[in] pwmHandle   The pulse width modulation (PWM) object handle
-//! \param[in] outputMode  The output mode
-extern void PWM_setDeadBandOutputMode(PWM_Handle pwmHandle,const PWM_DeadBandOutputMode_e outputMode);
-
-
-//! \brief     Sets the pulse width modulation (PWM) deadband polarity
-//! \param[in] pwmHandle  The pulse width modulation (PWM) object handle
-//! \param[in] polarity   The polarity
-extern void PWM_setDeadBandPolarity(PWM_Handle pwmHandle,const PWM_DeadBandPolarity_e polarity);
-
-
-//! \brief     Sets the pulse width modulation (PWM) deadband rising edge delay
-//! \param[in] pwmHandle  The pulse width modulation (PWM) object handle
-//! \param[in] delay      The delay
-extern void PWM_setDeadBandRisingEdgeDelay(PWM_Handle pwmHandle,const uint16_t delay);
-
-
-//! \brief     Sets the pulse width modulation (PWM) digital compare filter source
-//! \param[in] pwmHandle  The pulse width modulation (PWM) object handle
-//! \param[in] input      The filter's source
-extern void PWM_setDigitalCompareFilterSource(PWM_Handle pwmHandle, 
-                                const PWM_DigitalCompare_FilterSrc_e input);
-                                
-
-//! \brief     Sets the pulse width modulation (PWM) digital compare blanking pulse
-//! \param[in] pwmHandle  The pulse width modulation (PWM) object handle
-//! \param[in] input      The pulse selection                              
-extern void PWM_setDigitalCompareBlankingPulse(PWM_Handle pwmHandle, 
-                                const PWM_DigitalCompare_PulseSel_e pulseSelect);
-                                
-                                
-//! \brief     Sets the pulse width modulation (PWM) digital compare filter offset
-//! \param[in] pwmHandle  The pulse width modulation (PWM) object handle
-//! \param[in] offset     The offset
-extern void PWM_setDigitalCompareFilterOffset(PWM_Handle pwmHandle, 
-                                const uint16_t offset);
-                                
-                                
-//! \brief     Sets the pulse width modulation (PWM) digital compare filter offset
-//! \param[in] pwmHandle  The pulse width modulation (PWM) object handle
-//! \param[in] window     The window
-extern void PWM_setDigitalCompareFilterWindow(PWM_Handle pwmHandle, 
-                                const uint16_t window);
-                                                                
-
-//! \brief     Sets the pulse width modulation (PWM) digital compare input
-//! \param[in] pwmHandle  The pulse width modulation (PWM) object handle
-//! \param[in] input      Comparator input to change
-//! \param[in] inputSel   Input selection for designated input
-extern void PWM_setDigitalCompareInput(PWM_Handle pwmHandle, 
-                                const PWM_DigitalCompare_Input_e input, 
-                                const PWM_DigitalCompare_InputSel_e inputSel);
-                                
-                                
-//! \brief     Sets the pulse width modulation (PWM) digital compare A event 1 source parameters
-//! \param[in] pwmHandle  The pulse width modulation (PWM) object handle
-//! \param[in] selectFilter   Select filter output if true
-//! \param[in] disableSync    Asynchronous if true
-//! \param[in] enableSoc      Enable SOC generation if true
-//! \param[in] generateSync   Generate SYNC if true                              
-extern void PWM_setDigitalCompareAEvent1(PWM_Handle pwmHandle, 
-                                const bool selectFilter,
-                                const bool disableSync,
-                                const bool enableSoc,
-                                const bool generateSync);
-                                
-                                
-//! \brief     Sets the pulse width modulation (PWM) digital compare A event 2 source parameters
-//! \param[in] pwmHandle  The pulse width modulation (PWM) object handle
-//! \param[in] selectFilter   Select filter output if true
-//! \param[in] disableSync    Asynchronous if true                           
-extern void PWM_setDigitalCompareAEvent2(PWM_Handle pwmHandle, 
-                                const bool selectFilter,
-                                const bool disableSync);
-                                
-                                
-//! \brief     Sets the pulse width modulation (PWM) digital compare B event 1 source parameters
-//! \param[in] pwmHandle  The pulse width modulation (PWM) object handle
-//! \param[in] selectFilter   Select filter output if true
-//! \param[in] disableSync    Asynchronous if true
-//! \param[in] enableSoc      Enable SOC generation if true
-//! \param[in] generateSync   Generate SYNC if true                              
-extern void PWM_setDigitalCompareBEvent1(PWM_Handle pwmHandle, 
-                                const bool selectFilter,
-                                const bool disableSync,
-                                const bool enableSoc,
-                                const bool generateSync);
-                                
-                                
-//! \brief     Sets the pulse width modulation (PWM) digital compare B event 2 source parameters
-//! \param[in] pwmHandle  The pulse width modulation (PWM) object handle
-//! \param[in] selectFilter   Select filter output if true
-//! \param[in] disableSync    Asynchronous if true                           
-extern void PWM_setDigitalCompareBEvent2(PWM_Handle pwmHandle, 
-                                const bool selectFilter,
-                                const bool disableSync);
-
-
-//! \brief     Sets the pulse width modulation (PWM) high speed clock divisor
-//! \param[in] pwmHandle  The pulse width modulation (PWM) object handle
-//! \param[in] clkDiv     The clock divisor
-extern void PWM_setHighSpeedClkDiv(PWM_Handle pwmHandle,const PWM_HspClkDiv_e clkDiv);
-
-
-//! \brief     Sets the pulse width modulation (PWM) interrupt mode
-//! \param[in] pwmHandle  The pulse width modulation (PWM) object handle
-//! \param[in] intMode    The interrupt mode
-extern void PWM_setIntMode(PWM_Handle pwmHandle,const PWM_IntMode_e intMode);
-
-
-//! \brief     Sets the pulse width modulation (PWM) interrupt period
-//! \param[in] pwmHandle  The pulse width modulation (PWM) object handle
-//! \param[in] intPeriod  The interrupt period
-extern void PWM_setIntPeriod(PWM_Handle pwmHandle,const PWM_IntPeriod_e intPeriod);
-
-
-//! \brief     Sets the pulse width modulation (PWM) load mode for CMPA
-//! \param[in] pwmHandle  The pulse width modulation (PWM) object handle
-//! \param[in] loadMode   The load mode
-extern void PWM_setLoadMode_CmpA(PWM_Handle pwmHandle,const PWM_LoadMode_e loadMode);
-
-
-//! \brief     Sets the pulse width modulation (PWM) load mode for CMPB
-//! \param[in] pwmHandle  The pulse width modulation (PWM) object handle
-//! \param[in] loadMode   The load mode
-extern void PWM_setLoadMode_CmpB(PWM_Handle pwmHandle,const PWM_LoadMode_e loadMode);
-
-
-//! \brief     Sets the pulse width modulation (PWM) period load mode
-//! \param[in] pwmHandle   The pulse width modulation (PWM) object handle
-//! \param[in] periodLoad  The period load mode
-extern void PWM_setPeriodLoad(PWM_Handle pwmHandle,const PWM_PeriodLoad_e periodLoad);
-
-
-//! \brief     Sets the pulse width modulation (PWM) one shot trip
-//! \param[in] pwmHandle  The pulse width modulation (PWM) object handle
+//! \brief  强制触发一次OST
 static inline void PWM_setOneShotTrip(PWM_Handle pwmHandle)
 {
-    PWM_Obj *pwm = (PWM_Obj *)pwmHandle;
+   PWM_Obj *pwm = (PWM_Obj *)pwmHandle;
 
+   ENABLE_PROTECTED_REGISTER_WRITE_MODE;
 
-    ENABLE_PROTECTED_REGISTER_WRITE_MODE;
+   // set the bits
+   pwm->TZFRC.bit.OST = 1;
 
-    // set the bits
-    pwm->TZFRC |= PWM_TZFRC_OST_BITS;
+   DISABLE_PROTECTED_REGISTER_WRITE_MODE;
 
-    DISABLE_PROTECTED_REGISTER_WRITE_MODE;
-
-    return;
+   return;
 } // end of PWM_setOneShotTrip() function
 
-
-//! \brief     Sets the pulse width modulation (PWM) period
-//! \param[in] pwmHandle  The pulse width modulation (PWM) object handle
-//! \param[in] period     The period
-extern void PWM_setPeriod(PWM_Handle pwmHandle,const uint16_t period);
-
-//! \brief     Sets the pulse width modulation (PWM) high resolution period
-//! \param[in] pwmHandle  The pulse width modulation (PWM) object handle
-//! \param[in] period     The period
-extern void PWM_setPeriodHr(PWM_Handle pwmHandle,const uint16_t period);
-
-//! \brief     Sets the pulse width modulation (PWM) phase
-//! \param[in] pwmHandle  The pulse width modulation (PWM) object handle
-//! \param[in] phase      The phase
-extern void PWM_setPhase(PWM_Handle pwmHandle,const uint16_t phase);
-
-
-//! \brief     Sets the pulse width modulation (PWM) phase direction
-//! \param[in] pwmHandle  The pulse width modulation (PWM) object handle
-//! \param[in] phaseDir   The phase direction
-extern void PWM_setPhaseDir(PWM_Handle pwmHandle,const PWM_PhaseDir_e phaseDir);
-
-
-//! \brief     Sets the pulse width modulation (PWM) run mode
-//! \param[in] pwmHandle  The pulse width modulation (PWM) object handle
-//! \param[in] runMode    The run mode
-extern void PWM_setRunMode(PWM_Handle pwmHandle,const PWM_RunMode_e runMode);
-
-
-//! \brief     Sets the pulse width modulation (PWM) start of conversion (SOC) A interrupt period
-//! \param[in] pwmHandle  The pulse width modulation (PWM) object handle
-//! \param[in] intPeriod  The interrupt period
-extern void PWM_setSocAPeriod(PWM_Handle pwmHandle,const PWM_SocPeriod_e intPeriod);
-
-
-//! \brief     Sets the pulse width modulation (PWM) start of conversion (SOC) A interrupt pulse source
-//! \param[in] pwmHandle  The pulse width modulation (PWM) object handle
-//! \param[in] pulseSrc   The interrupt pulse source
-extern void PWM_setSocAPulseSrc(PWM_Handle pwmHandle,const PWM_SocPulseSrc_e pulseSrc);
-
-
-//! \brief     Sets the pulse width modulation (PWM) start of conversion (SOC) B interrupt period
-//! \param[in] pwmHandle  The pulse width modulation (PWM) object handle
-//! \param[in] intPeriod  The interrupt period
-extern void PWM_setSocBPeriod(PWM_Handle pwmHandle,const PWM_SocPeriod_e intPeriod);
-
-
-//! \brief     Sets the pulse width modulation (PWM) start of conversion (SOC) B interrupt pulse source
-//! \param[in] pwmHandle  The pulse width modulation (PWM) object handle
-//! \param[in] pulseSrc   The interrupt pulse source
-extern void PWM_setSocBPulseSrc(PWM_Handle pwmHandle,const PWM_SocPulseSrc_e pulseSrc);
-
-
-//! \brief     Sets the pulse width modulation (PWM) shadow mode for CMPA
-//! \param[in] pwmHandle   The pulse width modulation (PWM) object handle
-//! \param[in] shadowMode  The shadow mode
-extern void PWM_setShadowMode_CmpA(PWM_Handle pwmHandle,const PWM_ShadowMode_e shadowMode);
-
-
-//! \brief     Sets the pulse width modulation (PWM) shadow mode for CMPB
-//! \param[in] pwmHandle   The pulse width modulation (PWM) object handle
-//! \param[in] shadowMode  The shadow mode
-extern void PWM_setShadowMode_CmpB(PWM_Handle pwmHandle,const PWM_ShadowMode_e shadowMode);
-
-
-//! \brief     Sets the pulse width modulation (PWM) software sync
-//! \param[in] pwmHandle   The pulse width modulation (PWM) object handle
-extern void PWM_setSwSync(PWM_Handle pwmHandle);
-
-
-//! \brief     Sets the pulse width modulation (PWM) sync mode
-//! \param[in] pwmHandle  The pulse width modulation (PWM) object handle
-//! \param[in] syncMode   The sync mode
-extern void PWM_setSyncMode(PWM_Handle pwmHandle,const PWM_SyncMode_e syncMode);
-
-
-//! \brief     Sets the pulse width modulation (PWM) trip zone digital compare event select for Digital Compare Output A Event 1 (DCAEVT1)
-//! \param[in] pwmHandle      The pulse width modulation (PWM) object handle
-//! \param[in] tripZoneEvent  The trip zone digital compare event
-extern void PWM_setTripZoneDCEventSelect_DCAEVT1(PWM_Handle pwmHandle, const PWM_TripZoneDCEventSel_e tripZoneEvent);
-
-
-//! \brief     Sets the pulse width modulation (PWM) trip zone digital compare event select for Digital Compare Output A Event 2 (DCAEVT2)
-//! \param[in] pwmHandle      The pulse width modulation (PWM) object handle
-//! \param[in] tripZoneEvent  The trip zone digital compare event
-extern void PWM_setTripZoneDCEventSelect_DCAEVT2(PWM_Handle pwmHandle, const PWM_TripZoneDCEventSel_e tripZoneEvent);
-
-
-//! \brief     Sets the pulse width modulation (PWM) trip zone digital compare event select for Digital Compare Output B Event 1 (DCBEVT1)
-//! \param[in] pwmHandle      The pulse width modulation (PWM) object handle
-//! \param[in] tripZoneEvent  The trip zone digital compare event
-extern void PWM_setTripZoneDCEventSelect_DCBEVT1(PWM_Handle pwmHandle, const PWM_TripZoneDCEventSel_e tripZoneEvent);
-
-
-//! \brief     Sets the pulse width modulation (PWM) trip zone digital compare event select for Digital Compare Output B Event 2 (DCBEVT2)
-//! \param[in] pwmHandle      The pulse width modulation (PWM) object handle
-//! \param[in] tripZoneEvent  The trip zone digital compare event
-extern void PWM_setTripZoneDCEventSelect_DCBEVT2(PWM_Handle pwmHandle, const PWM_TripZoneDCEventSel_e tripZoneEvent);
-
-
-//! \brief     Sets the pulse width modulation (PWM) trip zone state for Digital Compare Output A Event 1 (DCAEVT1)
-//! \param[in] pwmHandle      The pulse width modulation (PWM) object handle
-//! \param[in] tripZoneState  The trip zone state
-extern void PWM_setTripZoneState_DCAEVT1(PWM_Handle pwmHandle,const PWM_TripZoneState_e tripZoneState);
-
-
-//! \brief     Sets the pulse width modulation (PWM) trip zone state for Digital Compare Output A Event 2 (DCAEVT1)
-//! \param[in] pwmHandle      The pulse width modulation (PWM) object handle
-//! \param[in] tripZoneState  The trip zone state
-extern void PWM_setTripZoneState_DCAEVT2(PWM_Handle pwmHandle,const PWM_TripZoneState_e tripZoneState);
-
-
-//! \brief     Sets the pulse width modulation (PWM) trip zone state for Digital Compare Output B Event 1 (DCBEVT1)
-//! \param[in] pwmHandle      The pulse width modulation (PWM) object handle
-//! \param[in] tripZoneState  The trip zone state
-extern void PWM_setTripZoneState_DCBEVT1(PWM_Handle pwmHandle,const PWM_TripZoneState_e tripZoneState);
-
-
-//! \brief     Sets the pulse width modulation (PWM) trip zone state for Digital Compare Output B Event 2 (DCBEVT1)
-//! \param[in] pwmHandle      The pulse width modulation (PWM) object handle
-//! \param[in] tripZoneState  The trip zone state
-extern void PWM_setTripZoneState_DCBEVT2(PWM_Handle pwmHandle,const PWM_TripZoneState_e tripZoneState);
-
-
-//! \brief     Sets the pulse width modulation (PWM) trip zone state for Output A (TZA)
-//! \param[in] pwmHandle      The pulse width modulation (PWM) object handle
-//! \param[in] tripZoneState  The trip zone state
-extern void PWM_setTripZoneState_TZA(PWM_Handle pwmHandle,const PWM_TripZoneState_e tripZoneState);
-
-
-//! \brief     Sets the pulse width modulation (PWM) trip zone state for Output B (TZB)
-//! \param[in] pwmHandle      The pulse width modulation (PWM) object handle
-//! \param[in] tripZoneState  The trip zone state
-extern void PWM_setTripZoneState_TZB(PWM_Handle pwmHandle,const PWM_TripZoneState_e tripZoneState);
-
-
-//! \brief     Writes the pulse width modulation (PWM) data value to the Counter Compare A hardware
-//! \param[in] pwmHandle  The pulse width modulation (PWM) object handle
-//! \param[in] pwmData    The PWM data value
-static inline void PWM_write_CmpA(PWM_Handle pwmHandle,const uint16_t pwmData)
+//! \brief  强制同步
+static inline void PWM_forceSync(PWM_Handle pwmHandle)
 {
-  PWM_Obj *pwm = (PWM_Obj *)pwmHandle;
+   PWM_Obj *pwm = (PWM_Obj *)pwmHandle;
 
-  pwm->CMPA = pwmData;
+   pwm->TBCTL.bit.SWFSYNC = 1;
 
-  return;
-} // end of PWM_write_CmpA() function
+   return;
+} // end of PWM_forceSync() function
 
-
-//! \brief     Writes the pulse width modulation (PWM) data value to the Counter Compare A hardware
-//! \param[in] pwmHandle  The pulse width modulation (PWM) object handle
-//! \param[in] pwmData    The PWM data value
-static inline void PWM_setCmpA(PWM_Handle pwmHandle,const uint16_t pwmData)
+//! \brief  使能相位寄存器
+static inline void PWM_enable_TB_Phase(PWM_Handle pwmHandle, bool value)
 {
-    PWM_Obj *pwm = (PWM_Obj *)pwmHandle;
+   PWM_Obj *pwm = (PWM_Obj *)pwmHandle;
 
-    pwm->CMPA = pwmData;
+   pwm->TBCTL.bit.PHSEN = value;
 
-    return;
-} // end of PWM_setCmpA() function
-
-//! \brief     Writes the pulse width modulation (PWM) data value to the Counter Compare A Hr hardware
-//! \param[in] pwmHandle  The pulse width modulation (PWM) object handle
-//! \param[in] pwmData    The PWM high resolution data value
-static inline void PWM_setCmpAHr(PWM_Handle pwmHandle,const uint16_t pwmData)
-{
-    PWM_Obj *pwm = (PWM_Obj *)pwmHandle;
-
-    pwm->CMPAHR = pwmData;
-
-    return;
-} // end of PWM_setCmpAHr() function
-
-//! \brief     Writes the pulse width modulation (PWM) data value to the Counter Compare B hardware
-//! \param[in] pwmHandle  The pulse width modulation (PWM) object handle
-//! \param[in] pwmData    The PWM data value
-static inline void PWM_write_CmpB(PWM_Handle pwmHandle,const uint16_t pwmData)
-{
-  PWM_Obj *pwm = (PWM_Obj *)pwmHandle;
-
-  pwm->CMPB = pwmData;
-
-  return;
-} // end of PWM_write_CmpB() function
-
-
-//! \brief     Writes the pulse width modulation (PWM) data value to the Counter Compare B hardware
-//! \param[in] pwmHandle  The pulse width modulation (PWM) object handle
-//! \param[in] pwmData    The PWM data value
-static inline void PWM_setCmpB(PWM_Handle pwmHandle,const uint16_t pwmData)
-{
-    PWM_Obj *pwm = (PWM_Obj *)pwmHandle;
-
-    pwm->CMPB = pwmData;
-
-    return;
-} // end of PWM_setCmpB() function
-
-
-#ifdef __cplusplus
+   return;
 }
-#endif // extern "C"
+
+//! \brief  设置同步输出源：选择 EPWMxSYNCO 信号源
+static inline void PWM_set_TB_syncMode(PWM_Handle pwmHandle, const PWM_SyncMode_e syncMode){
+   
+   PWM_Obj *pwm = (PWM_Obj *)pwmHandle;
+
+   pwm->TBCTL.bit.SYNCOSEL = syncMode;
+
+   return;
+
+}
+
+//! \brief  设置CMPA的比较模式
+static inline void PWM_set_CC_LoadMode_CmpA(PWM_Handle pwmHandle, const PWM_LoadMode_e loadMode)
+{
+   PWM_Obj *pwm = (PWM_Obj *)pwmHandle;
+
+   pwm->CMPCTL.bit.LOADAMODE = loadMode;
+
+   return;
+}
+
+//! \brief  设置CMPB的比较模式
+static inline void PWM_set_CC_LoadMode_CmpB(PWM_Handle pwmHandle, const PWM_LoadMode_e loadMode){
+   
+   PWM_Obj *pwm = (PWM_Obj *)pwmHandle;
+
+   pwm->CMPCTL.bit.LOADBMODE = loadMode;
+
+   return;
+}
+
+//! \brief  设置CMPA的影子比较模式
+static inline void PWM_set_CC_LShadowMode_CmpA(PWM_Handle pwmHandle,const PWM_ShadowMode_e shadowMode){
+   
+   PWM_Obj *pwm = (PWM_Obj *)pwmHandle;
+
+   pwm->CMPCTL.bit.SHDWAMODE = shadowMode;
+
+   return;
+}
+
+//! \brief  设置CMPB的影子比较模式
+static inline void PWM_set_CC_LShadowMode_CmpB(PWM_Handle pwmHandle,const PWM_ShadowMode_e shadowMode){
+   
+   PWM_Obj *pwm = (PWM_Obj *)pwmHandle;
+
+   pwm->CMPCTL.bit.SHDWBMODE = shadowMode;
+
+   return;
+}
+
+
+static inline void PWM_set_AQ_CntUp_CmpA_PwmA(PWM_Handle pwmHandle, const PWM_ActionQual_e actionQual){
+
+    PWM_Obj *pwm = (PWM_Obj *)pwmHandle;
+
+    pwm->AQCTLA.bit.CAU = actionQual;
+
+    return;
+}
+
+static inline void PWM_set_AQ_CntUp_CmpA_PwmB(PWM_Handle pwmHandle, const PWM_ActionQual_e actionQual){
+
+    PWM_Obj *pwm = (PWM_Obj *)pwmHandle;
+
+    pwm->AQCTLB.bit.CAU = actionQual;
+
+    return;
+}
+
+static inline void PWM_set_AQ_CntDown_CmpA_PwmA(PWM_Handle pwmHandle, const PWM_ActionQual_e actionQual){
+
+    PWM_Obj *pwm = (PWM_Obj *)pwmHandle;
+
+    pwm->AQCTLA.bit.CAD = actionQual;
+
+    return;
+}
+
+static inline void PWM_set_AQ_CntDown_CmpA_PwmB(PWM_Handle pwmHandle, const PWM_ActionQual_e actionQual){
+
+    PWM_Obj *pwm = (PWM_Obj *)pwmHandle;
+
+    pwm->AQCTLB.bit.CAD = actionQual;
+
+    return;
+}
+
+static inline void PWM_set_AQ_Cnt_PRD_PwmA(PWM_Handle pwmHandle, const PWM_ActionQual_e actionQual){
+
+    PWM_Obj *pwm = (PWM_Obj *)pwmHandle;
+
+    pwm->AQCTLA.bit.PRD = actionQual;
+
+    return;
+}
+
+static inline void PWM_set_AQ_Cnt_PRD_PwmB(PWM_Handle pwmHandle, const PWM_ActionQual_e actionQual){
+
+    PWM_Obj *pwm = (PWM_Obj *)pwmHandle;
+
+    pwm->AQCTLB.bit.PRD = actionQual;
+
+    return;
+}
+
+static inline void PWM_set_AQ_Cnt_Zero_PwmA(PWM_Handle pwmHandle, const PWM_ActionQual_e actionQual){
+
+    PWM_Obj *pwm = (PWM_Obj *)pwmHandle;
+
+    pwm->AQCTLA.bit.ZRO = actionQual;
+
+    return;
+}
+
+static inline void PWM_AQ_Cnt_Zero_PwmB(PWM_Handle pwmHandle, const PWM_ActionQual_e actionQual){
+
+    PWM_Obj *pwm = (PWM_Obj *)pwmHandle;
+
+    pwm->AQCTLB.bit.ZRO = actionQual;
+
+    return;
+}
+
+
+
+//! \brief  设置当计数器等于 CMPA 且计数器递增时，PWMA对象动作   
+extern void PWM_setActionQual_CntUp_CmpA_PwmA(PWM_Handle pwmHandle, const PWM_ActionQual_e actionQual);
+
+//! \brief  设置当计数器等于 CMPA 且计数器递增时，PWMB对象动作   
+extern void PWM_setActionQual_CntUp_CmpA_PwmB(PWM_Handle pwmHandle, const PWM_ActionQual_e actionQual);
+
+//! \brief  设置当计数器等于 CMPA 且计数器递减时，PWMA对象动作   
+extern void PWM_setActionQual_CntDown_CmpA_PwmA(PWM_Handle pwmHandle, const PWM_ActionQual_e actionQual);
+
+//! \brief  设置当计数器等于 CMPA 且计数器递减时，PWMB对象动作   
+extern void PWM_setActionQual_CntDown_CmpA_PwmB(PWM_Handle pwmHandle, const PWM_ActionQual_e actionQual);
+
+
+//! \brief  设置当计数器等于 PRD PWMA对象动作   
+extern void PWM_setActionQual_Cnt_PRD_PwmA(PWM_Handle pwmHandle, const PWM_ActionQual_e actionQual);
+
+//! \brief  设置当计数器等于 PRD PWMB对象动作   
+extern void PWM_setActionQual_Cnt_PRD_PwmB(PWM_Handle pwmHandle, const PWM_ActionQual_e actionQual);
+
+//! \brief  设置当计数器等于 0 PWMA对象动作   
+extern void PWM_setActionQual_Cnt_Zero_PwmA(PWM_Handle pwmHandle, const PWM_ActionQual_e actionQual);
+
+//! \brief  设置当计数器等于 0 PWMB对象动作   
+extern void PWM_setActionQual_Cnt_Zero_PwmB(PWM_Handle pwmHandle, const PWM_ActionQual_e actionQual);
+
+//! \brief  设置当死区输出模式  
+static inline void PWM_set_DB_OutputMode(PWM_Handle pwmHandle, const PWM_DeadBandOutputMode_e outputMode)
+{
+    PWM_Obj *pwm = (PWM_Obj *)pwmHandle;
+
+    pwm->DBCTL.bit.OUT_MODE = outputMode;
+
+    return;
+} // end of PWM_setDeadBandOutputMode() function
+
+//! \brief  设置死区的极性
+static inline void PWM_set_DB_Polarity(PWM_Handle pwmHandle, const PWM_DeadBandPolarity_e polarity)
+{
+    PWM_Obj *pwm = (PWM_Obj *)pwmHandle;
+
+   pwm->DBCTL.bit.POLSEL = polarity;
+
+    return;
+} // end of PWM_setDeadBandPolarity() function
+
+//! \brief  设置死区的上升的延时时间
+static inline void PWM_set_DB_RisingEdgeDelay(PWM_Handle pwmHandle,const uint16_t delay)
+{
+    PWM_Obj *pwm = (PWM_Obj *)pwmHandle;
+
+    pwm->DBRED = delay;
+
+    return;
+} // end of PWM_setDeadBandRisingEdgeDelay() function
+
+//! \brief  设置死区下降的延时时间
+static inline void PWM_set_DB_FallingEdgeDelay(PWM_Handle pwmHandle,const uint16_t delay)
+{
+    PWM_Obj *pwm = (PWM_Obj *)pwmHandle;
+
+    pwm->DBFED = delay;
+
+    return;
+} // end of PWM_setDeadBandFallingEdgeDelay() function
+
+//! \brief  禁止采用PWM斩波模式
+static inline void PWM_disableChopping(PWM_Handle pwmHandle)
+{
+    PWM_Obj *pwm = (PWM_Obj *)pwmHandle;
+
+    pwm->PCCTL.bit.CHPEN = false;
+
+    return;
+} // end of PWM_disableChopping() function
+
+//! \brief  禁止采用TZ
+static inline void PWM_disableTripZones(PWM_Handle pwmHandle)
+{
+    PWM_Obj *pwm = (PWM_Obj *)pwmHandle;
+
+    // clear the bits
+    pwm->TZSEL.all = 0;
+
+    return;
+} // end of PWM_disableTripZones() function
+
+
+//! \brief  禁止采用PWM中断
+static inline void PWM_ET_disableInt(PWM_Handle pwmHandle)
+{
+    PWM_Obj *pwm = (PWM_Obj *)pwmHandle;
+    // clear the bits
+    pwm->ETSEL.bit.INTEN = 0;
+
+    return;
+} // end of PWM_disableInt() function
+
+
+//! \brief  设置PWM的SOCA启动源
+static inline void PWM_set_ET_SocAPulseSrc(PWM_Handle pwmHandle, const PWM_SocPulseSrc_e pulseSrc)
+{
+    PWM_Obj *pwm = (PWM_Obj *)pwmHandle;
+
+    pwm->ETSEL.bit.SOCASEL = pulseSrc;
+
+    return;
+} // end of PWM_setSocAPulseSrc() function
+
+//! \brief  设置PWM的SOCB启动源
+static inline void PWM_set_ET_SocBPulseSrc(PWM_Handle pwmHandle, const PWM_SocPulseSrc_e pulseSrc)
+{
+    PWM_Obj *pwm = (PWM_Obj *)pwmHandle;
+
+    pwm->ETSEL.bit.SOCBSEL = pulseSrc;
+
+    return;
+} // end of PWM_setSocBPulseSrc() function
+
+//! \brief  使能PWM的SOCA启动源
+static inline
+void PWM_ET_enableSocAPulse(PWM_Handle pwmHandle, bool value)
+{
+    PWM_Obj *pwm = (PWM_Obj *)pwmHandle;
+    // set the bits
+    pwm->ETSEL.bit.SOCAEN = value;
+
+    return;
+} // end of PWM_enableSocAPulse() function
+
+//! \brief  使能PWM的SOCB启动源
+static inline void PWM_ET_enableSocBPulse(PWM_Handle pwmHandle, bool value)
+{
+    PWM_Obj *pwm = (PWM_Obj *)pwmHandle;
+    // set the bits
+    pwm->ETSEL.bit.SOCBEN = value;
+
+    return;
+} // end of PWM_enableSocBPulse() function
+
+//! \brief  设置多少个事件触发中断
+static inline void PWM_setIntPeriod(PWM_Handle pwmHandle, const PWM_IntPeriod_e intPeriod)
+{
+    PWM_Obj *pwm = (PWM_Obj *)pwmHandle;
+    // set the bits
+    pwm->ETPS.bit.INTPRD = intPeriod;
+
+    return;
+} // end of PWM_setIntPeriod() function
+
+//! \brief  设置多少个事件触发SOCA
+static inline void PWM_setSocAPeriod(PWM_Handle pwmHandle, const PWM_SocPeriod_e intPeriod)
+{
+    PWM_Obj *pwm = (PWM_Obj *)pwmHandle;
+    // set the bits
+    pwm->ETPS.bit.SOCAPRD = intPeriod ;
+
+    return;
+} // end of PWM_setSocAPeriod() function
+
+//! \brief  设置多少个事件触发SOCB
+static inline void PWM_setSocBPeriod(PWM_Handle pwmHandle, const PWM_SocPeriod_e intPeriod)
+{
+    PWM_Obj *pwm = (PWM_Obj *)pwmHandle;
+    // set the bits
+    pwm->ETPS.bit.SOCBPRD = intPeriod ;
+
+    return;
+} // end of PWM_setSocAPeriod() function
+
+//! \brief  设置PWM周期计数值
+static inline void PWM_setPeriod(PWM_Handle pwmHandle, const uint16_t period)
+{
+    PWM_Obj *pwm = (PWM_Obj *)pwmHandle;
+
+    pwm->TBPRD = period;
+
+    return;
+} // end of PWM_setPeriod() function
+
+
 
 //@} // ingroup
-#endif  // end of _PWM_H_ definition
-
+#endif // end of _PWM_H_ definition

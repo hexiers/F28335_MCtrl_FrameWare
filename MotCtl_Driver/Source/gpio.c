@@ -31,12 +31,12 @@ bool GPIO_getData(GPIO_Handle gpioHandle, const GPIO_Number_e gpioNumber)
   {
     return (bool)((gpio->GPBDAT >> (gpioNumber - GPIO_Number_32)) & 0x0001);
   }
-  else if(gpioNumber < GPIO_numGpios)
+  else
   {
     return (bool)((gpio->GPCDAT >> (gpioNumber - GPIO_Number_64)) & 0x0001);
   }
 
-} // end of GPIO_getData() function
+}// end of GPIO_getData() function
 
 //! @brief: 获取GPIO端口数据
 uint32_t GPIO_getPortData(GPIO_Handle gpioHandle, const GPIO_Port_e gpioPort)

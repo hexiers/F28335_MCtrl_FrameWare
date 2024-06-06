@@ -15,7 +15,6 @@ MotCtl_Driver/Source/adc.obj: D:/My_Pjt/F28335_MotCtl/F28335_MotCtl_Frameware/DS
 MotCtl_Driver/Source/adc.obj: D:/My_Pjt/F28335_MotCtl/F28335_MotCtl_Frameware/DSP28xx_MotCtl_Frameware/F28335_Files/Include/DSP2833x_ECan.h
 MotCtl_Driver/Source/adc.obj: D:/My_Pjt/F28335_MotCtl/F28335_MotCtl_Frameware/DSP28xx_MotCtl_Frameware/F28335_Files/Include/DSP2833x_ECap.h
 MotCtl_Driver/Source/adc.obj: D:/My_Pjt/F28335_MotCtl/F28335_MotCtl_Frameware/DSP28xx_MotCtl_Frameware/F28335_Files/Include/DSP2833x_DMA.h
-MotCtl_Driver/Source/adc.obj: D:/My_Pjt/F28335_MotCtl/F28335_MotCtl_Frameware/DSP28xx_MotCtl_Frameware/F28335_Files/Include/DSP2833x_EPwm.h
 MotCtl_Driver/Source/adc.obj: D:/My_Pjt/F28335_MotCtl/F28335_MotCtl_Frameware/DSP28xx_MotCtl_Frameware/F28335_Files/Include/DSP2833x_EQep.h
 MotCtl_Driver/Source/adc.obj: D:/My_Pjt/F28335_MotCtl/F28335_MotCtl_Frameware/DSP28xx_MotCtl_Frameware/F28335_Files/Include/DSP2833x_Gpio.h
 MotCtl_Driver/Source/adc.obj: D:/My_Pjt/F28335_MotCtl/F28335_MotCtl_Frameware/DSP28xx_MotCtl_Frameware/F28335_Files/Include/DSP2833x_I2c.h
@@ -29,7 +28,6 @@ MotCtl_Driver/Source/adc.obj: D:/My_Pjt/F28335_MotCtl/F28335_MotCtl_Frameware/DS
 MotCtl_Driver/Source/adc.obj: D:/My_Pjt/F28335_MotCtl/F28335_MotCtl_Frameware/DSP28xx_MotCtl_Frameware/F28335_Files/Include/DSP2833x_Xintf.h
 MotCtl_Driver/Source/adc.obj: D:/My_Pjt/F28335_MotCtl/F28335_MotCtl_Frameware/DSP28xx_MotCtl_Frameware/F28335_Files/Include/DSP2833x_Examples.h
 MotCtl_Driver/Source/adc.obj: D:/My_Pjt/F28335_MotCtl/F28335_MotCtl_Frameware/DSP28xx_MotCtl_Frameware/F28335_Files/Include/DSP2833x_GlobalPrototypes.h
-MotCtl_Driver/Source/adc.obj: D:/My_Pjt/F28335_MotCtl/F28335_MotCtl_Frameware/DSP28xx_MotCtl_Frameware/F28335_Files/Include/DSP2833x_ePwm_defines.h
 MotCtl_Driver/Source/adc.obj: D:/My_Pjt/F28335_MotCtl/F28335_MotCtl_Frameware/DSP28xx_MotCtl_Frameware/F28335_Files/Include/DSP2833x_Dma_defines.h
 MotCtl_Driver/Source/adc.obj: D:/My_Pjt/F28335_MotCtl/F28335_MotCtl_Frameware/DSP28xx_MotCtl_Frameware/F28335_Files/Include/DSP2833x_I2C_defines.h
 MotCtl_Driver/Source/adc.obj: D:/My_Pjt/F28335_MotCtl/F28335_MotCtl_Frameware/DSP28xx_MotCtl_Frameware/F28335_Files/Include/DSP2833x_DefaultISR.h
@@ -49,7 +47,6 @@ D:/My_Pjt/F28335_MotCtl/F28335_MotCtl_Frameware/DSP28xx_MotCtl_Frameware/F28335_
 D:/My_Pjt/F28335_MotCtl/F28335_MotCtl_Frameware/DSP28xx_MotCtl_Frameware/F28335_Files/Include/DSP2833x_ECan.h: 
 D:/My_Pjt/F28335_MotCtl/F28335_MotCtl_Frameware/DSP28xx_MotCtl_Frameware/F28335_Files/Include/DSP2833x_ECap.h: 
 D:/My_Pjt/F28335_MotCtl/F28335_MotCtl_Frameware/DSP28xx_MotCtl_Frameware/F28335_Files/Include/DSP2833x_DMA.h: 
-D:/My_Pjt/F28335_MotCtl/F28335_MotCtl_Frameware/DSP28xx_MotCtl_Frameware/F28335_Files/Include/DSP2833x_EPwm.h: 
 D:/My_Pjt/F28335_MotCtl/F28335_MotCtl_Frameware/DSP28xx_MotCtl_Frameware/F28335_Files/Include/DSP2833x_EQep.h: 
 D:/My_Pjt/F28335_MotCtl/F28335_MotCtl_Frameware/DSP28xx_MotCtl_Frameware/F28335_Files/Include/DSP2833x_Gpio.h: 
 D:/My_Pjt/F28335_MotCtl/F28335_MotCtl_Frameware/DSP28xx_MotCtl_Frameware/F28335_Files/Include/DSP2833x_I2c.h: 
@@ -63,7 +60,6 @@ D:/My_Pjt/F28335_MotCtl/F28335_MotCtl_Frameware/DSP28xx_MotCtl_Frameware/F28335_
 D:/My_Pjt/F28335_MotCtl/F28335_MotCtl_Frameware/DSP28xx_MotCtl_Frameware/F28335_Files/Include/DSP2833x_Xintf.h: 
 D:/My_Pjt/F28335_MotCtl/F28335_MotCtl_Frameware/DSP28xx_MotCtl_Frameware/F28335_Files/Include/DSP2833x_Examples.h: 
 D:/My_Pjt/F28335_MotCtl/F28335_MotCtl_Frameware/DSP28xx_MotCtl_Frameware/F28335_Files/Include/DSP2833x_GlobalPrototypes.h: 
-D:/My_Pjt/F28335_MotCtl/F28335_MotCtl_Frameware/DSP28xx_MotCtl_Frameware/F28335_Files/Include/DSP2833x_ePwm_defines.h: 
 D:/My_Pjt/F28335_MotCtl/F28335_MotCtl_Frameware/DSP28xx_MotCtl_Frameware/F28335_Files/Include/DSP2833x_Dma_defines.h: 
 D:/My_Pjt/F28335_MotCtl/F28335_MotCtl_Frameware/DSP28xx_MotCtl_Frameware/F28335_Files/Include/DSP2833x_I2C_defines.h: 
 D:/My_Pjt/F28335_MotCtl/F28335_MotCtl_Frameware/DSP28xx_MotCtl_Frameware/F28335_Files/Include/DSP2833x_DefaultISR.h: 

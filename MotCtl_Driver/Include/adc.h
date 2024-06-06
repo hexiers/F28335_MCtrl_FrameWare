@@ -386,14 +386,14 @@ extern ADC_Handle ADC_init(void *pMemory, const size_t numBytes);
 //! \brief   ADC 复位
 extern void ADC_reset(ADC_Handle adcHandle);
 
-//! \brief   ADC seq模式选择
+//! \brief   ADC seq模式选择：确定SEQ1和SEQ2作为两个8通道排序器运行还是作为单个16通道状态排序器运行
 extern void ADC_setSeqMode(ADC_Handle adcHandle, ADC_SeqMode_e seqmode, ADC_SeqOvrd_e SeqOvrd);
 
-//! \brief   ADC 运行模式选择
+//! \brief   ADC 运行模式选择：确定排序器是否运行在连续转换模式或启停模式下
 extern void ADC_setRunMode(ADC_Handle adcHandle, ADC_RunMode_e runmode);
 
-//! \brief   ADC 内核时钟分频设置
-extern void ADC_setClockPrescale(ADC_Handle adcHandle, ADC_CpsMode_e CpsMode, ADC_CLKPS_e ClkPS);
+//! \brief   ADC 时钟设置：内核时钟= 高速时钟/ClkPS/CpsMode
+extern void ADC_setClockPrescale(ADC_Handle adcHandle, ADC_CpsMode_e Cps, ADC_CLKPS_e ClkPS);
 
 //! \brief   ADC 采样窗长度设置
 extern void ADC_setAcqWindowSize(ADC_Handle adcHandle, ADC_ACQPS_e ACQPSMode);
@@ -416,7 +416,7 @@ extern void ADC_setIntMode(ADC_Handle adcHandle, ADC_SeqNumber_e seqmode, ADC_EN
 //! \brief   ADC 软件执行SOC
 extern void ADC_softRunSoc(ADC_Handle adcHandle, ADC_SeqNumber_e seqmode);
 
-//! \brief   ADC 选择采样模式
+//! \brief   ADC 选择采样模式：该位选择顺序采样或同步采样模式。
 extern void ADC_setSMODSel(ADC_Handle adcHandle, ADC_sMod_e smode);
 
 //! \brief   ADC 内核参考源bandgap供电

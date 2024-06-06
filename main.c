@@ -4,7 +4,7 @@
  * @Date: 2023-08-20 21:25:25
  * @LastEditTime: 2023-08-21 21:47:37
  * @FilePath: \DSP28xx_MotCtl_Frameware\main.c
- * @Description: 
+ * @Description:
  */
 
 #include "DSP2833x_Project.h"
@@ -15,15 +15,17 @@
 USER_Params UserParams;
 HAL_Handle halHandle;
 HAL_Obj hal;
-uint16_t result[16]={};
-
+uint16_t result[16] = { 0,0,0,0,
+						0,0,0,0,
+						0,0,0,0,
+						0,0,0,0};
 
 void main(void)
 {
 
-//	InitSysCtrl();		// 初始化 系统, 锁相环 , 看门狗等
-//	InitPieCtrl();		// 中断向量表控制
-//	InitPieVectTable(); // 中断向量表
+	//	InitSysCtrl();		// 初始化 系统, 锁相环 , 看门狗等
+	//	InitPieCtrl();		// 中断向量表控制
+	//	InitPieVectTable(); // 中断向量表
 
 	/*  CPU初始化*/
 	MemCopy(&RamfuncsLoadStart, &RamfuncsLoadEnd, &RamfuncsRunStart);
@@ -32,19 +34,17 @@ void main(void)
 	halHandle = HAL_init((void *)&hal, sizeof(hal));
 
 	// 用户参数检查
-  	USER_checkForErrors(&UserParams);
+	USER_checkForErrors(&UserParams);
 
 	// 初始化用户参数
-  	USER_setParams(&UserParams);
+	USER_setParams(&UserParams);
 
-	  // 配置底层驱动参数
-  	HAL_setParams(halHandle);
+	// 配置底层驱动参数
+	HAL_setParams(halHandle);
 
-	//Init_Gpio_LED(); // LED灯GPIO初始化
+	// Init_Gpio_LED(); // LED灯GPIO初始化
 
 	int i = 0;
-
-
 
 	while (1)
 	{
@@ -54,19 +54,15 @@ void main(void)
 		{
 			i = 0;
 			// 呼吸灯闪
-			GPIO_toggle(halHandle->gpioHandle,GPIO_Number_29);
+			GPIO_toggle(halHandle->gpioHandle, GPIO_Number_29);
 			// 故障灯无动作
-			GPIO_setHigh(halHandle->gpioHandle,GPIO_Number_30);
+			GPIO_setHigh(halHandle->gpioHandle, GPIO_Number_30);
 
-			ADC_softRunSoc(halHandle->adcHandle,ADC_SeqNumber_1);
+			ADC_softRunSoc(halHandle->adcHandle, ADC_SeqNumber_1);
 
-			ADC_softRunSoc(halHandle->adcHandle,ADC_SeqNumber_2);
-
+			ADC_softRunSoc(halHandle->adcHandle, ADC_SeqNumber_2);
 
 			ADC_Read(halHandle->adcHandle, result);
 		}
-
-
-
 	}
 }

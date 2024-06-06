@@ -13,7 +13,6 @@ C_SRCS += \
 ../F28335_Files/Source/DSP2833x_DefaultIsr.c \
 ../F28335_Files/Source/DSP2833x_ECan.c \
 ../F28335_Files/Source/DSP2833x_EPwm.c \
-../F28335_Files/Source/DSP2833x_GlobalVariableDefs.c \
 ../F28335_Files/Source/DSP2833x_Gpio.c \
 ../F28335_Files/Source/DSP2833x_MemCopy.c \
 ../F28335_Files/Source/DSP2833x_PieCtrl.c \
@@ -29,7 +28,6 @@ OBJS += \
 ./F28335_Files/Source/DSP2833x_DefaultIsr.obj \
 ./F28335_Files/Source/DSP2833x_ECan.obj \
 ./F28335_Files/Source/DSP2833x_EPwm.obj \
-./F28335_Files/Source/DSP2833x_GlobalVariableDefs.obj \
 ./F28335_Files/Source/DSP2833x_Gpio.obj \
 ./F28335_Files/Source/DSP2833x_MemCopy.obj \
 ./F28335_Files/Source/DSP2833x_PieCtrl.obj \
@@ -49,7 +47,6 @@ C_DEPS += \
 ./F28335_Files/Source/DSP2833x_DefaultIsr.d \
 ./F28335_Files/Source/DSP2833x_ECan.d \
 ./F28335_Files/Source/DSP2833x_EPwm.d \
-./F28335_Files/Source/DSP2833x_GlobalVariableDefs.d \
 ./F28335_Files/Source/DSP2833x_Gpio.d \
 ./F28335_Files/Source/DSP2833x_MemCopy.d \
 ./F28335_Files/Source/DSP2833x_PieCtrl.d \
@@ -63,7 +60,6 @@ C_DEPS__QUOTED += \
 "F28335_Files\Source\DSP2833x_DefaultIsr.d" \
 "F28335_Files\Source\DSP2833x_ECan.d" \
 "F28335_Files\Source\DSP2833x_EPwm.d" \
-"F28335_Files\Source\DSP2833x_GlobalVariableDefs.d" \
 "F28335_Files\Source\DSP2833x_Gpio.d" \
 "F28335_Files\Source\DSP2833x_MemCopy.d" \
 "F28335_Files\Source\DSP2833x_PieCtrl.d" \
@@ -79,7 +75,6 @@ OBJS__QUOTED += \
 "F28335_Files\Source\DSP2833x_DefaultIsr.obj" \
 "F28335_Files\Source\DSP2833x_ECan.obj" \
 "F28335_Files\Source\DSP2833x_EPwm.obj" \
-"F28335_Files\Source\DSP2833x_GlobalVariableDefs.obj" \
 "F28335_Files\Source\DSP2833x_Gpio.obj" \
 "F28335_Files\Source\DSP2833x_MemCopy.obj" \
 "F28335_Files\Source\DSP2833x_PieCtrl.obj" \
@@ -104,7 +99,6 @@ C_SRCS__QUOTED += \
 "../F28335_Files/Source/DSP2833x_DefaultIsr.c" \
 "../F28335_Files/Source/DSP2833x_ECan.c" \
 "../F28335_Files/Source/DSP2833x_EPwm.c" \
-"../F28335_Files/Source/DSP2833x_GlobalVariableDefs.c" \
 "../F28335_Files/Source/DSP2833x_Gpio.c" \
 "../F28335_Files/Source/DSP2833x_MemCopy.c" \
 "../F28335_Files/Source/DSP2833x_PieCtrl.c" \

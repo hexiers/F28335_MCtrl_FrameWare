@@ -1,8 +1,8 @@
 
-//! @FilePath: \DSP28xx_MotCtl_Frameware\MotCtl_appSoft\Source\user.c
+//! @FilePath: \F28335_MotCtl_Frameware\DSP28xx_MotCtl_Frameware\MotCtl_appSoft\Source\user.c
 //! @Author: Hex
 //! @Date: 2023-08-23 20:36:24
-//! @LastEditTime: 2023-08-23 21:27:19
+//! @LastEditTime: 2024-06-06 22:56:13
 //! @Description:
 
 #include "user.h"

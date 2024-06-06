@@ -4,12 +4,6 @@
 //! @LastEditTime: 2023-08-22 20:37:36
 //! @Description:
 
-//! \file   drivers/pie/src/32b/f28x/f2806x/pie.c
-//! \brief  Contains the various functions related to the peripheral interrupt
-//!         expansion (PIE) object
-//!
-//! (C) Copyright 2015, Texas Instruments, Inc.
-
 // **************************************************************************
 // the includes
 

@@ -105,7 +105,7 @@ extern "C" {
 #include "DSP2833x_GlobalPrototypes.h"         // Prototypes for global functions within the
                                               // .c files.
 
-#include "DSP2833x_ePwm_defines.h"             // Macros used for PWM examples.
+//#include "DSP2833x_ePwm_defines.h"             // Macros used for PWM examples.
 #include "DSP2833x_Dma_defines.h"              // Macros used for DMA examples.
 #include "DSP2833x_I2C_defines.h"              // Macros used for I2C examples.
 

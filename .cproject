@@ -39,7 +39,6 @@
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/MotCtl_Driver/Include}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/MotCtl_appSoft/Include}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/MotCtl_HAL/Include}&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${MW_INSTALL_DIR}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/F28335_Files/Include}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/MotCtl_Core/Include}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/MotCtl_Paras/Include}&quot;"/>
@@ -107,7 +106,7 @@
 						</toolChain>
 					</folderInfo>
 					<sourceEntries>
-						<entry excluding="MotCtl_Driver/Source/clk.c|MotCtl_Driver/Source/osc.c|CMD/DSP2833x_Headers_nonBIOS.cmd|DSP28335_Headers_nonBIOS_MCCore.cmd|ti_Lib" flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name=""/>
+						<entry excluding="F28335_Files/Source/DSP2833x_GlobalVariableDefs.c|MotCtl_Driver/Source/clk.c|MotCtl_Driver/Source/osc.c|CMD/DSP2833x_Headers_nonBIOS.cmd|DSP28335_Headers_nonBIOS_MCCore.cmd|ti_Lib" flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name=""/>
 					</sourceEntries>
 				</configuration>
 			</storageModule>

@@ -1,39 +1,10 @@
-/* --COPYRIGHT--,BSD
- * Copyright (c) 2015, Texas Instruments Incorporated
- * All rights reserved.
- *
- * Redistribution and use in source and binary forms, with or without
- * modification, are permitted provided that the following conditions
- * are met:
- *
- * *  Redistributions of source code must retain the above copyright
- *    notice, this list of conditions and the following disclaimer.
- *
- * *  Redistributions in binary form must reproduce the above copyright
- *    notice, this list of conditions and the following disclaimer in the
- *    documentation and/or other materials provided with the distribution.
- *
- * *  Neither the name of Texas Instruments Incorporated nor the names of
- *    its contributors may be used to endorse or promote products derived
- *    from this software without specific prior written permission.
- *
- * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
- * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO,
- * THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR
- * PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR
- * CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL,
- * EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
- * PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS;
- * OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY,
- * WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR
- * OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE,
- * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
- * --/COPYRIGHT--*/
-//! \file   drivers/adc/src/32b/f28x/f2806x/adc.c
-//! \brief  Contains the various functions related to the
-//!         analog-to-digital converter (ADC) object
-//!
-//! (C) Copyright 2015, Texas Instruments, Inc.
+
+//! @FilePath: \F28335_MotCtl_Frameware\DSP28xx_MotCtl_Frameware\MotCtl_Driver\Source\adc.c
+//! @Author: Hex
+//! @Date: 2023-08-20 21:25:26
+//! @LastEditTime: 2024-06-04 23:39:08
+//! @Description: 
+
 
 // **************************************************************************
 // the includes
@@ -51,7 +22,7 @@ extern void usDelay(uint32_t Count);
 // **************************************************************************
 // the functions
 
-//! @brief: ADC句柄初始化
+//! @brief: ADC曆梟場宎趙
 ADC_Handle ADC_init(void *pMemory, const size_t numBytes)
 {
   ADC_Handle adcHandle;
@@ -65,7 +36,7 @@ ADC_Handle ADC_init(void *pMemory, const size_t numBytes)
   return (adcHandle);
 } // end of ADC_init() function
 
-//! @brief: ADC内核电源上电
+//! @brief: ADC囀瞄萇埭奻萇
 void ADC_setPower(ADC_Handle adcHandle, ADC_PwrMode_e pwrmode)
 {
   ADC_Obj *adc = (ADC_Obj *)adcHandle;
@@ -109,11 +80,11 @@ void ADC_setRunMode(ADC_Handle adcHandle, ADC_RunMode_e runmode)
   return;
 }
 
-void ADC_setClockPrescale(ADC_Handle adcHandle, ADC_CpsMode_e CpsMode, ADC_CLKPS_e ClkPS)
+void ADC_setClockPrescale(ADC_Handle adcHandle, ADC_CpsMode_e Cps, ADC_CLKPS_e ClkPS)
 {
   ADC_Obj *adc = (ADC_Obj *)adcHandle;
 
-  adc->ADCTRL1.bit.CPS = CpsMode;
+  adc->ADCTRL1.bit.CPS = Cps;
 
   adc->ADCTRL3.bit.ADCCLKPS= ClkPS;
 
@@ -243,7 +214,7 @@ void ADC_Read(ADC_Handle adcHandle, uint16_t *result)
   uint16_t i = 0;
   for( i = 0;i<16; i++)
   {
-	  *result = (adcHandle->ADCRESULT[i] >> 4);
+	  *result = (adc->ADCRESULT[i] >> 4);
   	   result++;
   }
 

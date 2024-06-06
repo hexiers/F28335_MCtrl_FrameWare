@@ -108,7 +108,7 @@ typedef long double        float64;
 #include "DSP2833x_ECan.h"               // Enhanced eCAN Registers
 #include "DSP2833x_ECap.h"               // Enhanced Capture
 #include "DSP2833x_DMA.h"                // DMA Registers
-#include "DSP2833x_EPwm.h"               // Enhanced PWM
+//#include "DSP2833x_EPwm.h"               // Enhanced PWM
 #include "DSP2833x_EQep.h"               // Enhanced QEP
 #include "DSP2833x_Gpio.h"               // General Purpose I/O Registers
 #include "DSP2833x_I2c.h"                // I2C Registers

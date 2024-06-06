@@ -14,8 +14,10 @@
 #include "user.h"
 
 // ********************************** 宏定义 defines ***********************************************************
+//! \brief Defines the PWM deadband rising edge delay count (system clocks)
+#define HAL_PWM_DBRED_CNT  (int16_t)(1.0 * (float_t)USER_SYSTEM_FREQ_MHz)
 
-
+#define HAL_PWM_DBFED_CNT (int16_t)(1.0 * (float_t)USER_SYSTEM_FREQ_MHz)
 //**********************************  typedef 类定义 ***********************************************************
 
 

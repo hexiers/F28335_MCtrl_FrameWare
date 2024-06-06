@@ -1,7 +1,7 @@
 /*
  * PI.c
  *
- *  Created on: 2023Äê8ÔÂ1ÈÕ
+ *  Created on: 2023å¹´8æœˆ1æ—¥
  *      Author: Hex
  */
 
@@ -24,10 +24,10 @@ PI_Handle PI_init(void *pMemory,const size_t numBytes)
 
 	  return((PI_Handle)NULL);
 
-	// ÉèÖÃ¾ä±ú
+	// è®¾ç½®å¥æŸ„
 	handle = (PI_Handle)pMemory;
 
-	// ÉèÖÃÄ¬ÈÏÖµ
+	// è®¾ç½®é»˜è®¤å€¼
 	PI_setUi(handle,_IQ(0.0));
 	PI_setRefValue(handle,_IQ(0.0));
 	PI_setFbackValue(handle,_IQ(0.0));

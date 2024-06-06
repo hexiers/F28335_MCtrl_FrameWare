@@ -143,7 +143,7 @@ void HAL_setupPLL(HAL_Handle handle, PLL_ClkFreq_e ClkFreq)
 
   HAL_Obj *obj = (HAL_Obj *)handle;
 
-  // 确认PLL状态正常
+  // 确认PLL状态不在limp mode
   if (PLL_getClkStatus(obj->sysctrlHandle) != PLL_ClkStatus_Normal)
   {
     PLL_resetClkDetect(obj->sysctrlHandle);
@@ -281,16 +281,22 @@ void HAL_setupAdc(HAL_Handle handle)
   for (i = 0; i < 100; i++)
     NOP;
 
+  // 仿真挂起后AD采集停止
   ADC_setSuspendMode(adcHandle, ADC_SUS_StopImmediately);
 
+  // 采样窗（SOC脉冲长度）长度设置为5
   ADC_setAcqWindowSize(adcHandle, ADC_SOC_PulseClk_5);
 
+  // 高速时钟为75MHz,内核时钟设置为7.5MHz
   ADC_setClockPrescale(adcHandle, ADC_HSPCLK_Div_1, ADC_CLKPS_Div_10);
 
+  // AD运行模式为运行停止模式
   ADC_setRunMode(adcHandle, ADC_StartStop_mode);
 
+  // 2个排序器使用，禁止排序器重载
   ADC_setSeqMode(adcHandle, ADC_SeqMode_DualSeq, ADC_SeqOvrd_disabled);
 
+  // 参考源选择内部参考源
   ADC_setRefSource(adcHandle, ADC_InnerRef);
 
   for (i = 0; i < 100; i++)
@@ -308,6 +314,7 @@ void HAL_setupAdc(HAL_Handle handle)
 
   DELAY_US(50000);
 
+  // 采样模式选择顺序采样
   ADC_setSMODSel(adcHandle, ADC_Sequential_Sampling);
   //================================================================================
   // MAX_CONV
@@ -489,16 +496,126 @@ void HAL_setParams(HAL_Handle handle)
   // 打开外设时钟
   HAL_setupPeripheralClocks(handle);
 
-  // setup the PIE
+  // 设置PIE寄存器
   HAL_setupPie(handle);
 
+  // 设置FLASH
   HAL_setupFlash(handle);
 
+  // 设置SCI寄存器
   HAL_setupSci(handle);
 
+  // 设置GPIO寄存器
   HAL_setupGpio(handle);
 
+  // 设置ADC寄存器
   HAL_setupAdc(handle);
+
+  return;
+}
+
+void HAL_setupEPWM(HAL_Handle handle,
+                   const float_t systemFreq_MHz,
+                   const float_t pwmPeriod_usec,
+                   const uint_least16_t numPwmTicksPerIsrTick)
+{
+  HAL_Obj *obj = (HAL_Obj *)handle;
+  uint16_t halfPeriod_cycles = (uint16_t)(systemFreq_MHz * pwmPeriod_usec) >> 1;
+  uint_least8_t cnt;
+
+  // 关断所有PWM
+  PWM_setOneShotTrip(obj->pwmHandle[PWM_Number_1]);
+  PWM_setOneShotTrip(obj->pwmHandle[PWM_Number_2]);
+  PWM_setOneShotTrip(obj->pwmHandle[PWM_Number_3]);
+
+  // 关闭同步时钟
+  Sys_disableTbClockSync(obj->sysctrlHandle);
+
+  ENABLE_PROTECTED_REGISTER_WRITE_MODE;
+
+  for (cnt = 0; cnt < 3; cnt++)
+  {
+    // ******************设置时基控制寄存器 (TBCTL)*****************************
+    // 计数模式：增减计数
+    PWM_set_TB_CounterMode(obj->pwmHandle[cnt], PWM_CounterMode_UpDown);
+    // 不使用相位寄存器
+    PWM_enable_TB_Phase(obj->pwmHandle[cnt],false);
+    // 周期载入模式：不使用影子寄存器
+    PWM_set_TB_PeriodLoad(obj->pwmHandle[cnt], PWM_PRDLD_ShadowMode);
+    // 计数模式：增减计数
+    PWM_set_TB_SyncMode(obj->pwmHandle[cnt], PWM_SyncMode_EPWMxSYNC);
+    // 时钟分频：采用系统时钟不分频
+    PWM_set_TB_HighSpeedClkDiv(obj->pwmHandle[cnt], PWM_HspClkDiv_by_1);
+    // 时钟分频：采用系统时钟不分频
+    PWM_set_TB_ClkDiv(obj->pwmHandle[cnt], PWM_ClkDiv_by_1);
+    // 相位寄存器方向：增计数
+    PWM_set_TB_PhaseDir(obj->pwmHandle[cnt], PWM_Count_up);
+    // 仿真时PWM正常计数
+    PWM_set_TB_RunMode(obj->pwmHandle[cnt], PWM_RunMode_FreeRun);
+    // 相位寄存器数值设置
+    PWM_set_TB_Phase(obj->pwmHandle[cnt], 0);
+    // 相位寄存器不使能
+    PWM_enable_TB_Phase(obj->pwmHandle[cnt], false);
+    // 计数器清零
+    PWM_set_TB_Count(obj->pwmHandle[cnt], 0);
+    // 周期寄存器清0
+    PWM_set_TB_Period(obj->pwmHandle[cnt], 0);
+
+    // CTR=0载入比较器值
+    PWM_set_CC_LoadMode_CmpA(obj->pwmHandle[cnt], PWM_LoadMode_Zero);
+    PWM_set_CC_LoadMode_CmpB(obj->pwmHandle[cnt], PWM_LoadMode_Zero);
+    PWM_set_CC_LShadowMode_CmpA(obj->pwmHandle[cnt], PWM_ShadowMode_Shadow);
+    PWM_set_CC_LShadowMode_CmpB(obj->pwmHandle[cnt], PWM_ShadowMode_Immediate);
+
+    // 设置EPWMA 上计数碰到CMPA拉高， 下计数碰到CMPA拉低
+    PWM_set_AQ_CntUp_CmpA_PwmA(obj->pwmHandle[cnt], PWM_ActionQual_Set);
+    PWM_set_AQ_CntDown_CmpA_PwmA(obj->pwmHandle[cnt], PWM_ActionQual_Clear);
+
+    // 设置死区输出模式，A上升沿B下降沿；采用互补导通，B翻转
+    PWM_set_DB_OutputMode(obj->pwmHandle[cnt], PWM_DeadBandOutputMode_EPWMxA_Rising_EPWMxB_Falling);
+    PWM_set_DB_Polarity(obj->pwmHandle[cnt], PWM_DeadBandPolarity_EPWMxB_Inverted);
+    PWM_set_DB_RisingEdgeDelay(obj->pwmHandle[cnt], HAL_PWM_DBRED_CNT);
+    PWM_set_DB_FallingEdgeDelay(obj->pwmHandle[cnt], HAL_PWM_DBFED_CNT);
+
+    PWM_disableChopping(obj->pwmHandle[cnt]);
+
+    PWM_disableTripZones(obj->pwmHandle[cnt]);
+  }
+
+  // 设置事件触发寄存器
+  PWM_ET_disableInt(obj->pwmHandle[PWM_Number_1]);
+  PWM_set_ET_SocAPulseSrc(obj->pwmHandle[PWM_Number_1], PWM_SocPulseSrc_CounterEqualZero);
+  PWM_ET_enableSocAPulse(obj->pwmHandle[PWM_Number_1],true);
+
+  // 设置事件触发分频
+  if (numPwmTicksPerIsrTick == 3)
+  {
+    PWM_setIntPeriod(obj->pwmHandle[PWM_Number_1], PWM_IntPeriod_ThirdEvent);
+    PWM_setSocAPeriod(obj->pwmHandle[PWM_Number_1], PWM_SocPeriod_ThirdEvent);
+  }
+  else if (numPwmTicksPerIsrTick == 2)
+  {
+    PWM_setIntPeriod(obj->pwmHandle[PWM_Number_1], PWM_IntPeriod_SecondEvent);
+    PWM_setSocAPeriod(obj->pwmHandle[PWM_Number_1], PWM_SocPeriod_SecondEvent);
+  }
+  else
+  {
+    PWM_setIntPeriod(obj->pwmHandle[PWM_Number_1], PWM_IntPeriod_FirstEvent);
+    PWM_setSocAPeriod(obj->pwmHandle[PWM_Number_1], PWM_SocPeriod_FirstEvent);
+  }
+
+  // setup the Event Trigger Clear Register (ETCLR)
+//  PWM_clearIntFlag(obj->pwmHandle[PWM_Number_1]);
+ // PWM_clearSocAFlag(obj->pwmHandle[PWM_Number_1]);
+
+  // 设置PWM周期计数值，0.5*全周期值
+  PWM_setPeriod(obj->pwmHandle[PWM_Number_1], halfPeriod_cycles);
+  PWM_setPeriod(obj->pwmHandle[PWM_Number_2], halfPeriod_cycles);
+  PWM_setPeriod(obj->pwmHandle[PWM_Number_3], halfPeriod_cycles);
+
+  Sys_enableTbClockSync(obj->sysctrlHandle);
+
+  DISABLE_PROTECTED_REGISTER_WRITE_MODE;
 
   return;
 }
