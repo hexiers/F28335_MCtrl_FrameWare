@@ -16,11 +16,11 @@
 #include "types.h"
 
 
-// defines ºê¶¨Òå*************************************************************
+// defines å®å®šä¹‰*************************************************************
 
 
-// typedef Àà¶¨Òå*************************************************************
-//! \brief ¶¨Òåipark¶ÔÏó
+// typedef ç±»å®šä¹‰*************************************************************
+//! \brief å®šä¹‰iparkå¯¹è±¡
 typedef struct _IPARK_Obj_
 {
 
@@ -29,10 +29,10 @@ typedef struct _IPARK_Obj_
 
 } IPARK_Obj;
 
-//! \brief ¶¨Òåipark¾ä±ú
+//! \brief å®šä¹‰iparkå¥æŸ„
 typedef struct _IPARK_Obj_* IPARK_Handle;
 
-// º¯Êı·½·¨*******************************************************************
+// å‡½æ•°æ–¹æ³•*******************************************************************
 //! \brief     Gets the cosine of the angle between the d,q and the alpha,beta coordinate systems
 //! \param[in] handle  The inverse Park transform handle
 //! \return    The cosine of the angle
@@ -149,7 +149,5 @@ static inline void IPARK_setup(IPARK_Handle handle,const _iq Th_pu)
 
   return;
 } // end of IPARK_setup() function
-
-
-
 #endif  // END OF MOTCTL_CORE_INCLUDE_IPARK_H_
+

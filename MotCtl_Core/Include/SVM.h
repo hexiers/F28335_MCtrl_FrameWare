@@ -1,9 +1,9 @@
 /*****************************************************************************
- * ÎÄ¼şÃû: SVM.h
- *   °æ±¾:
- *   ×÷Õß: Hex
- *   ÈÕÆÚ: 2023.08.01
- *   ËµÃ÷: SVPWM Éú³ÉÆ÷£¬²ÉÓÃ¹²Ä£µçÑ¹Éú³É·½·¨
+ * æ–‡ä»¶å: SVM.h
+ *   ç‰ˆæœ¬:
+ *   ä½œè€…: Hex
+ *   æ—¥æœŸ: 2023.08.01
+ *   è¯´æ˜: SVPWM ç”Ÿæˆå™¨ï¼Œé‡‡ç”¨å…±æ¨¡ç”µå‹ç”Ÿæˆæ–¹æ³•
  *****************************************************************************/
 
 #ifndef MOTCTL_CORE_INCLUDE_SVM_H_
@@ -16,13 +16,13 @@
 #include "types.h"
 
 // **************************************************************************
-// £¡¶¨Òå
+// ï¼å®šä¹‰
 // **************************************************************************
-//! ÊıÖµ¶¨Òå
-//! ×î´óÕ¼¿Õ±È£º2/sqrt(3)
+//! æ•°å€¼å®šä¹‰
+//! æœ€å¤§å ç©ºæ¯”ï¼š2/sqrt(3)
 #define SVGEN_MAX_VAB_VOLTAGES _IQ(1.1547005384)
 
-//! Q15¸ñÊ½µÄ100%Õ¼¿Õ±È£º1 - 2^(-15)
+//! Q15æ ¼å¼çš„100%å ç©ºæ¯”ï¼š1 - 2^(-15)
 #define SVGEN_100_PERCENT_MODULATION _IQ(1.0 - 1.0 / 32768)
 
 //! sqrt(3)/2
@@ -32,23 +32,23 @@
 #define SVGEN_4_OVER_3 _IQ(4.0 / 3.0)
 
 // **************************************************************************
-// typedef Àà¶¨Òå
+// typedef ç±»å®šä¹‰
 // **************************************************************************
-//! \brief ¶¨ÒåSVM¶ÔÏó
+//! \brief å®šä¹‰SVMå¯¹è±¡
 typedef struct _SVGEN_Obj_
 {
-	_iq maxModulation; // SVM×î´óµ÷ÖÆ·ùÖµ
+	_iq maxModulation; // SVMæœ€å¤§è°ƒåˆ¶å¹…å€¼
 } SVGEN_Obj;
 
-//! \brief ¶¨ÒåSVGEN¾ä±ú
+//! \brief å®šä¹‰SVGENå¥æŸ„
 typedef struct _SVGEN_Obj_ *SVGEN_Handle;
 
 // **************************************************************************
-// º¯Êı·½·¨
+// å‡½æ•°æ–¹æ³•
 // **************************************************************************
-//! \brief   »ñÈ¡×î´óµ÷ÖÆ±È²ÎÊı
+//! \brief   è·å–æœ€å¤§è°ƒåˆ¶æ¯”å‚æ•°
 //! \param[in]  SVGEN handle
-//! \return    ×î´óµ÷ÖÆ±È
+//! \return    æœ€å¤§è°ƒåˆ¶æ¯”
 static inline _iq SVGEN_getMaxModulation(SVGEN_Handle handle)
 {
 	SVGEN_Obj *obj = (SVGEN_Obj *)handle;
@@ -56,16 +56,16 @@ static inline _iq SVGEN_getMaxModulation(SVGEN_Handle handle)
 	return (obj->maxModulation);
 } // end of SVGEN_getMaxModulation()
 
-//! \brief     ³õÊ¼»¯SVGEN Ä£¿é
-//! \param[in] pMemory   Ö¸ÏòSVGEN¶ÔÏóÄÚ´æµÄÖ¸Õë
-//! \param[in] numBytes  ·ÖÅä¸ø¿Õ¼äÊ¸Á¿Éú³ÉÆ÷¶ÔÏóµÄ×Ö½ÚÊı£¬bytes
-//! \return    SVGEN ¶ÔÏó¾ä±úÖµ
+//! \brief     åˆå§‹åŒ–SVGEN æ¨¡å—
+//! \param[in] pMemory   æŒ‡å‘SVGENå¯¹è±¡å†…å­˜çš„æŒ‡é’ˆ
+//! \param[in] numBytes  åˆ†é…ç»™ç©ºé—´çŸ¢é‡ç”Ÿæˆå™¨å¯¹è±¡çš„å­—èŠ‚æ•°ï¼Œbytes
+//! \return    SVGEN å¯¹è±¡å¥æŸ„å€¼
 extern SVGEN_Handle SVGEN_init(void *pMemory, const size_t numBytes);
 
-//! \brief	¿Õ¼äÊ¸Á¿µ÷ÖÆÔËĞĞ£¬±¥ºÍÖµMaxModulation
-//! \param[in] handle  SVGEN ¶ÔÏó¾ä±ú
-//! \param[in] pVab    Ö¸ÕëÖ¸Ïòalpha¡¢betaÖáÏÂµÄµçÑ¹Ê¸Á¿
-//! \param[in] pT      Ö¸ÏòPWMÕ¼¿Õ±ÈÊ±¼äµÄÖ¸Õë
+//! \brief	ç©ºé—´çŸ¢é‡è°ƒåˆ¶è¿è¡Œï¼Œé¥±å’Œå€¼MaxModulation
+//! \param[in] handle  SVGEN å¯¹è±¡å¥æŸ„
+//! \param[in] pVab    æŒ‡é’ˆæŒ‡å‘alphaã€betaè½´ä¸‹çš„ç”µå‹çŸ¢é‡
+//! \param[in] pT      æŒ‡å‘PWMå ç©ºæ¯”æ—¶é—´çš„æŒ‡é’ˆ
 static inline void SVGEN_run(SVGEN_Handle handle, const MATH_vec2 *pVab, MATH_vec3 *pT)
 {
 
@@ -81,7 +81,7 @@ static inline void SVGEN_run(SVGEN_Handle handle, const MATH_vec2 *pVab, MATH_ve
 	Vmax = 0;
 	Vmin = 0;
 
-	// ±È´óĞ¡µÃµ½ Vmin,Vmid,Vmax
+	// æ¯”å¤§å°å¾—åˆ° Vmin,Vmid,Vmax
 	if (Va > Vb)
 	{
 		Vmax = Va;
@@ -104,7 +104,7 @@ static inline void SVGEN_run(SVGEN_Handle handle, const MATH_vec2 *pVab, MATH_ve
 
 	Vcom = _IQmpy(Vmax + Vmin, _IQ(0.5));
 
-	// ¼õÈ¥¹²Ä£ÏîÒÔÊµÏÖ×´Ì¬Ê¸Á¿µ÷ÖÆ
+	// å‡å»å…±æ¨¡é¡¹ä»¥å®ç°çŠ¶æ€çŸ¢é‡è°ƒåˆ¶
 	pT->value[0] = (Va - Vcom);
 	pT->value[1] = (Vb - Vcom);
 	pT->value[2] = (Vc - Vcom);
@@ -112,9 +112,9 @@ static inline void SVGEN_run(SVGEN_Handle handle, const MATH_vec2 *pVab, MATH_ve
 	return;
 } // end of SVGEN_run()
 
-//! \brief     ÉèÖÃSVGENµÄ×î´óµ÷ÖÆÖµ
-//! \param[in] handle         SVGEN ¾ä±ú
-//! \param[in] maxModulation  ×î´óµ÷ÖÆÖµ
+//! \brief     è®¾ç½®SVGENçš„æœ€å¤§è°ƒåˆ¶å€¼
+//! \param[in] handle         SVGEN å¥æŸ„
+//! \param[in] maxModulation  æœ€å¤§è°ƒåˆ¶å€¼
 static inline void SVGEN_setMaxModulation(SVGEN_Handle handle, const _iq maxModulation)
 {
 	SVGEN_Obj *obj = (SVGEN_Obj *)handle;

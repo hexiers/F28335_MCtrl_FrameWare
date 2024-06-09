@@ -1,7 +1,7 @@
 /*
  * ClarkeTrans.h
  *
- *  Created on: 2023Äê7ÔÂ31ÈÕ
+ *  Created on: 2023å¹´7æœˆ31æ—¥
  *  Author: Hex
  */
 
@@ -24,55 +24,55 @@
 
 
 // **************************************************************************
-// ÀàĞÍ¶¨Òå
+// ç±»å‹å®šä¹‰
 // **************************************************************************
 // the typedefs
 
-//! \brief  ¶¨Òå CLARKE ¶ÔÏó
+//! \brief  å®šä¹‰ CLARKE å¯¹è±¡
 //!
 typedef struct _CLARKE_Obj_
 {
-	_iq     alpha_sf;      					//!< alpha ·ÖÁ¿ÏµÊı
-	_iq     beta_sf;      					//!< alpha ·ÖÁ¿ÏµÊı
+	_iq     alpha_sf;      					//!< alpha åˆ†é‡ç³»æ•°
+	_iq     beta_sf;      					//!< alpha åˆ†é‡ç³»æ•°
 
-	uint_least8_t  numSensors;   			//!< ´«¸ĞÆ÷ÊıÁ¿
+	uint_least8_t  numSensors;   			//!< ä¼ æ„Ÿå™¨æ•°é‡
 
 } CLARKE_Obj;
 
 
-//! \brief 	¶¨Òå CLARKE ¾ä±ú
+//! \brief 	å®šä¹‰ CLARKE å¥æŸ„
 //!
 typedef struct _CLARKE_Obj_ *CLARKE_Handle;
 
 
 // **************************************************************************
-// Í¨ÓÃ·½·¨
+// é€šç”¨æ–¹æ³•
 // **************************************************************************
-// º¯ÊıÔ­ĞÍ           
+// å‡½æ•°åŸå‹           
 
 
-//! \brief     »ñÈ¡´«¸ĞÆ÷ÊıÁ¿
-//! \param[in] handle ¡¾Clarke¾ä±ú¡¿
-//! \return    ´«¸ĞÆ÷ÊıÁ¿
+//! \brief     è·å–ä¼ æ„Ÿå™¨æ•°é‡
+//! \param[in] handle ã€Clarkeå¥æŸ„ã€‘
+//! \return    ä¼ æ„Ÿå™¨æ•°é‡
 static inline uint_least8_t CLARKE_getNumSensors(CLARKE_Handle handle)
 {
   CLARKE_Obj *obj = (CLARKE_Obj *)handle;
 
   return(obj->numSensors);
-} // ½áÊø CLARKE_getNumSensors()
+} // ç»“æŸ CLARKE_getNumSensors()
 
 
-//! \brief     ³õÊ¼»¯
-//! \param[in] pMemory   Ö¸Ïò Clarke ¶ÔÏóÖ¸Õë
+//! \brief     åˆå§‹åŒ–
+//! \param[in] pMemory   æŒ‡å‘ Clarke å¯¹è±¡æŒ‡é’ˆ
 //! \param[in] numBytes  The number of bytes allocated for the Clarke object, bytes
 //! \return The Clarke (CLARKE) object handle
 extern CLARKE_Handle CLARKE_init(void *pMemory,const size_t numBytes);
 
 
-//! \brief     Ö´ĞĞÈıÊäÈë Clarke ±ä»»
-//! \param[in] handle  	Clarke ¾ä±ú
-//! \param[in] pInVec   Ö¸ÏòÊäÈëÊ¸Á¿
-//! \param[in] pOutVec  Ö¸ÏòÊä³öÊ¸Á¿
+//! \brief     æ‰§è¡Œä¸‰è¾“å…¥ Clarke å˜æ¢
+//! \param[in] handle  	Clarke å¥æŸ„
+//! \param[in] pInVec   æŒ‡å‘è¾“å…¥çŸ¢é‡
+//! \param[in] pOutVec  æŒ‡å‘è¾“å‡ºçŸ¢é‡
 static inline void CLARKE_run(CLARKE_Handle handle,const MATH_vec3 *pInVec,MATH_vec2 *pOutVec)
 {
   CLARKE_Obj *obj = (CLARKE_Obj *)handle;
@@ -95,10 +95,10 @@ static inline void CLARKE_run(CLARKE_Handle handle,const MATH_vec3 *pInVec,MATH_
     }
 
   return;
-} // ½áÊø CLARKE_run() function
+} // ç»“æŸ CLARKE_run() function
 
 
-//! \brief     Éè¶¨´«¸ĞÆ÷ÊıÁ¿                
+//! \brief     è®¾å®šä¼ æ„Ÿå™¨æ•°é‡                
 //! \param[in] handle
 //! \param[in] numSensors
 static inline void CLARKE_setNumSensors(CLARKE_Handle handle,const uint_least8_t numSensors)
@@ -108,10 +108,10 @@ static inline void CLARKE_setNumSensors(CLARKE_Handle handle,const uint_least8_t
   obj->numSensors = numSensors;
 
   return;
-} // ½áÊø CLARKE_setNumSensors()
+} // ç»“æŸ CLARKE_setNumSensors()
 
 
-//! \brief     Éè¶¨±ä»»ÏµÊı
+//! \brief     è®¾å®šå˜æ¢ç³»æ•°
 //! \param[in] handle
 //! \param[in] alpha_sf      T
 //! \param[in] beta_sf
@@ -124,7 +124,7 @@ static inline void CLARKE_setScaleFactors(CLARKE_Handle handle,const _iq alpha_s
   obj->beta_sf = beta_sf;
 
   return;
-} //½áÊø CLARKE_setScaleFactors()
+} //ç»“æŸ CLARKE_setScaleFactors()
 
 
 #endif /* MOTCTL_CORE_INCLUDE_CLARKE_H_ */

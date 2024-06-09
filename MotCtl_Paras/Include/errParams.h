@@ -1,10 +1,9 @@
 
-//! @FilePath: \DSP28xx_MotCtl_Frameware\MotCtl_Paras\Include\errParams.h
+//! @FilePath: \F28335_MotCtl_Frameware\DSP28xx_MotCtl_Frameware\MotCtl_Paras\Include\errParams.h
 //! @Author: Hex
-//! @Date: 2023-08-23 20:01:05
-//! @LastEditTime: 2023-08-23 20:03:09
-//! @Description: 定义故障阈值参数结构体 
-
+//! @Date: 2024-06-07 01:06:42
+//! @LastEditTime: 2024-06-08 10:55:50
+//! @Description: 
 
 #ifndef MOTCTL_PARAS_INCLUDE_ERRPARAMS_H_
 #define MOTCTL_PARAS_INCLUDE_ERRPARAMS_H_
@@ -16,22 +15,19 @@
 
 
 // typedef 类定义 ***********************************************************
-typedef struct
-{
-	uint16_t	HPOvFaultPoint;/* 转换成BIT值，写入FPGA*/
-	uint16_t	HPUvFaultPoint;/* 转换成BIT值，写入FPGA*/
-	uint16_t	LPOvFaultPoint;
-	uint16_t	LPUvFaultPoint;
-	uint16_t	HPOcFaultPoint;
-	uint16_t	PDDOvtFaultPoint;
-	uint16_t	PhaseOcFaultPoint;
-	uint16_t	OvSpdFaultPoint;
-	uint16_t	SnsLessUnSpdFaultPoint;
-	uint16_t	MotorOvtFaultPoint;
+typedef struct _ERR_Params_{
 
-}stFaultPara;
+	float_t	HPOvFaultPoint;			           // 高压过压点
+	float_t	HPUvFaultPoint;			           // 高压欠压点           	   					
+	float_t	LPOvFaultPoint;                    // 低压过压点	   					
+	float_t	LPUvFaultPoint;	   				   // 低压欠压点	
+	float_t	HPOcFaultPoint;	 				   // 高压过流点 					
+	float_t	PDDOvtFaultPoint;	   			   // 管温过温点			
+	float_t	PhaseOcFaultPoint;	  			   // 相电流过流点					
+	float_t	OvSpdFaultPoint;	   			   // 超速点	
+	float_t	MotorOvtFaultPoint;	   			   // 电机超温点	
 
-extern   stFaultPara m1FaultPara;
+}ERR_Params;
 
 
 //  函数方法 ****************************************************************

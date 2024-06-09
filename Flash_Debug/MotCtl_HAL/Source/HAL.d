@@ -52,6 +52,9 @@ MotCtl_HAL/Source/HAL.obj: D:/My_Pjt/F28335_MotCtl/F28335_MotCtl_Frameware/DSP28
 MotCtl_HAL/Source/HAL.obj: D:/My_Pjt/F28335_MotCtl/F28335_MotCtl_Frameware/DSP28xx_MotCtl_Frameware/MotCtl_HAL/Include/../../MotCtl_appSoft/Include/user.h
 MotCtl_HAL/Source/HAL.obj: D:/My_Pjt/F28335_MotCtl/F28335_MotCtl_Frameware/DSP28xx_MotCtl_Frameware/MotCtl_Paras/Include/UserData.h
 MotCtl_HAL/Source/HAL.obj: D:/My_Pjt/F28335_MotCtl/F28335_MotCtl_Frameware/DSP28xx_MotCtl_Frameware/MotCtl_Paras/Include/MotorParams.h
+MotCtl_HAL/Source/HAL.obj: D:/My_Pjt/F28335_MotCtl/F28335_MotCtl_Frameware/DSP28xx_MotCtl_Frameware/MotCtl_Paras/Include/FbkParams.h
+MotCtl_HAL/Source/HAL.obj: D:/My_Pjt/F28335_MotCtl/F28335_MotCtl_Frameware/DSP28xx_MotCtl_Frameware/MotCtl_Paras/Include/ErrParams.h
+MotCtl_HAL/Source/HAL.obj: D:/My_Pjt/F28335_MotCtl/F28335_MotCtl_Frameware/DSP28xx_MotCtl_Frameware/MotCtl_Paras/Include/CtlParams.h
 MotCtl_HAL/Source/HAL.obj: D:/My_Pjt/F28335_MotCtl/F28335_MotCtl_Frameware/DSP28xx_MotCtl_Frameware/MotCtl_HAL/Include/../../MotCtl_Core/Include/math.h
 
 ../MotCtl_HAL/Source/HAL.c: 
@@ -106,4 +109,7 @@ D:/My_Pjt/F28335_MotCtl/F28335_MotCtl_Frameware/DSP28xx_MotCtl_Frameware/MotCtl_
 D:/My_Pjt/F28335_MotCtl/F28335_MotCtl_Frameware/DSP28xx_MotCtl_Frameware/MotCtl_HAL/Include/../../MotCtl_appSoft/Include/user.h: 
 D:/My_Pjt/F28335_MotCtl/F28335_MotCtl_Frameware/DSP28xx_MotCtl_Frameware/MotCtl_Paras/Include/UserData.h: 
 D:/My_Pjt/F28335_MotCtl/F28335_MotCtl_Frameware/DSP28xx_MotCtl_Frameware/MotCtl_Paras/Include/MotorParams.h: 
+D:/My_Pjt/F28335_MotCtl/F28335_MotCtl_Frameware/DSP28xx_MotCtl_Frameware/MotCtl_Paras/Include/FbkParams.h: 
+D:/My_Pjt/F28335_MotCtl/F28335_MotCtl_Frameware/DSP28xx_MotCtl_Frameware/MotCtl_Paras/Include/ErrParams.h: 
+D:/My_Pjt/F28335_MotCtl/F28335_MotCtl_Frameware/DSP28xx_MotCtl_Frameware/MotCtl_Paras/Include/CtlParams.h: 
 D:/My_Pjt/F28335_MotCtl/F28335_MotCtl_Frameware/DSP28xx_MotCtl_Frameware/MotCtl_HAL/Include/../../MotCtl_Core/Include/math.h: 

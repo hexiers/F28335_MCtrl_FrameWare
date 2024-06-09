@@ -1,10 +1,10 @@
 ******************************************************************************
              TMS320C2000 Linker PC v15.12.3                    
 ******************************************************************************
->> Linked Fri Jun 07 00:21:28 2024
+>> Linked Sun Jun 09 21:53:51 2024
 
 OUTPUT FILE NAME:   <DSP28xx_MotCtl_Frameware.out>
-ENTRY POINT SYMBOL: "_c_int00"  address: 00301a46
+ENTRY POINT SYMBOL: "_c_int00"  address: 00301ca3
 
 
 MEMORY CONFIGURATION
@@ -19,7 +19,7 @@ PAGE 0:
   RAML3                 0000b000   00001000  00000000  00001000  RWIX
   ZONE6A                00100000   0000fc00  00000000  0000fc00  RWIX
   ZONE7                 00200000   00100000  00000000  00100000  RWIX
-  FLASHH                00300000   00008000  00001d2a  000062d6  RWIX
+  FLASHH                00300000   00008000  00001fac  00006054  RWIX
   CSM_RSVD              0033ff80   00000076  00000000  00000076  RWIX
   BEGIN                 0033fff6   00000002  00000002  00000000  RWIX
   CSM_PWL               0033fff8   00000008  00000000  00000008  RWIX
@@ -82,7 +82,7 @@ PAGE 1:
   SCIB                  00007750   00000010  00000000  00000010  RWIX
   SCIC                  00007770   00000010  00000000  00000010  RWIX
   I2CA                  00007900   00000040  00000000  00000040  RWIX
-  RAML456               0000c000   00003000  0000017d  00002e83  RWIX
+  RAML456               0000c000   00003000  000001bd  00002e43  RWIX
   RAML7                 0000f000   00001000  00000000  00001000  RWIX
   AD2_A                 00100000   00000008  00000000  00000008  RWIX
   ZONE6B                0010fc00   00000400  00000000  00000400  RWIX
@@ -95,7 +95,7 @@ SECTION ALLOCATION MAP
  output                                  attributes/
 section   page    origin      length       input sections
 --------  ----  ----------  ----------   ----------------
-.text      0    00300000    00001c8b     
+.text      0    00300000    00001f09     
                   00300000    00000833     HAL.obj (.text)
                   00300833    000003e6     gpio.obj (.text)
                   00300c19    00000316     DSP2833x_DefaultIsr.obj (.text:retain)
@@ -103,42 +103,49 @@ section   page    origin      length       input sections
                   003011b8    000001d7     pie.obj (.text)
                   0030138f    000001d0     spi.obj (.text)
                   0030155f    000001ba     sysctrl.obj (.text)
-                  00301719    0000013b     adc.obj (.text)
-                  00301854    00000097     offset.obj (.text)
-                  003018eb    0000008d     pwm.obj (.text)
-                  00301978    0000006f     pwr.obj (.text)
-                  003019e7    0000005f     timer.obj (.text)
-                  00301a46    00000056     rts2800_fpu32.lib : boot.obj (.text)
-                  00301a9c    0000004f     flash.obj (.text)
-                  00301aeb    0000004f     main.obj (.text)
-                  00301b3a    0000004c     cpu.obj (.text)
-                  00301b86    00000046     rts2800_fpu32.lib : cpy_tbl.obj (.text)
-                  00301bcc    00000029                       : exit.obj (.text)
-                  00301bf5    0000001a                       : cpy_utils.obj (.text)
-                  00301c0f    0000001a     user.obj (.text)
-                  00301c29    00000019     rts2800_fpu32.lib : args_main.obj (.text)
-                  00301c42    00000013     DSP2833x_MemCopy.obj (.text)
-                  00301c55    0000000c     IIR_Filter_Fo.obj (.text)
-                  00301c61    0000000c     qep.obj (.text)
-                  00301c6d    0000000a     pie.obj (.text:retain)
-                  00301c77    00000009     rts2800_fpu32.lib : _lock.obj (.text)
-                  00301c80    00000008     DSP2833x_CodeStartBranch.obj (.text)
-                  00301c88    00000002     rts2800_fpu32.lib : pre_init.obj (.text)
-                  00301c8a    00000001                       : startup.obj (.text)
+                  00301719    00000152     user.obj (.text)
+                  0030186b    0000013b     adc.obj (.text)
+                  003019a6    00000097     offset.obj (.text)
+                  00301a3d    0000008d     pwm.obj (.text)
+                  00301aca    00000088     rts2800_fpu32.lib : fs_div.obj (.text)
+                  00301b52    00000083                       : fd_mpy.obj (.text)
+                  00301bd5    0000006f     pwr.obj (.text)
+                  00301c44    0000005f     timer.obj (.text)
+                  00301ca3    00000056     rts2800_fpu32.lib : boot.obj (.text)
+                  00301cf9    0000004f     flash.obj (.text)
+                  00301d48    0000004f     main.obj (.text)
+                  00301d97    0000004c     cpu.obj (.text)
+                  00301de3    00000046     rts2800_fpu32.lib : cpy_tbl.obj (.text)
+                  00301e29    00000029                       : exit.obj (.text)
+                  00301e52    0000001f                       : fd_tol.obj (.text)
+                  00301e71    0000001c                       : fs_tofd.obj (.text)
+                  00301e8d    0000001a                       : cpy_utils.obj (.text)
+                  00301ea7    00000019                       : args_main.obj (.text)
+                  00301ec0    00000013     DSP2833x_MemCopy.obj (.text)
+                  00301ed3    0000000c     IIR_Filter_Fo.obj (.text)
+                  00301edf    0000000c     qep.obj (.text)
+                  00301eeb    0000000a     pie.obj (.text:retain)
+                  00301ef5    00000009     rts2800_fpu32.lib : _lock.obj (.text)
+                  00301efe    00000008     DSP2833x_CodeStartBranch.obj (.text)
+                  00301f06    00000002     rts2800_fpu32.lib : pre_init.obj (.text)
+                  00301f08    00000001                       : startup.obj (.text)
 
-ramfuncs   0    00301c8b    00000072     RUN ADDR = 00008000
-                  00301c8b    0000006a     flash.obj (ramfuncs)
-                  00301cf5    00000004     DSP2833x_usDelay.obj (ramfuncs)
-                  00301cf9    00000004     usDelay.obj (ramfuncs)
+ramfuncs   0    00301f09    00000072     RUN ADDR = 00008000
+                  00301f09    0000006a     flash.obj (ramfuncs)
+                  00301f73    00000004     DSP2833x_usDelay.obj (ramfuncs)
+                  00301f77    00000004     usDelay.obj (ramfuncs)
 
-.cinit     0    00301cfd    0000002d     
-                  00301cfd    00000013     main.obj (.cinit)
-                  00301d10    0000000e     rts2800_fpu32.lib : exit.obj (.cinit)
-                  00301d1e    00000005                       : _lock.obj (.cinit:__lock)
-                  00301d23    00000005                       : _lock.obj (.cinit:__unlock)
-                  00301d28    00000002     --HOLE-- [fill = 0]
+.cinit     0    00301f7b    0000002d     
+                  00301f7b    00000013     main.obj (.cinit)
+                  00301f8e    0000000e     rts2800_fpu32.lib : exit.obj (.cinit)
+                  00301f9c    00000005                       : _lock.obj (.cinit:__lock)
+                  00301fa1    00000005                       : _lock.obj (.cinit:__unlock)
+                  00301fa6    00000002     --HOLE-- [fill = 0]
 
 .pinit     0    00300000    00000000     UNINITIALIZED
+
+.econst    0    00301fa8    00000004     
+                  00301fa8    00000004     FocCtrl.obj (.econst)
 
 codestart 
 *          0    0033fff6    00000002     
@@ -150,13 +157,13 @@ codestart
 .stack     1    00000400    00000300     UNINITIALIZED
                   00000400    00000300     --HOLE--
 
-.ebss      1    0000c000    0000017d     UNINITIALIZED
-                  0000c000    0000015a     main.obj (.ebss)
-                  0000c15a    00000018     DSP2833x_CpuTimers.obj (.ebss)
-                  0000c172    00000006     rts2800_fpu32.lib : exit.obj (.ebss)
-                  0000c178    00000002                       : _lock.obj (.ebss:__lock)
-                  0000c17a    00000002                       : _lock.obj (.ebss:__unlock)
-                  0000c17c    00000001     cpu.obj (.ebss)
+.ebss      1    0000c000    000001bd     UNINITIALIZED
+                  0000c000    0000019a     main.obj (.ebss)
+                  0000c19a    00000018     DSP2833x_CpuTimers.obj (.ebss)
+                  0000c1b2    00000006     rts2800_fpu32.lib : exit.obj (.ebss)
+                  0000c1b8    00000002                       : _lock.obj (.ebss:__lock)
+                  0000c1ba    00000002                       : _lock.obj (.ebss:__unlock)
+                  0000c1bc    00000001     cpu.obj (.ebss)
 
 .reset     0    003fffc0    00000002     DSECT
                   003fffc0    00000002     rts2800_fpu32.lib : boot.obj (.reset)
@@ -168,9 +175,9 @@ MODULE SUMMARY
        Module                         code   ro data   rw data
        ------                         ----   -------   -------
     .\
-       main.obj                       79     0         365    
+       main.obj                       79     0         429    
     +--+------------------------------+------+---------+---------+
-       Total:                         79     0         365    
+       Total:                         79     0         429    
                                                               
     .\F28335_Files\Source\
        DSP2833x_DefaultIsr.obj        790    0         0      
@@ -184,8 +191,9 @@ MODULE SUMMARY
                                                               
     .\MotCtl_Core\Source\
        IIR_Filter_Fo.obj              12     0         0      
+       FocCtrl.obj                    0      0         4      
     +--+------------------------------+------+---------+---------+
-       Total:                         12     0         0      
+       Total:                         12     0         4      
                                                               
     .\MotCtl_Driver\Source\
        gpio.obj                       998    0         0      
@@ -210,26 +218,30 @@ MODULE SUMMARY
        Total:                         2250   0         0      
                                                               
     .\MotCtl_appSoft\Source\
-       user.obj                       26     0         0      
+       user.obj                       338    0         0      
        usDelay.obj                    8      0         0      
     +--+------------------------------+------+---------+---------+
-       Total:                         34     0         0      
+       Total:                         346    0         0      
                                                               
     D:\Software\ti\CCS6.2\ccsv6\tools\compiler\c2000_15.12.3.LTS\lib\rts2800_fpu32.lib
+       fs_div.obj                     136    0         0      
+       fd_mpy.obj                     131    0         0      
        boot.obj                       86     0         0      
        cpy_tbl.obj                    70     0         0      
        exit.obj                       41     0         20     
+       fd_tol.obj                     31     0         0      
+       fs_tofd.obj                    28     0         0      
        cpy_utils.obj                  26     0         0      
        args_main.obj                  25     0         0      
        _lock.obj                      9      0         14     
        pre_init.obj                   2      0         0      
        startup.obj                    1      0         0      
     +--+------------------------------+------+---------+---------+
-       Total:                         260    0         34     
+       Total:                         586    0         34     
                                                               
        Stack:                         0      0         768    
     +--+------------------------------+------+---------+---------+
-       Grand Total:                   7544   0         1192   
+       Grand Total:                   8182   0         1260   
 
 
 GLOBAL DATA SYMBOLS: SORTED BY DATA PAGE
@@ -243,17 +255,17 @@ address     data page           name
 
 0000c040     301 (0000c040)     _UserParams
 
-0000c080     302 (0000c080)     _hal
+0000c0c0     303 (0000c0c0)     _hal
 
-0000c15a     305 (0000c140)     _CpuTimer1
-0000c162     305 (0000c140)     _CpuTimer2
-0000c16a     305 (0000c140)     _CpuTimer0
-0000c172     305 (0000c140)     ___TI_enable_exit_profile_output
-0000c174     305 (0000c140)     ___TI_cleanup_ptr
-0000c176     305 (0000c140)     ___TI_dtors_ptr
-0000c178     305 (0000c140)     __lock
-0000c17a     305 (0000c140)     __unlock
-0000c17c     305 (0000c140)     _cpu
+0000c19a     306 (0000c180)     _CpuTimer1
+0000c1a2     306 (0000c180)     _CpuTimer2
+0000c1aa     306 (0000c180)     _CpuTimer0
+0000c1b2     306 (0000c180)     ___TI_enable_exit_profile_output
+0000c1b4     306 (0000c180)     ___TI_cleanup_ptr
+0000c1b6     306 (0000c180)     ___TI_dtors_ptr
+0000c1b8     306 (0000c180)     __lock
+0000c1ba     306 (0000c180)     __unlock
+0000c1bc     306 (0000c180)     _cpu
 
 
 GLOBAL SYMBOLS: SORTED ALPHABETICALLY BY Name 
@@ -261,39 +273,43 @@ GLOBAL SYMBOLS: SORTED ALPHABETICALLY BY Name
 page  address   name                              
 ----  -------   ----                              
 0     00300000  .text                             
-0     00301bcc  C$$EXIT                           
+0     00301e29  C$$EXIT                           
+0     00301b52  FD$$MPY                           
+0     00301e52  FD$$TOL                           
+0     00301aca  FS$$DIV                           
+0     00301e71  FS$$TOFD                          
 0     00300cff  _ADCINT_ISR                       
-0     00301839  _ADC_Read                         
+0     0030198b  _ADC_Read                         
 0     00380080  _ADC_cal                          
-0     00301719  _ADC_init                         
-0     00301736  _ADC_reset                        
-0     0030179b  _ADC_resetSeq                     
-0     00301828  _ADC_setADCBGRFDN                 
-0     0030177f  _ADC_setAcqWindowSize             
-0     00301766  _ADC_setClockPrescale             
-0     003017bc  _ADC_setIntMode                   
-0     00301725  _ADC_setPower                     
-0     003017ab  _ADC_setRefSource                 
-0     00301758  _ADC_setRunMode                   
-0     00301818  _ADC_setSMODSel                   
-0     00301741  _ADC_setSeqMode                   
-0     003017f2  _ADC_setSocMode                   
-0     0030178d  _ADC_setSuspendMode               
-0     00301808  _ADC_softRunSoc                   
-0     00301b3a  _CPU_clearIntFlags                
-0     00301b40  _CPU_disableDebugInt              
-0     00301b46  _CPU_disableGlobalInts            
-0     00301b4c  _CPU_disableInt                   
-0     00301b55  _CPU_disableInts                  
-0     00301b5b  _CPU_disableProtectedRegisterWrite
-0     00301b61  _CPU_enableDebugInt               
-0     00301b67  _CPU_enableGlobalInts             
-0     00301b6d  _CPU_enableInt                    
-0     00301b75  _CPU_enableProtectedRegisterWrite 
-0     00301b7b  _CPU_init                         
-1     0000c16a  _CpuTimer0                        
-1     0000c15a  _CpuTimer1                        
-1     0000c162  _CpuTimer2                        
+0     0030186b  _ADC_init                         
+0     00301888  _ADC_reset                        
+0     003018ed  _ADC_resetSeq                     
+0     0030197a  _ADC_setADCBGRFDN                 
+0     003018d1  _ADC_setAcqWindowSize             
+0     003018b8  _ADC_setClockPrescale             
+0     0030190e  _ADC_setIntMode                   
+0     00301877  _ADC_setPower                     
+0     003018fd  _ADC_setRefSource                 
+0     003018aa  _ADC_setRunMode                   
+0     0030196a  _ADC_setSMODSel                   
+0     00301893  _ADC_setSeqMode                   
+0     00301944  _ADC_setSocMode                   
+0     003018df  _ADC_setSuspendMode               
+0     0030195a  _ADC_softRunSoc                   
+0     00301d97  _CPU_clearIntFlags                
+0     00301d9d  _CPU_disableDebugInt              
+0     00301da3  _CPU_disableGlobalInts            
+0     00301da9  _CPU_disableInt                   
+0     00301db2  _CPU_disableInts                  
+0     00301db8  _CPU_disableProtectedRegisterWrite
+0     00301dbe  _CPU_enableDebugInt               
+0     00301dc4  _CPU_enableGlobalInts             
+0     00301dca  _CPU_enableInt                    
+0     00301dd2  _CPU_enableProtectedRegisterWrite 
+0     00301dd8  _CPU_init                         
+1     0000c1aa  _CpuTimer0                        
+1     0000c19a  _CpuTimer1                        
+1     0000c1a2  _CpuTimer2                        
 0     00300c2d  _DATALOG_ISR                      
 0     00300e21  _DINTCH1_ISR                      
 0     00300e2b  _DINTCH2_ISR                      
@@ -327,17 +343,17 @@ page  address   name
 0     00300d4f  _EPWM6_TZINT_ISR                  
 0     00300dd1  _EQEP1_INT_ISR                    
 0     00300ddb  _EQEP2_INT_ISR                    
-0     00301c55  _FILTER_FO_init                   
-0     00301a9c  _FLASH_clear3VStatus              
+0     00301ed3  _FILTER_FO_init                   
+0     00301cf9  _FLASH_clear3VStatus              
 0     00008000  _FLASH_disablePipelineMode        
 0     0000800b  _FLASH_enablePipelineMode         
-0     00301aa7  _FLASH_get3VStatus                
-0     00301ab0  _FLASH_getActiveWaitCount         
-0     00301ab9  _FLASH_getActiveWaitStatus        
-0     00301ac3  _FLASH_getPowerMode               
-0     00301acc  _FLASH_getStandbyWaitCount        
-0     00301ad5  _FLASH_getStandbyWaitStatus       
-0     00301adf  _FLASH_init                       
+0     00301d04  _FLASH_get3VStatus                
+0     00301d0d  _FLASH_getActiveWaitCount         
+0     00301d16  _FLASH_getActiveWaitStatus        
+0     00301d20  _FLASH_getPowerMode               
+0     00301d29  _FLASH_getStandbyWaitCount        
+0     00301d32  _FLASH_getStandbyWaitStatus       
+0     00301d3c  _FLASH_init                       
 0     00008016  _FLASH_setActiveWaitCount         
 0     00008022  _FLASH_setNumPagedReadWaitStates  
 0     00008031  _FLASH_setNumRandomReadWaitStates 
@@ -383,13 +399,13 @@ page  address   name
 0     00300df9  _MRINTB_ISR                       
 0     00300e17  _MXINTA_ISR                       
 0     00300e03  _MXINTB_ISR                       
-0     00301c42  _MemCopy                          
+0     00301ec0  _MemCopy                          
 0     00300c4b  _NMI_ISR                          
-0     00301884  _OFFSET_getBeta                   
-0     00301898  _OFFSET_init                      
-0     003018b0  _OFFSET_setBeta                   
-0     003018cf  _OFFSET_setInitCond               
-0     003018e2  _OFFSET_setOffset                 
+0     003019d6  _OFFSET_getBeta                   
+0     003019ea  _OFFSET_init                      
+0     00301a02  _OFFSET_setBeta                   
+0     00301a21  _OFFSET_setInitCond               
+0     00301a34  _OFFSET_setOffset                 
 0     00300f1b  _PIE_RESERVED                     
 0     003011b8  _PIE_clearAllFlags                
 0     003011cc  _PIE_clearAllInts                 
@@ -411,7 +427,7 @@ page  address   name
 0     003012c1  _PIE_getExtIntCount               
 0     003012cf  _PIE_getIntEnables                
 0     003012dc  _PIE_getIntFlags                  
-0     00301c6d  _PIE_illegalIsr                   
+0     00301eeb  _PIE_illegalIsr                   
 0     003012e9  _PIE_init                         
 0     003012f8  _PIE_registerPieIntHandler        
 0     00301315  _PIE_registerSystemIntHandler     
@@ -432,28 +448,28 @@ page  address   name
 0     003015d4  _PLL_resetClkDetect               
 0     003015df  _PLL_setClkFreq                   
 0     003015ee  _PLL_setDivideSelect              
-0     003018eb  _PWM_init                         
-0     0030190e  _PWM_set_TB_ClkDiv                
-0     00301946  _PWM_set_TB_CounterMode           
-0     0030191c  _PWM_set_TB_HighSpeedClkDiv       
-0     0030192a  _PWM_set_TB_PHSEN                 
-0     003018f7  _PWM_set_TB_Period                
-0     00301961  _PWM_set_TB_PeriodLoad            
-0     0030196f  _PWM_set_TB_Phase                 
-0     00301953  _PWM_set_TB_PhaseDir              
-0     00301938  _PWM_set_TB_RunMode               
-0     00301900  _PWM_set_TB_SyncMode              
-0     00301978  _PWR_disableBrownOutReset         
-0     00301980  _PWR_disableWatchDogInt           
-0     00301990  _PWR_enableBrownOutReset          
-0     00301998  _PWR_enableWatchDogInt            
-0     003019a8  _PWR_init                         
-0     003019b7  _PWR_setLowPowerMode              
-0     003019cf  _PWR_setNumStandByClocks          
-0     00301c61  _QEP_init                         
+0     00301a3d  _PWM_init                         
+0     00301a60  _PWM_set_TB_ClkDiv                
+0     00301a98  _PWM_set_TB_CounterMode           
+0     00301a6e  _PWM_set_TB_HighSpeedClkDiv       
+0     00301a7c  _PWM_set_TB_PHSEN                 
+0     00301a49  _PWM_set_TB_Period                
+0     00301ab3  _PWM_set_TB_PeriodLoad            
+0     00301ac1  _PWM_set_TB_Phase                 
+0     00301aa5  _PWM_set_TB_PhaseDir              
+0     00301a8a  _PWM_set_TB_RunMode               
+0     00301a52  _PWM_set_TB_SyncMode              
+0     00301bd5  _PWR_disableBrownOutReset         
+0     00301bdd  _PWR_disableWatchDogInt           
+0     00301bed  _PWR_enableBrownOutReset          
+0     00301bf5  _PWR_enableWatchDogInt            
+0     00301c05  _PWR_init                         
+0     00301c14  _PWR_setLowPowerMode              
+0     00301c2c  _PWR_setNumStandByClocks          
+0     00301edf  _QEP_init                         
 0     00300c37  _RTOSINT_ISR                      
-0     00301cfd  _RamfuncsLoadEnd                  
-0     00301c8b  _RamfuncsLoadStart                
+0     00301f7b  _RamfuncsLoadEnd                  
+0     00301f09  _RamfuncsLoadStart                
 0     00008000  _RamfuncsRunStart                 
 0     00300e85  _SCIRXINTA_ISR                    
 0     00300e99  _SCIRXINTB_ISR                    
@@ -571,14 +587,14 @@ page  address   name
 0     003016c1  _Sys_enablePwmClock               
 0     003016b3  _Sys_enableScibClock              
 0     003016d2  _Sys_enableTbClockSync            
-0     003019e7  _TIMER_clearFlag                  
-0     003019ef  _TIMER_disableInt                 
-0     003019f7  _TIMER_enableInt                  
-0     003019ff  _TIMER_getStatus                  
-0     00301a08  _TIMER_init                       
-0     00301a14  _TIMER_setDecimationFactor        
-0     00301a27  _TIMER_setEmulationMode           
-0     00301a33  _TIMER_setPreScaler               
+0     00301c44  _TIMER_clearFlag                  
+0     00301c4c  _TIMER_disableInt                 
+0     00301c54  _TIMER_enableInt                  
+0     00301c5c  _TIMER_getStatus                  
+0     00301c65  _TIMER_init                       
+0     00301c71  _TIMER_setDecimationFactor        
+0     00301c84  _TIMER_setEmulationMode           
+0     00301c90  _TIMER_setPreScaler               
 0     00300d09  _TINT0_ISR                        
 0     00300cb9  _USER10_ISR                       
 0     00300cc3  _USER11_ISR                       
@@ -592,10 +608,10 @@ page  address   name
 0     00300c9b  _USER7_ISR                        
 0     00300ca5  _USER8_ISR                        
 0     00300caf  _USER9_ISR                        
-0     00301c0f  _USER_checkForErrors              
-0     00301c17  _USER_getErrorCode                
-0     00301c1f  _USER_setErrorCode                
-0     00301c13  _USER_setParams                   
+0     00301719  _USER_checkForErrors              
+0     00301859  _USER_getErrorCode                
+0     00301861  _USER_setErrorCode                
+0     00301720  _USER_setParams                   
 1     0000c040  _UserParams                       
 0     00300d13  _WAKEINT_ISR                      
 0     0030160b  _WDOG_clearCounter                
@@ -617,46 +633,46 @@ page  address   name
 0     00300efd  _XINT7_ISR                        
 1     00000700  __STACK_END                       
 abs   00000300  __STACK_SIZE                      
-1     0000c174  ___TI_cleanup_ptr                 
-1     0000c176  ___TI_dtors_ptr                   
-1     0000c172  ___TI_enable_exit_profile_output  
+1     0000c1b4  ___TI_cleanup_ptr                 
+1     0000c1b6  ___TI_dtors_ptr                   
+1     0000c1b2  ___TI_enable_exit_profile_output  
 abs   ffffffff  ___TI_pprof_out_hndl              
 abs   ffffffff  ___TI_prof_data_size              
 abs   ffffffff  ___TI_prof_data_start             
 abs   ffffffff  ___binit__                        
 abs   ffffffff  ___c_args__                       
-0     00301cfd  ___cinit__                        
-0     00301c8b  ___etext__                        
+0     00301f7b  ___cinit__                        
+0     00301f09  ___etext__                        
 abs   ffffffff  ___pinit__                        
 0     00300000  ___text__                         
-0     00301c29  __args_main                       
-1     0000c178  __lock                            
-0     00301c7f  __nop                             
-0     00301c7b  __register_lock                   
-0     00301c77  __register_unlock                 
+0     00301ea7  __args_main                       
+1     0000c1b8  __lock                            
+0     00301efd  __nop                             
+0     00301ef9  __register_lock                   
+0     00301ef5  __register_unlock                 
 1     00000400  __stack                           
-0     00301c8a  __system_post_cinit               
-0     00301c88  __system_pre_init                 
-1     0000c17a  __unlock                          
-0     00301bcc  _abort                            
-0     00301a46  _c_int00                          
-0     00301b86  _copy_in                          
-1     0000c17c  _cpu                              
-0     00301bf5  _ddcopy                           
-0     00301bf5  _dpcopy                           
-0     00301bce  _exit                             
-1     0000c080  _hal                              
+0     00301f08  __system_post_cinit               
+0     00301f06  __system_pre_init                 
+1     0000c1ba  __unlock                          
+0     00301e29  _abort                            
+0     00301ca3  _c_int00                          
+0     00301de3  _copy_in                          
+1     0000c1bc  _cpu                              
+0     00301e8d  _ddcopy                           
+0     00301e8d  _dpcopy                           
+0     00301e2b  _exit                             
+1     0000c0c0  _hal                              
 1     0000c000  _halHandle                        
-0     00301aeb  _main                             
-0     00301bf5  _pdcopy                           
-0     00301bf5  _ppcopy                           
+0     00301d48  _main                             
+0     00301e8d  _pdcopy                           
+0     00301e8d  _ppcopy                           
 1     0000c002  _result                           
 0     00300f25  _rsvd_ISR                         
 0     0000806e  _usDelay                          
 abs   ffffffff  binit                             
-0     00301cfd  cinit                             
+0     00301f7b  cinit                             
 0     0033fff6  code_start                        
-0     00301c8b  etext                             
+0     00301f09  etext                             
 abs   ffffffff  pinit                             
 
 
@@ -940,102 +956,106 @@ page  address   name
 0     003016ee  _Sys_enableCpuTimerClock          
 0     003016fd  _Sys_enableGpioInputClock         
 0     0030170b  _Sys_disableTbClockSync           
-0     00301719  _ADC_init                         
-0     00301725  _ADC_setPower                     
-0     00301736  _ADC_reset                        
-0     00301741  _ADC_setSeqMode                   
-0     00301758  _ADC_setRunMode                   
-0     00301766  _ADC_setClockPrescale             
-0     0030177f  _ADC_setAcqWindowSize             
-0     0030178d  _ADC_setSuspendMode               
-0     0030179b  _ADC_resetSeq                     
-0     003017ab  _ADC_setRefSource                 
-0     003017bc  _ADC_setIntMode                   
-0     003017f2  _ADC_setSocMode                   
-0     00301808  _ADC_softRunSoc                   
-0     00301818  _ADC_setSMODSel                   
-0     00301828  _ADC_setADCBGRFDN                 
-0     00301839  _ADC_Read                         
-0     00301884  _OFFSET_getBeta                   
-0     00301898  _OFFSET_init                      
-0     003018b0  _OFFSET_setBeta                   
-0     003018cf  _OFFSET_setInitCond               
-0     003018e2  _OFFSET_setOffset                 
-0     003018eb  _PWM_init                         
-0     003018f7  _PWM_set_TB_Period                
-0     00301900  _PWM_set_TB_SyncMode              
-0     0030190e  _PWM_set_TB_ClkDiv                
-0     0030191c  _PWM_set_TB_HighSpeedClkDiv       
-0     0030192a  _PWM_set_TB_PHSEN                 
-0     00301938  _PWM_set_TB_RunMode               
-0     00301946  _PWM_set_TB_CounterMode           
-0     00301953  _PWM_set_TB_PhaseDir              
-0     00301961  _PWM_set_TB_PeriodLoad            
-0     0030196f  _PWM_set_TB_Phase                 
-0     00301978  _PWR_disableBrownOutReset         
-0     00301980  _PWR_disableWatchDogInt           
-0     00301990  _PWR_enableBrownOutReset          
-0     00301998  _PWR_enableWatchDogInt            
-0     003019a8  _PWR_init                         
-0     003019b7  _PWR_setLowPowerMode              
-0     003019cf  _PWR_setNumStandByClocks          
-0     003019e7  _TIMER_clearFlag                  
-0     003019ef  _TIMER_disableInt                 
-0     003019f7  _TIMER_enableInt                  
-0     003019ff  _TIMER_getStatus                  
-0     00301a08  _TIMER_init                       
-0     00301a14  _TIMER_setDecimationFactor        
-0     00301a27  _TIMER_setEmulationMode           
-0     00301a33  _TIMER_setPreScaler               
-0     00301a46  _c_int00                          
-0     00301a9c  _FLASH_clear3VStatus              
-0     00301aa7  _FLASH_get3VStatus                
-0     00301ab0  _FLASH_getActiveWaitCount         
-0     00301ab9  _FLASH_getActiveWaitStatus        
-0     00301ac3  _FLASH_getPowerMode               
-0     00301acc  _FLASH_getStandbyWaitCount        
-0     00301ad5  _FLASH_getStandbyWaitStatus       
-0     00301adf  _FLASH_init                       
-0     00301aeb  _main                             
-0     00301b3a  _CPU_clearIntFlags                
-0     00301b40  _CPU_disableDebugInt              
-0     00301b46  _CPU_disableGlobalInts            
-0     00301b4c  _CPU_disableInt                   
-0     00301b55  _CPU_disableInts                  
-0     00301b5b  _CPU_disableProtectedRegisterWrite
-0     00301b61  _CPU_enableDebugInt               
-0     00301b67  _CPU_enableGlobalInts             
-0     00301b6d  _CPU_enableInt                    
-0     00301b75  _CPU_enableProtectedRegisterWrite 
-0     00301b7b  _CPU_init                         
-0     00301b86  _copy_in                          
-0     00301bcc  C$$EXIT                           
-0     00301bcc  _abort                            
-0     00301bce  _exit                             
-0     00301bf5  _ddcopy                           
-0     00301bf5  _dpcopy                           
-0     00301bf5  _pdcopy                           
-0     00301bf5  _ppcopy                           
-0     00301c0f  _USER_checkForErrors              
-0     00301c13  _USER_setParams                   
-0     00301c17  _USER_getErrorCode                
-0     00301c1f  _USER_setErrorCode                
-0     00301c29  __args_main                       
-0     00301c42  _MemCopy                          
-0     00301c55  _FILTER_FO_init                   
-0     00301c61  _QEP_init                         
-0     00301c6d  _PIE_illegalIsr                   
-0     00301c77  __register_unlock                 
-0     00301c7b  __register_lock                   
-0     00301c7f  __nop                             
-0     00301c88  __system_pre_init                 
-0     00301c8a  __system_post_cinit               
-0     00301c8b  _RamfuncsLoadStart                
-0     00301c8b  ___etext__                        
-0     00301c8b  etext                             
-0     00301cfd  _RamfuncsLoadEnd                  
-0     00301cfd  ___cinit__                        
-0     00301cfd  cinit                             
+0     00301719  _USER_checkForErrors              
+0     00301720  _USER_setParams                   
+0     00301859  _USER_getErrorCode                
+0     00301861  _USER_setErrorCode                
+0     0030186b  _ADC_init                         
+0     00301877  _ADC_setPower                     
+0     00301888  _ADC_reset                        
+0     00301893  _ADC_setSeqMode                   
+0     003018aa  _ADC_setRunMode                   
+0     003018b8  _ADC_setClockPrescale             
+0     003018d1  _ADC_setAcqWindowSize             
+0     003018df  _ADC_setSuspendMode               
+0     003018ed  _ADC_resetSeq                     
+0     003018fd  _ADC_setRefSource                 
+0     0030190e  _ADC_setIntMode                   
+0     00301944  _ADC_setSocMode                   
+0     0030195a  _ADC_softRunSoc                   
+0     0030196a  _ADC_setSMODSel                   
+0     0030197a  _ADC_setADCBGRFDN                 
+0     0030198b  _ADC_Read                         
+0     003019d6  _OFFSET_getBeta                   
+0     003019ea  _OFFSET_init                      
+0     00301a02  _OFFSET_setBeta                   
+0     00301a21  _OFFSET_setInitCond               
+0     00301a34  _OFFSET_setOffset                 
+0     00301a3d  _PWM_init                         
+0     00301a49  _PWM_set_TB_Period                
+0     00301a52  _PWM_set_TB_SyncMode              
+0     00301a60  _PWM_set_TB_ClkDiv                
+0     00301a6e  _PWM_set_TB_HighSpeedClkDiv       
+0     00301a7c  _PWM_set_TB_PHSEN                 
+0     00301a8a  _PWM_set_TB_RunMode               
+0     00301a98  _PWM_set_TB_CounterMode           
+0     00301aa5  _PWM_set_TB_PhaseDir              
+0     00301ab3  _PWM_set_TB_PeriodLoad            
+0     00301ac1  _PWM_set_TB_Phase                 
+0     00301aca  FS$$DIV                           
+0     00301b52  FD$$MPY                           
+0     00301bd5  _PWR_disableBrownOutReset         
+0     00301bdd  _PWR_disableWatchDogInt           
+0     00301bed  _PWR_enableBrownOutReset          
+0     00301bf5  _PWR_enableWatchDogInt            
+0     00301c05  _PWR_init                         
+0     00301c14  _PWR_setLowPowerMode              
+0     00301c2c  _PWR_setNumStandByClocks          
+0     00301c44  _TIMER_clearFlag                  
+0     00301c4c  _TIMER_disableInt                 
+0     00301c54  _TIMER_enableInt                  
+0     00301c5c  _TIMER_getStatus                  
+0     00301c65  _TIMER_init                       
+0     00301c71  _TIMER_setDecimationFactor        
+0     00301c84  _TIMER_setEmulationMode           
+0     00301c90  _TIMER_setPreScaler               
+0     00301ca3  _c_int00                          
+0     00301cf9  _FLASH_clear3VStatus              
+0     00301d04  _FLASH_get3VStatus                
+0     00301d0d  _FLASH_getActiveWaitCount         
+0     00301d16  _FLASH_getActiveWaitStatus        
+0     00301d20  _FLASH_getPowerMode               
+0     00301d29  _FLASH_getStandbyWaitCount        
+0     00301d32  _FLASH_getStandbyWaitStatus       
+0     00301d3c  _FLASH_init                       
+0     00301d48  _main                             
+0     00301d97  _CPU_clearIntFlags                
+0     00301d9d  _CPU_disableDebugInt              
+0     00301da3  _CPU_disableGlobalInts            
+0     00301da9  _CPU_disableInt                   
+0     00301db2  _CPU_disableInts                  
+0     00301db8  _CPU_disableProtectedRegisterWrite
+0     00301dbe  _CPU_enableDebugInt               
+0     00301dc4  _CPU_enableGlobalInts             
+0     00301dca  _CPU_enableInt                    
+0     00301dd2  _CPU_enableProtectedRegisterWrite 
+0     00301dd8  _CPU_init                         
+0     00301de3  _copy_in                          
+0     00301e29  C$$EXIT                           
+0     00301e29  _abort                            
+0     00301e2b  _exit                             
+0     00301e52  FD$$TOL                           
+0     00301e71  FS$$TOFD                          
+0     00301e8d  _ddcopy                           
+0     00301e8d  _dpcopy                           
+0     00301e8d  _pdcopy                           
+0     00301e8d  _ppcopy                           
+0     00301ea7  __args_main                       
+0     00301ec0  _MemCopy                          
+0     00301ed3  _FILTER_FO_init                   
+0     00301edf  _QEP_init                         
+0     00301eeb  _PIE_illegalIsr                   
+0     00301ef5  __register_unlock                 
+0     00301ef9  __register_lock                   
+0     00301efd  __nop                             
+0     00301f06  __system_pre_init                 
+0     00301f08  __system_post_cinit               
+0     00301f09  _RamfuncsLoadStart                
+0     00301f09  ___etext__                        
+0     00301f09  etext                             
+0     00301f7b  _RamfuncsLoadEnd                  
+0     00301f7b  ___cinit__                        
+0     00301f7b  cinit                             
 0     0033fff6  code_start                        
 0     00380080  _ADC_cal                          
 1     00000400  __stack                           
@@ -1043,16 +1063,16 @@ page  address   name
 1     0000c000  _halHandle                        
 1     0000c002  _result                           
 1     0000c040  _UserParams                       
-1     0000c080  _hal                              
-1     0000c15a  _CpuTimer1                        
-1     0000c162  _CpuTimer2                        
-1     0000c16a  _CpuTimer0                        
-1     0000c172  ___TI_enable_exit_profile_output  
-1     0000c174  ___TI_cleanup_ptr                 
-1     0000c176  ___TI_dtors_ptr                   
-1     0000c178  __lock                            
-1     0000c17a  __unlock                          
-1     0000c17c  _cpu                              
+1     0000c0c0  _hal                              
+1     0000c19a  _CpuTimer1                        
+1     0000c1a2  _CpuTimer2                        
+1     0000c1aa  _CpuTimer0                        
+1     0000c1b2  ___TI_enable_exit_profile_output  
+1     0000c1b4  ___TI_cleanup_ptr                 
+1     0000c1b6  ___TI_dtors_ptr                   
+1     0000c1b8  __lock                            
+1     0000c1ba  __unlock                          
+1     0000c1bc  _cpu                              
 abs   00000300  __STACK_SIZE                      
 abs   ffffffff  ___TI_pprof_out_hndl              
 abs   ffffffff  ___TI_prof_data_size              
@@ -1063,4 +1083,4 @@ abs   ffffffff  ___pinit__
 abs   ffffffff  binit                             
 abs   ffffffff  pinit                             
 
-[398 symbols]
+[402 symbols]

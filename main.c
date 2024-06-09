@@ -23,10 +23,6 @@ uint16_t result[16] = { 0,0,0,0,
 void main(void)
 {
 
-	//	InitSysCtrl();		// 初始化 系统, 锁相环 , 看门狗等
-	//	InitPieCtrl();		// 中断向量表控制
-	//	InitPieVectTable(); // 中断向量表
-
 	/*  CPU初始化*/
 	MemCopy(&RamfuncsLoadStart, &RamfuncsLoadEnd, &RamfuncsRunStart);
 
@@ -41,8 +37,6 @@ void main(void)
 
 	// 配置底层驱动参数
 	HAL_setParams(halHandle);
-
-	// Init_Gpio_LED(); // LED灯GPIO初始化
 
 	int i = 0;
 
