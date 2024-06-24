@@ -1,84 +1,135 @@
-//! @Author: Hex
-//! @Date: 2023-08-20 21:25:26
-//! @LastEditTime: 2023-08-21 23:14:25
-//! @FilePath: \DSP28xx_MotCtl_Frameware\MotCtl_HAL\Source\offset.c
-//! @Description: 
+/*****************************************************************************
+ * File name: 	IIR_Filter_Fo.h
+ *    Author: 	Hex
+ *	  E-mail: 	hex@hust.edu.cn
+ *    Date  : 	2023年8月20日
+ *	  Description: 创建IIR型的一阶滤波器对象，用于数据滤波处理
+ *                 IIR 型滤波器形式表示为：y[n] = a * x[n] + (1 - a) * y[n-1]
+ *****************************************************************************/
+#ifndef MOTCTL_CORE_INCLUDE_IIR_FILTER_FO_H_
+#define MOTCTL_CORE_INCLUDE_IIR_FILTER_FO_H_
 
+// **********************include files*************************************************************
+#include "types.h"
+#include "IQmathLib.h"
 
-#include "../../MotCtl_Driver/Include/offset.h"
+// 宏定义 defines ***********************************************************
 
-//! \brief     Gets the beta offset filter coefficient
-//! \param[in] handle  The offset handle
-//! \return The filter coefficient beta
-_iq OFFSET_getBeta(OFFSET_Handle handle)
+// **********************  typedef 类定义 ***********************************************************
+
+//! \brief 定义IIR型的一阶滤波器对象（FO,First oder）
+//!
+typedef struct _FILTER_FO_
 {
-    OFFSET_Obj *obj = (OFFSET_Obj *)handle;
-    _iq b0;
-    _iq b1;
+    _iq a1; // 上一次输出y[n-1]的系数
 
-    FILTER_FO_getNumCoeffs(obj->filterHandle, &b0, &b1);
+    _iq b0; // 当前输入x[n]的系数
+    _iq b1; // 上一次输入x[n-1]的系数
 
-    return (b0);
-} // end of OFFSET_getBeta() function
+    _iq x1; // 上一次输入x[n-1]的值
 
-//! \brief     Initializes the offset
-//! \param[in] pMemory   A pointer to the memory for the offset object
-//! \param[in] numBytes  The number of bytes allocated for the offset object, bytes
-//! \return The offset (OFFSET) object handle
-OFFSET_Handle OFFSET_init(void *pMemory, const size_t numBytes)
+    _iq y1; // 上一次输出y[n-1]的值
+} FILTER_FO_Obj;
+
+//! \brief 定义 (FILTER_FO) 句柄
+//!
+typedef struct _FILTER_FO_Obj_ *FILTER_FO_Handle;
+
+//  **********************************  函数方法 **************************************************
+
+extern FILTER_FO_Handle FILTER_FO_init(void *pMemory,const size_t numBytes);
+
+static inline FILTER_FO_getDenCoeffs(FILTER_FO_Handle handle,_iq *pa1)
 {
-    OFFSET_Handle handle;
-    OFFSET_Obj *obj;
+  FILTER_FO_Obj *obj = (FILTER_FO_Obj *)handle;
 
-    if (numBytes < sizeof(OFFSET_Obj))
-        return ((OFFSET_Handle)NULL);
 
-    // assign the handle
-    handle = (OFFSET_Handle)pMemory;
-    obj = (OFFSET_Obj *)handle;
+  *pa1 = obj->a1;
 
-    obj->filterHandle = FILTER_FO_init(&(obj->filter), sizeof(obj->filter));
+  return;
+} // end of FILTER_FO_getDenCoeffs() function
 
-    return (handle);
-} // end of OFFSET_init() function
 
-//! \brief     Sets the beta offset filter coefficient
-//! \param[in] handle  The offset handle
-//! \param[in] beta          The offset filter coefficient beta
-void OFFSET_setBeta(OFFSET_Handle handle, const _iq beta)
+static inline FILTER_FO_getInitialConditions(FILTER_FO_Handle handle,_iq *px1,_iq *py1)
 {
-    OFFSET_Obj *obj = (OFFSET_Obj *)handle;
-    _iq a1 = (beta - _IQ(1.0));
-    _iq b0 = beta;
-    _iq b1 = 0;
+  FILTER_FO_Obj *obj = (FILTER_FO_Obj *)handle;
 
-    FILTER_FO_setDenCoeffs(obj->filterHandle, a1);
-    FILTER_FO_setNumCoeffs(obj->filterHandle, b0, b1);
+
+  *px1 = obj->x1;
+
+  *py1 = obj->y1;
+
+  return;
+} // end of FILTER_FO_getInitialConditions() function
+
+
+static inline FILTER_FO_getNumCoeffs(FILTER_FO_Handle handle,_iq *pb0,_iq *pb1)
+{
+  FILTER_FO_Obj *obj = (FILTER_FO_Obj *)handle;
+
+
+  *pb0 = obj->b0;
+  *pb1 = obj->b1;
+
+  return;
+} // end of FILTER_FO_getNumCoeffs() function
+
+
+
+//! \brief     运行IIR一阶滤波器
+//!            y[n] = b0*x[n] + b1*x[n-1] - a1*y[n-1]
+//!
+//! \param[in] handle
+//! \param[in] inputValue  滤波器输入值
+//! \return 滤波器输出值
+static inline _iq FILTER_FO_run(FILTER_FO_Handle handle, const _iq inputValue)
+{
+    FILTER_FO_Obj *obj = (FILTER_FO_Obj *)handle;
+
+    _iq a1 = obj->a1;
+    _iq b0 = obj->b0;
+    _iq b1 = obj->b1;
+    _iq x1 = obj->x1;
+    _iq y1 = obj->y1;
+
+    // 计算输出值
+    _iq y0 = _IQmpy(b0, inputValue) + _IQmpy(b1, x1) - _IQmpy(a1, y1);
+
+    // 存储上一次运算值
+    obj->x1 = inputValue;
+    obj->y1 = y0;
+
+    return (y0);
+} // end of FILTER_FO_run()
+
+static inline void FILTER_FO_setDenCoeffs(FILTER_FO_Handle handle, const _iq a1)
+{
+    FILTER_FO_Obj *obj = (FILTER_FO_Obj *)handle;
+
+    obj->a1 = a1;
 
     return;
-} // end of OFFSET_setBeta() function
+} // end of FILTER_FO_setDenCoeffs() function
 
-//! \brief     Set the initial condition of the integrator or the value of y[n-1]
-//! \param[in] handle  The offset handle
-//! \param[in] initCond      The mean value that the filter will approximate to
-void OFFSET_setInitCond(OFFSET_Handle handle, const _iq initCond)
+static inline void FILTER_FO_setInitialConditions(FILTER_FO_Handle handle, const _iq x1, const _iq y1)
 {
-    OFFSET_Obj *obj = (OFFSET_Obj *)handle;
+    FILTER_FO_Obj *obj = (FILTER_FO_Obj *)handle;
 
-    FILTER_FO_setInitialConditions(obj->filterHandle, initCond, initCond);
-    obj->value = initCond;
+    obj->x1 = x1;
+
+    obj->y1 = y1;
 
     return;
-} // end of OFFSET_setInitCond() function
+} // end of FILTER_FO_setInitialConditions() function
 
-//! \brief     Sets the offset value
-//! \param[in] handle  The offset handle
-//! \param[in] offsetValue   The offset value
-void OFFSET_setOffset(OFFSET_Handle handle, _iq offsetValue)
+static inline void FILTER_FO_setNumCoeffs(FILTER_FO_Handle handle, const _iq b0, const _iq b1)
 {
-    OFFSET_Obj *obj = (OFFSET_Obj *)handle;
+    FILTER_FO_Obj *obj = (FILTER_FO_Obj *)handle;
 
-    obj->value = offsetValue;
+    obj->b0 = b0;
+    obj->b1 = b1;
 
     return;
-} // end of OFFSET_setOffset() function
+} // end of FILTER_FO_setNumCoeffs() function
+
+#endif /* MOTCTL_CORE_INCLUDE_IIR_FILTER_FO_H_ */

@@ -2,9 +2,9 @@
  * File name: 	IIR_Filter_Fo.h
  *    Author: 	Hex
  *	  E-mail: 	hex@hust.edu.cn
- *    Date  : 	2023Äê8ÔÂ20ÈÕ
- *	  Description: ´´½¨IIRÐÍµÄÒ»½×ÂË²¨Æ÷¶ÔÏó£¬ÓÃÓÚÊý¾ÝÂË²¨´¦Àí
- *                 IIR ÐÍÂË²¨Æ÷ÐÎÊ½±íÊ¾Îª£ºy[n] = a * x[n] + (1 - a) * y[n-1]
+ *    Date  : 	2023å¹´8æœˆ20æ—¥
+ *	  Description: åˆ›å»ºIIRåž‹çš„ä¸€é˜¶æ»¤æ³¢å™¨å¯¹è±¡ï¼Œç”¨äºŽæ•°æ®æ»¤æ³¢å¤„ç†
+ *                 IIR åž‹æ»¤æ³¢å™¨å½¢å¼è¡¨ç¤ºä¸ºï¼šy[n] = a * x[n] + (1 - a) * y[n-1]
  *****************************************************************************/
 #ifndef MOTCTL_CORE_INCLUDE_IIR_FILTER_FO_H_
 #define MOTCTL_CORE_INCLUDE_IIR_FILTER_FO_H_
@@ -13,29 +13,29 @@
 #include "types.h"
 #include "IQmathLib.h"
 
-// ºê¶¨Òå defines ***********************************************************
+// å®å®šä¹‰ defines ***********************************************************
 
-// **********************  typedef Àà¶¨Òå ***********************************************************
+// **********************  typedef ç±»å®šä¹‰ ***********************************************************
 
-//! \brief ¶¨ÒåIIRÐÍµÄÒ»½×ÂË²¨Æ÷¶ÔÏó£¨FO,First oder£©
+//! \brief å®šä¹‰IIRåž‹çš„ä¸€é˜¶æ»¤æ³¢å™¨å¯¹è±¡ï¼ˆFO,First oderï¼‰
 //!
 typedef struct _FILTER_FO_
 {
-    _iq a1; // ÉÏÒ»´ÎÊä³öy[n-1]µÄÏµÊý
+    _iq a1; // ä¸Šä¸€æ¬¡è¾“å‡ºy[n-1]çš„ç³»æ•°
 
-    _iq b0; // µ±Ç°ÊäÈëx[n]µÄÏµÊý
-    _iq b1; // ÉÏÒ»´ÎÊäÈëx[n-1]µÄÏµÊý
+    _iq b0; // å½“å‰è¾“å…¥x[n]çš„ç³»æ•°
+    _iq b1; // ä¸Šä¸€æ¬¡è¾“å…¥x[n-1]çš„ç³»æ•°
 
-    _iq x1; // ÉÏÒ»´ÎÊäÈëx[n-1]µÄÖµ
+    _iq x1; // ä¸Šä¸€æ¬¡è¾“å…¥x[n-1]çš„å€¼
 
-    _iq y1; // ÉÏÒ»´ÎÊä³öy[n-1]µÄÖµ
+    _iq y1; // ä¸Šä¸€æ¬¡è¾“å‡ºy[n-1]çš„å€¼
 } FILTER_FO_Obj;
 
-//! \brief ¶¨Òå (FILTER_FO) ¾ä±ú
+//! \brief å®šä¹‰ (FILTER_FO) å¥æŸ„
 //!
 typedef struct _FILTER_FO_Obj_ *FILTER_FO_Handle;
 
-//  **********************************  º¯Êý·½·¨ **************************************************
+//  **********************************  å‡½æ•°æ–¹æ³• **************************************************
 
 extern FILTER_FO_Handle FILTER_FO_init(void *pMemory,const size_t numBytes);
 
@@ -76,12 +76,12 @@ static inline FILTER_FO_getNumCoeffs(FILTER_FO_Handle handle,_iq *pb0,_iq *pb1)
 
 
 
-//! \brief     ÔËÐÐIIRÒ»½×ÂË²¨Æ÷
+//! \brief     è¿è¡ŒIIRä¸€é˜¶æ»¤æ³¢å™¨
 //!            y[n] = b0*x[n] + b1*x[n-1] - a1*y[n-1]
 //!
 //! \param[in] handle
-//! \param[in] inputValue  ÂË²¨Æ÷ÊäÈëÖµ
-//! \return ÂË²¨Æ÷Êä³öÖµ
+//! \param[in] inputValue  æ»¤æ³¢å™¨è¾“å…¥å€¼
+//! \return æ»¤æ³¢å™¨è¾“å‡ºå€¼
 static inline _iq FILTER_FO_run(FILTER_FO_Handle handle, const _iq inputValue)
 {
     FILTER_FO_Obj *obj = (FILTER_FO_Obj *)handle;
@@ -92,10 +92,10 @@ static inline _iq FILTER_FO_run(FILTER_FO_Handle handle, const _iq inputValue)
     _iq x1 = obj->x1;
     _iq y1 = obj->y1;
 
-    // ¼ÆËãÊä³öÖµ
+    // è®¡ç®—è¾“å‡ºå€¼
     _iq y0 = _IQmpy(b0, inputValue) + _IQmpy(b1, x1) - _IQmpy(a1, y1);
 
-    // ´æ´¢ÉÏÒ»´ÎÔËËãÖµ
+    // å­˜å‚¨ä¸Šä¸€æ¬¡è¿ç®—å€¼
     obj->x1 = inputValue;
     obj->y1 = y0;
 
