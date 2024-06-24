@@ -2,7 +2,7 @@
 //! @FilePath: \F28335_MotCtl_Frameware\DSP28xx_MotCtl_Frameware\MotCtl_appSoft\Include\user.h
 //! @Author: Hex
 //! @Date: 2023-08-20 21:25:26
-//! @LastEditTime: 2024-06-08 09:49:20
+//! @LastEditTime: 2024-06-24 22:17:10
 //! @Description: 用户层借口，定义更改的数据
 
 #ifndef MOTCTL_APPSOFT_INCLUDE_USER_H_
