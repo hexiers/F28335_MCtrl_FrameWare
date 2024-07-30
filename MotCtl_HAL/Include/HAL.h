@@ -27,6 +27,20 @@ extern HAL_Handle HAL_init(void *pMem, const size_t numBytes);
 extern void HAL_setParams(HAL_Handle handle);
 
 
+//! @brief: 设置中断向量表
+static inline void HAL_initIntVectorTable(HAL_Handle handle)
+ {
+  HAL_Obj *obj = (HAL_Obj *)handle;
+  PIE_Obj *pie = (PIE_Obj *)obj->pieHandle;
 
+
+  ENABLE_PROTECTED_REGISTER_WRITE_MODE;
+
+  //pie->ADCINT = &mainISR;
+
+  DISABLE_PROTECTED_REGISTER_WRITE_MODE;
+
+  return;
+ } // end of HAL_initIntVectorTable() function
 
 #endif /* MOTCTL_HAL_INCLUDE_HAL_H_ */

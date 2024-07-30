@@ -23,7 +23,7 @@ void FocCtrl_setParams(FOC_CTRL_Handle handle, USER_Params *pUserParams)
     MATH_vec2 Vab_out_pu = {_IQ(0.0), _IQ(0.0)};
     MATH_vec2 Vdq_out_pu = {_IQ(0.0), _IQ(0.0)};
 
-    // assign the motor type
+    // 设置电机参数
     FocCtrl_setMotorParams(handle, pUserParams->MOTOR.type,
                            pUserParams->MOTOR.numPolePairs,
                            pUserParams->MOTOR.ratedFlux_VHz,
@@ -32,7 +32,7 @@ void FocCtrl_setParams(FOC_CTRL_Handle handle, USER_Params *pUserParams)
                            pUserParams->MOTOR.Rr_ohm,
                            pUserParams->MOTOR.Rs_ohm);
 
-    // assign other controller parameters
+    // 设置控制时钟参数
     FocCtrl_setNumIsrTicksPerCtrlTick(handle, pUserParams->CTRL.numIsrTicksPerCtrlTick);
     FocCtrl_setNumCtrlTicksPerCurrentTick(handle, pUserParams->CTRL.numCtrlTicksPerCurrentTick);
     FocCtrl_setNumCtrlTicksPerSpeedTick(handle, pUserParams->CTRL.numCtrlTicksPerSpeedTick);
@@ -53,77 +53,68 @@ void FocCtrl_setParams(FOC_CTRL_Handle handle, USER_Params *pUserParams)
 
     FocCtrl_setSpd_out_pu(handle, _IQ(0.0));
 
-    // reset the counters
+    // 重置各个环的计数器
     FocCtrl_resetCounter_current(handle);
     FocCtrl_resetCounter_isr(handle);
     FocCtrl_resetCounter_speed(handle);
     FocCtrl_resetCounter_state(handle);
 
-    // set the wait times for each state
+    // 设置状态机等待时间
     FocCtrl_setWaitTimes(handle, &pUserParams->CTRL.ctrlWaitTime[0]);
 
-    // set flags
+    // 设置标志位
     FocCtrl_setFlag_enableCtrl(handle, false);
     FocCtrl_setFlag_enableOffset(handle, true);
     FocCtrl_setFlag_enableSpeedCtrl(handle, true);
     FocCtrl_setFlag_enableUserMotorParams(handle, false);
     FocCtrl_setFlag_enableDcBusComp(handle, true);
 
-    // set flag to enable current controller
+    // 使能电流环寄存器
     FocCtrl_setFlag_enableCurrentCtrl(handle, true);
 
-    // initialize the controller error code
+    // 初始化故障寄存器
     FocCtrl_setErrorCode(handle, CTRL_ErrorCode_NoError);
 
-    // set the default controller state
+    // 设置控制器初始状态
     FocCtrl_setState(handle, FOC_CTRL_State_Idle);
 
-    // set the number of current sensors
+    // 设置电流传感器个数
     FocCtrl_setupClarke_I(handle, pUserParams->FBK.numCurrentSensors);
 
-    // set the number of voltage sensors
+    // 设置电压传感器个数
     FocCtrl_setupClarke_V(handle, pUserParams->FBK.numVoltageSensors);
 
-    // set the default Id PID controller parameters
+    // 设置默认的id PI控制参数
     Kp = _IQ(0.1);
     Ki = _IQ(pUserParams->CTRL.ctrlPeriod_sec / 0.004);
     outMin = _IQ(-0.95);
     outMax = _IQ(0.95);
-
     PI_setGains(obj->piHandle_Id, Kp, Ki);
     PI_setUi(obj->piHandle_Id, _IQ(0.0));
     PI_setMinMax(obj->piHandle_Id, outMin, outMax);
-    // CTRL_setGains(handle, CTRL_Type_PID_Id, Kp, Ki, Kd);
 
-    // set the default the Iq PID controller parameters
+    // 设置默认的iq PI控制参数
     Kp = _IQ(0.1);
     Ki = _IQ(pUserParams->CTRL.ctrlPeriod_sec / 0.004);
     outMin = _IQ(-0.95);
     outMax = _IQ(0.95);
-
     PI_setGains(obj->piHandle_Iq, Kp, Ki);
     PI_setUi(obj->piHandle_Iq, _IQ(0.0));
     PI_setMinMax(obj->piHandle_Iq, outMin, outMax);
-    // CTRL_setGains(handle, CTRL_Type_PID_Iq, Kp, Ki, Kd);
 
-    // set the default speed PID controller parameters
+    // 设置默认的speed PI控制参数
     Kp = _IQ(0.02 * pUserParams->MOTOR.maxCurr_A * pUserParams->FBK.fullScaleFreq_Hz / pUserParams->FBK.fullScaleCurrent_A);
     Ki = _IQ(2.0 * pUserParams->MOTOR.maxCurr_A * pUserParams->FBK.fullScaleFreq_Hz * pUserParams->CTRL.ctrlPeriod_sec / pUserParams->FBK.fullScaleCurrent_A);
     outMin = _IQ(-1.0);
     outMax = _IQ(1.0);
-
     PI_setGains(obj->piHandle_spd, Kp, Ki);
     PI_setUi(obj->piHandle_spd, _IQ(0.0));
     PI_setMinMax(obj->piHandle_spd, outMin, outMax);
-    // CTRL_setGains(handle, CTRL_Type_PID_spd, Kp, Ki, Kd);
 
-    // set the speed reference
+    // 设置速度参考值为0
     FocCtrl_setSpd_ref_pu(handle, _IQ(0.0));
 
-    // set the default estimator parameters
-    // CTRL_setEstParams(obj->estHandle, pUserParams);
-
-    // set the maximum modulation for the SVGEN module
+    // 设置最大的调制比
     maxModulation = _IQ(MATH_TWO_OVER_THREE);
     SVGEN_setMaxModulation(obj->svgenHandle, maxModulation);
 

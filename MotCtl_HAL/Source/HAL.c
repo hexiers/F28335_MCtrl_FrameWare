@@ -539,7 +539,7 @@ void HAL_setupEPWM(HAL_Handle handle,
     // 计数模式：增减计数
     PWM_set_TB_CounterMode(obj->pwmHandle[cnt], PWM_CounterMode_UpDown);
     // 不使用相位寄存器
-    PWM_enable_TB_Phase(obj->pwmHandle[cnt],false);
+    PWM_enable_TB_Phase(obj->pwmHandle[cnt], false);
     // 周期载入模式：不使用影子寄存器
     PWM_set_TB_PeriodLoad(obj->pwmHandle[cnt], PWM_PRDLD_ShadowMode);
     // 计数模式：增减计数
@@ -585,7 +585,7 @@ void HAL_setupEPWM(HAL_Handle handle,
   // 设置事件触发寄存器
   PWM_ET_disableInt(obj->pwmHandle[PWM_Number_1]);
   PWM_set_ET_SocAPulseSrc(obj->pwmHandle[PWM_Number_1], PWM_SocPulseSrc_CounterEqualZero);
-  PWM_ET_enableSocAPulse(obj->pwmHandle[PWM_Number_1],true);
+  PWM_ET_enableSocAPulse(obj->pwmHandle[PWM_Number_1], true);
 
   // 设置事件触发分频
   if (numPwmTicksPerIsrTick == 3)
@@ -605,8 +605,8 @@ void HAL_setupEPWM(HAL_Handle handle,
   }
 
   // setup the Event Trigger Clear Register (ETCLR)
-//  PWM_clearIntFlag(obj->pwmHandle[PWM_Number_1]);
- // PWM_clearSocAFlag(obj->pwmHandle[PWM_Number_1]);
+  //  PWM_clearIntFlag(obj->pwmHandle[PWM_Number_1]);
+  // PWM_clearSocAFlag(obj->pwmHandle[PWM_Number_1]);
 
   // 设置PWM周期计数值，0.5*全周期值
   PWM_setPeriod(obj->pwmHandle[PWM_Number_1], halfPeriod_cycles);

@@ -14,13 +14,12 @@
 
 typedef enum {
     USER_PARAMS_NoError = 0,
-    USER_PARAMS_fullScaleCurrent_High = 1,
-    USER_PARAMS_fullScaleCurrent_Low = 2,
-    USER_PARAMS_fullScaleVoltage_High = 3,
-    USER_PARAMS_fullScaleVoltage_Low = 4,
-    USER_PARAMS_FullScaleFreq_High = 5,
-    USER_PARAMS_FullScaleFreq_Low = 6
-
+    USER_PARAMS_fullScaleCurrent_High,
+    USER_PARAMS_fullScaleCurrent_Low,
+    USER_PARAMS_fullScaleVoltage_High,
+    USER_PARAMS_fullScaleVoltage_Low,
+    USER_PARAMS_FullScaleFreq_High,
+    USER_PARAMS_FullScaleFreq_Low,
 }USER_PARAMS_ErrorCode;
 
 

@@ -11,9 +11,11 @@
 #include "GPIO_int.h"
 #include "math.h"
 #include "HAL.h" // 硬件抽象层头文件
+#include "FocCtrl.h" 
 
 USER_Params UserParams;
 HAL_Handle halHandle;
+FOC_CTRL_Handle FocCtrlHandle;
 HAL_Obj hal;
 uint16_t result[16] = { 0,0,0,0,
 						0,0,0,0,
@@ -37,6 +39,12 @@ void main(void)
 
 	// 配置底层驱动参数
 	HAL_setParams(halHandle);
+	
+//	// 配置默认控制器参数
+//	FocCtrl_setParams(FocCtrlHandle, &UserParams);
+//
+//	// 设置中断向量表
+//	HAL_initIntVectorTable(halHandle);
 
 	int i = 0;
 
@@ -60,3 +68,9 @@ void main(void)
 		}
 	}
 }
+
+
+//interrupt void mainISR(void){
+//
+//
+//}
